@@ -1,0 +1,218 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <!-- import BS library -->
+    <link
+      rel="stylesheet"
+      href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css"
+    />
+    <link rel="stylesheet" href="/static/css/style.css" type="text/css" />
+    <!-- <link rel="icon" type="image/x-icon" href="assets/images/icon.png"> -->
+    <title>RecipME</title>
+  </head>
+
+  <body>
+    <div class="jumbotron">
+      <div class="container">
+        <h1 class="display-4">RecipMe</h1>
+        <p class="lead">
+          Create & Share Recipes - the must have tool for all home cooking &
+          baking enthusiasts
+        </p>
+        <!-- <hr class="my-4" />
+        <p>
+          It uses utility classes for typography and spacing to space content
+          out within the larger container.
+        </p> -->
+        <!-- <p class="lead float-right">
+          <a class="btn btn-primary btn-lg" href="#" role="button"
+            >Learn more</a
+          >
+        </p> -->
+      </div>
+    </div>
+    <nav class="navbar navbar-expand-md sticky-top navbar-expand-lg">
+      <div class="container">
+        <!-- <img src="" alt="..."></img> -->
+        <a class="navbar-brand abs logo" href="#">RecipMe</a>
+        <button
+          class="navbar-toggler"
+          type="button"
+          data-toggle="collapse"
+          data-target="#collapsingNavbar"
+        >
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="navbar-collapse collapse" id="collapsingNavbar">
+          <ul class="navbar-nav ml-auto">
+            <li class="nav-item">
+              <a class="nav-link" href="#">Home</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="#">Featured</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="#">Find</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="#" data-toggle="modal" data-target="#login-modal"
+                >Sign In</a
+              >
+            </li>
+          </ul>
+        </div>
+      </div>
+    </nav>
+<div class="modal fade" id="signup-modal" tabindex="-1" role="dialog"
+		aria-hidden="true">
+		<div class="modal-dialog modal-dialog-centered" role="document">
+			<div class="modal-content">
+				<div class="modal-body">
+					<div class="card card-signup bg-secondary modal-card">
+						<article class="card-body mx-auto" style="max-width: 400px;">
+							<button type="button" class="btn btn-close" data-dismiss="modal">x</button>
+							<h4 class="card-title mt-3 text-center">Create Account</h4>
+							<p class="text-center">Get started with your free account</p>
+							<p>
+								<a href="" class="btn btn-block google btn-google">
+									<i class="fa fa-google"></i> Login via Google</a>
+								<a href="" class="btn btn-block facebook btn-facebook">
+									<i class="fa fa-facebook"></i> Login via facebook</a>
+							</p>
+							<p class="divider-text">
+								<span class="bg-secondary">OR</span>
+							</p>
+							<form>
+								<div class="form-group input-group">
+									<div class="input-group-prepend">
+										<span class="input-group-text">
+                            <i class="fa fa-user"></i>
+                            </span>
+									</div>
+									<input name="full-name" class="form-control" placeholder="Full name" type="text">
+                        </input>
+								</div>
+								<div class="form-group input-group">
+									<div class="input-group-prepend">
+										<span class="input-group-text">
+                            <i class="fa fa-envelope"></i>
+                            </span>
+									</div>
+									<input name="email" class="form-control" placeholder="Email address" type="email">
+                        </input>
+								</div>
+								<div class="form-group input-group">
+									<div class="input-group-prepend">
+										<span class="input-group-text">
+                            <i class="fa fa-phone"></i>
+                            </span>
+									</div>
+									<select class="custom-select" style="max-width: 120px;">
+                            <option selected="">+353</option>
+                            <option value="1">+001</option>
+                            <option value="2">+002</option>
+                            <option value="3">+003</option>
+                        </select>
+									<input name="phone-number" class="form-control" placeholder="Phone number" type="text">
+                        </input>
+								</div>
+								<div class="form-group input-group">
+									<div class="input-group-prepend">
+										<span class="input-group-text"> <i class="fa fa-lock"></i> </span>
+									</div>
+									<input class="form-control" placeholder="Create password" type="password">
+                        </input>
+								</div>
+								<div class="form-group input-group">
+									<div class="input-group-prepend">
+										<span class="input-group-text">
+                            <i class="fa fa-lock"></i>
+                            </span>
+									</div>
+									<input class="form-control" placeholder="Repeat password" type="password">
+                        </input>
+								</div>
+								<div class="form-group">
+									<button type="submit" class="btn btn-block btn-signup"><i class="fa fa-plus" aria-hidden="true"></i> Create Account</button>
+								</div>
+								<p class="text-center">Have an account? <a  class="themed-a" href="" data-dismiss="modal"
+										data-toggle="modal" data-target="#login-modal">Sign In</a>
+								</p>
+							</form>
+						</article>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<div class="modal fade" id="login-modal" tabindex="-1" role="dialog"
+		aria-hidden="true">
+		<div class="modal-dialog modal-dialog-centered" role="document">
+			<div class="modal-content">
+				<div class="modal-body">
+					<div class="card card-signup bg-secondary modal-card">
+						<article class="card-body mx-auto" style="max-width: 400px;">
+							<button type="button" class="btn btn-close" data-dismiss="modal">x</button>
+							<h4 class="card-title mt-3 text-center">Login via Social Media</h4>
+							<a href="" class="btn btn-block google btn-google">
+								<i class="fa fa-google"></i> Login via Google</a>
+							<a href="" class="btn btn-block facebook btn-facebook">
+								<i class="fa fa-facebook"></i> Login via facebook</a>
+							</p>
+							<p class="divider-text">
+								<span class="bg-secondary">OR</span>
+							</p>
+							<form>
+								<div class="form-group input-group">
+									<div class="input-group-prepend">
+										<span class="input-group-text">
+                                                <i class="fa fa-envelope"></i>
+                                                </span>
+									</div>
+									<input name="email-login" class="form-control" placeholder="Email address" type="email">
+                                            </input>
+								</div>
+								<div class="form-group input-group">
+									<div class="input-group-prepend">
+										<span class="input-group-text">
+                                                <i class="fa fa-lock"></i>
+                                                </span>
+									</div>
+									<input class="form-control" placeholder="Password" type="password">
+                                            </input>
+								</div>
+								<div class="form-group">
+									<button type="submit" class="btn btn-block btn-signup"><i class="fa fa-sign-in" aria-hidden="true"></i> Sign in</button>
+								</div>
+								<p class="text-center">Don't have an account? <a class="themed-a" href="" data-dismiss="modal"
+										data-toggle="modal" data-target="#signup-modal">Create one!</a>
+								</p>
+							</form>
+						</article>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+
+    <footer>
+    </footer>
+  </body>
+
+    <!-- import JQuery library -->
+  <script src="https://code.jquery.com/jquery-3.5.1.js"
+  integrity="sha256-QWo7LDvxbWT2tbbQ97B53yJnYU3WhH/C8ycbRAkjPDc="
+  crossorigin="anonymous"></script>
+  <!-- import FA JS library -->
+  <script src="https://kit.fontawesome.com/0c99553673.js"
+    crossorigin="anonymous"></script>
+  <!-- import BS JS library -->
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"
+    crossorigin="anonymous"></script>
+
+
+</html>
