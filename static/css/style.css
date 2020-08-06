@@ -29,7 +29,8 @@ body{
 /* Navbar customisations */
 .navbar{
     background-color:#fcc438;
-    z-index:1
+    z-index:1;
+    margin-bottom: 30px;
 }
 .navbar .navbar-nav .nav-link{
     color:#fafafa
