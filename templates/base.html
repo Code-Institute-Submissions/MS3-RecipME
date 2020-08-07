@@ -20,16 +20,6 @@
 				Create & Share Recipes - the must have tool for all home cooking &
 				baking enthusiasts
 			</p>
-			<!-- <hr class="my-4" />
-        <p>
-          It uses utility classes for typography and spacing to space content
-          out within the larger container.
-        </p> -->
-			<!-- <p class="lead float-right">
-          <a class="btn btn-primary btn-lg" href="#" role="button"
-            >Learn more</a
-          >
-        </p> -->
 		</div>
 	</div>
 	<nav class="navbar navbar-expand-md sticky-top navbar-expand-lg">
@@ -37,7 +27,7 @@
 			<!-- <img src="" alt="..."></img> -->
 			<a class="navbar-brand abs logo" href="#">RecipMe</a>
 			<button
-          class="navbar-toggler"
+          class="navbar-toggler navbar-light"
           type="button"
           data-toggle="collapse"
           data-target="#collapsingNavbar"
@@ -47,7 +37,7 @@
 			<div class="navbar-collapse collapse" id="collapsingNavbar">
 				<ul class="navbar-nav ml-auto">
 					<li class="nav-item">
-						<a class="nav-link" href="#">Home</a>
+						<a class="nav-link" href="{{url_for('show_home')}}">Home</a>
 					</li>
 					<li class="nav-item">
 						<a class="nav-link" href="#">Featured</a>
@@ -197,6 +187,7 @@
 		{% block content %} {% endblock %}
 	</div>
 	<footer>
+    
 	</footer>
 </body>
 

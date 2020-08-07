@@ -1,4 +1,5 @@
 import os
+from bson.objectid import ObjectId
 from flask import Flask, render_template, redirect, request, url_for
 from flask_pymongo import PyMongo
 
@@ -16,13 +17,18 @@ app.config["MONGO_URI"] = os.getenv('MONGO_URI')
 
 mongo = PyMongo(app)
 
+
 @app.route('/')
 @app.route('/home')
 def show_home():
-    return render_template("home.html", 
+    return render_template('index.html',
                            recipes=mongo.db.recipes.find())
 
 
+@app.route('/recipe/<recipe_id>')
+def show_recipe(recipe_id):
+    recipe = mongo.db.recipes.find_one({'_id': ObjectId(recipe_id)})
+    return render_template('recipe.html', recipe=recipe)
 
 
 if __name__ == '__main__':

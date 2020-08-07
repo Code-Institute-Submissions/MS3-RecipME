@@ -1,0 +1,41 @@
+{% extends 'base.html'%} {% block content %}
+<div class="card mb-4">
+  <div class="card-header">
+    <h5 class="card-title">{{recipe.recipe_name}}</h5>
+  </div>
+  <img
+    src="{{recipe.img_url}}"
+    class="card-img-top"
+    alt="{{recipe.recipe_name}}"
+  />
+</div>
+<div class="card mb-4">
+  <div class="card-body">
+    <h5 class="card-title">Ingredients</h5>
+    <ul>
+      {% for ingredient in recipe.recipe_ingredients %}
+      <li class="card-text">{{ingredient}}</li>
+      {% endfor %}
+    </ul>
+  </div>
+</div>
+<div class="card mb-4">
+  <div class="card-body">
+    <h5 class="card-title">Method</h5>
+    <ol>
+      {% for step in recipe.recipe_steps %}
+      <li class="card-text">{{step}}</li>
+      {% endfor %}
+    </ol>
+  </div>
+</div>
+<div class="card mb-4">
+  <div class="card-body">
+    <h5 class="card-title">Notes</h5>
+    <ul>
+      <li class="card-text">{{recipe.notes}}</li>
+    </ul>
+  </div>
+</div>
+
+{% endblock %}
