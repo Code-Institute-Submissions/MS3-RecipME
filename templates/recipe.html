@@ -1,7 +1,7 @@
 {% extends 'base.html'%} {% block content %}
 <div class="card mb-4">
   <div class="card-header">
-    <h5 class="card-title">{{recipe.recipe_name}}</h5>
+    <div class="card-title">{{recipe.recipe_name}}    <p>Difficulty: {{recipe.difficulty}}</p></div>
   </div>
   <img
     src="{{recipe.img_url}}"
