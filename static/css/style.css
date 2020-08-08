@@ -178,6 +178,18 @@
   background-color: #fff;
   font-weight: 600;
 }
+
+.error {
+  margin: 0;
+  font-size: 16px;
+  line-height: 26px;
+  text-align: center;
+  color: var(--red);
+}
+
+.error--hidden {
+  display: none;
+}
 /* Modal & Social custom buttons END */
 
 /* Modal customisations */

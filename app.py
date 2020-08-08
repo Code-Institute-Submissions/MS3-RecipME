@@ -1,7 +1,10 @@
 import os
 from bson.objectid import ObjectId
-from flask import Flask, render_template, redirect, request, url_for
+from flask import Flask, render_template, redirect, request, url_for, jsonify
 from flask_pymongo import PyMongo
+from passlib.hash import pbkdf2_sha256
+import uuid
+# from user import routes
 
 # Local deploy only
 from os import path
@@ -16,6 +19,7 @@ app.config["MONGO_URI"] = os.getenv('MONGO_URI')
 
 
 mongo = PyMongo(app)
+app = Flask(__name__)
 
 
 @app.route('/')
@@ -29,6 +33,38 @@ def show_home():
 def show_recipe(recipe_id):
     recipe = mongo.db.recipes.find_one({'_id': ObjectId(recipe_id)})
     return render_template('recipe.html', recipe=recipe)
+
+
+# Sign up
+@app.route('/user/signup', methods=['POST'])
+def signup():
+    return User().signup()
+
+class User:
+
+    def signup(self):
+        print(request.form) #debugging
+
+        # Create user object
+
+        user = {
+            "_id": uuid.uuid4().hex,
+            "name": request.form.get('name'),
+            "email": request.form.get('email'),
+            "password": request.form.get('password')
+        }
+
+        # encrypt
+        user['password'] = pbkdf2_sha256.encrypt(user['password'])
+        
+        if mongo.db.users.find_one({"email": user['email']}):
+            return jsonify({"error": "Email address already in use"}), 400
+
+        # add user to DB
+        if mongo.db.users.insert_one(user):
+            return self.start_session(user)
+
+        return jsonify({ "error": "Signup failed" }), 400
 
 
 if __name__ == '__main__':
