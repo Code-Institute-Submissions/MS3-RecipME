@@ -10,11 +10,12 @@ $("form[name=signup_form").submit(function(e) {
     dataType: "json",
     success: function (resp) {
         window.location.href = "/dashboard/";
-      console.log(resp);
+    //   console.log(resp);
     },
     error: function (resp) {
       console.log(resp);
-        $error.text(resp.responseJSON.error).removeClass("error--hidden");
+        $error.text(resp.responseJSON.error).removeClass("d-none");
+        // window.location.href = "/dashboard/";
     },
   });
 
@@ -35,7 +36,7 @@ $("form[name=login_form").submit(function (e) {
       window.location.href = "/dashboard/";
     },
     error: function (resp) {
-      $error.text(resp.responseJSON.error).removeClass("error--hidden");
+      $error.text(resp.responseJSON.error).removeClass("d-none");
     },
   });
 

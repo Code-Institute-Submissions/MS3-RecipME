@@ -181,15 +181,13 @@
 
 .error {
   margin: 0;
-  font-size: 16px;
+  font-size: 18px;
   line-height: 26px;
   text-align: center;
-  color: var(--red);
+  color: #b00;
+  margin-bottom: 1rem;
 }
 
-.error--hidden {
-  display: none;
-}
 /* Modal & Social custom buttons END */
 
 /* Modal customisations */
