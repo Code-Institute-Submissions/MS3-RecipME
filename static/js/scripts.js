@@ -36,6 +36,7 @@ $("form[name=login_form").submit(function (e) {
       window.location.href = "/dashboard/";
     },
     error: function (resp) {
+        console.log(resp);
       $error.text(resp.responseJSON.error).removeClass("d-none");
     },
   });

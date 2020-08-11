@@ -20,37 +20,7 @@
             </p>
          </div>
       </div>
-      <nav class="navbar navbar-expand-md sticky-top navbar-expand-lg">
-         <div class="container">
-            <!-- <img src="" alt="..."></img> -->
-            <a class="navbar-brand abs logo" href="#">RecipME</a>
-            <button
-               class="navbar-toggler navbar-light"
-               type="button"
-               data-toggle="collapse"
-               data-target="#collapsingNavbar"
-               >
-            <span class="navbar-toggler-icon"></span>
-            </button>
-            <div class="navbar-collapse collapse" id="collapsingNavbar">
-               <ul class="navbar-nav ml-auto">
-                  <li class="nav-item">
-                     <a class="nav-link" href="{{url_for('show_home')}}">Home</a>
-                  </li>
-                  <li class="nav-item">
-                     <a class="nav-link" href="#">Featured</a>
-                  </li>
-                  <li class="nav-item">
-                     <a class="nav-link" href="#">Find</a>
-                  </li>
-                  <li class="nav-item">
-                     <a class="nav-link" href="#" data-toggle="modal" data-target="#login-modal">Sign In</a>
-                  </li>
-               </ul>
-            </div>
-         </div>
-      </nav>
-
+      {% block nav %} {% endblock %}
       <!-- SIGN UP MODAL -->
       <div class="modal fade" id="signup-modal" tabindex="-1" role="dialog" aria-hidden="true">
          <div class="modal-dialog modal-dialog-centered" role="document">
@@ -198,7 +168,7 @@
                         <p class="divider-text">
                            <span class="bg-secondary">OR</span>
                         </p>
-                        <form name="signup_form">
+                        <form name="login_form">
                            <div class="form-group input-group">
                               <div class="input-group-prepend">
                                  <span class="input-group-text">
@@ -206,7 +176,7 @@
                                  </span>
                               </div>
                               <input
-                                 name="email-login"
+                                 name="email"
                                  class="form-control"
                                  placeholder="Email address"
                                  type="email"
@@ -220,12 +190,16 @@
                                  </span>
                               </div>
                               <input
+                                 name="password"
                                  class="form-control"
                                  placeholder="Password"
                                  type="password"
                                  />
                               </input>
                            </div>
+                           <p class="error d-none">
+                           
+                           </p>
                            <div class="form-group">
                               <button type="submit" class="btn btn-block btn-signup">
                               <i class="fa fa-sign-in" aria-hidden="true"></i> Sign in

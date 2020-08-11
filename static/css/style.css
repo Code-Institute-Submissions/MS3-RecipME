@@ -103,6 +103,16 @@
   background-color: #fafafa;
   opacity: 0.75;
 }
+
+.active-user{
+    background-color: #fff;
+    border-radius: 5px;
+}
+
+.navbar .navbar-nav .active-user .nav-link {
+    color: black;
+}
+
 /* Navbar customisations END */
 
 /* Modal & Social custom buttons */
