@@ -108,6 +108,47 @@ def save_recipe(recipe_id):
     return redirect(url_for('show_recipe', recipe_id=recipe_id, recipes=updated_recipes))
 
 
+@app.route('/add_recipe/<user_id>')
+def add_recipe(user_id):
+    if session.get('USERNAME', None):
+        username = session['USERNAME']
+        # user exists in the database
+        try:
+            current_user = mongo.db.users.find_one({'username': username})
+            requested_user = mongo.db.users.find_one({'_id': user_id})
+            # if the current logged in user is the user requested
+            if requested_user['_id'] == current_user['_id']:
+                # Default recipe image
+                # image_url = 'https://res.cloudinary.com/dajuujhvs/image/upload/v1591896759/gi5h7ejymbig1yybptcy.png'
+                # image_url_id = 'gi5h7ejymbig1yybptcy'
+                # create empty temp record
+                temp_record = DB_RECIPES.insert_one(
+                    {
+                        'name': 'My Awesome Recipe',
+                        'image_url': image_url,
+                        'image_url_id': image_url_id,
+                        'featured': 'false',
+                        'current_rating': '0',
+                        'total_ratings': 0,
+                        'sum_ratings': 0,
+                        'author_id': user_id,
+                        'preptime_hrs': '0',
+                        'preptime_min': '0',
+                        'cooktime_hrs': '0',
+                        'cooktime_min': '0'
+                    })
+                return redirect(url_for('edit_recipe', user_id=user_id, recipe_id=temp_record.inserted_id))
+            else:
+                # raises a 403 error
+                return abort(403, description="Forbidden")
+        except:
+            # raises a 404
+            return abort(404, description="Resource not found")
+    else:
+        # User not signed in
+        return redirect(url_for('sign_in'))
+
+
 class User:
 
     def start_session(self, user): 

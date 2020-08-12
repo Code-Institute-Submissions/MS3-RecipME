@@ -201,11 +201,11 @@
 /* Modal & Social custom buttons END */
 
 /* Modal customisations */
-.modal-body .modal-card {
+.modal-body-custom .modal-card {
   margin: 0;
   color: #fcc438;
 }
-.modal-body {
+.modal-body-custom {
   padding: 0;
 }
 
@@ -242,6 +242,10 @@
   float: right;
   font-size: 20px;
   padding: 5px;
+}
+
+.ingredient{
+    max-width: 70%;
 }
 /* Modal customisations END */
 
@@ -325,3 +329,10 @@
 }
 
 /* Footer customisations END*/
+
+
+
+/* https://www.sanwebe.com/2013/03/addremove-input-fields-dynamically-with-jquery */
+/* https://stackoverflow.com/questions/46356054/how-to-increment-variable-names-in-jquery-in-a-loop */
+/* http://jsbin.com/moweluwu/1/edit?html,js,output */
+/* https://stackoverflow.com/questions/23700005/jquery-increment-id-number-when-dynamically-appending-elements/23700702 */
