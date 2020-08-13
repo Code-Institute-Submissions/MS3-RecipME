@@ -1,36 +1,4 @@
 {% extends 'base.html'%} 
-{% block nav %}
-<nav class="navbar navbar-expand-md sticky-top navbar-expand-lg">
-         <div class="container">
-            <!-- <img src="" alt="..."></img> -->
-            <a class="navbar-brand abs logo" href="#">RecipME</a>
-            <button
-               class="navbar-toggler navbar-light"
-               type="button"
-               data-toggle="collapse"
-               data-target="#collapsingNavbar"
-               >
-            <span class="navbar-toggler-icon"></span>
-            </button>
-            <div class="navbar-collapse collapse" id="collapsingNavbar">
-               <ul class="navbar-nav ml-auto">
-                  <li class="nav-item">
-                     <a class="nav-link" href="{{url_for('show_home')}}">Home</a>
-                  </li>
-                  <li class="nav-item">
-                     <a class="nav-link" href="#">Featured</a>
-                  </li>
-                  <li class="nav-item">
-                     <a class="nav-link" href="#">Find</a>
-                  </li>
-                  <li class="nav-item">
-                     <a class="nav-link" href="#" data-toggle="modal" data-target="#login-modal">Sign In</a>
-                  </li>
-               </ul>
-            </div>
-         </div>
-      </nav>
-{% endblock %}
 
 {% block content %}
 <div class="center">
