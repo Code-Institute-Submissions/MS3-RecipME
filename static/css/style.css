@@ -247,6 +247,8 @@
 .ingredient{
     max-width: 70%;
 }
+
+
 /* Modal customisations END */
 
 /* Footer customisations */
@@ -337,3 +339,5 @@
 /* http://jsbin.com/moweluwu/1/edit?html,js,output */
 /* https://stackoverflow.com/questions/23700005/jquery-increment-id-number-when-dynamically-appending-elements/23700702 */
 /* https://itnext.io/5-ways-to-loop-over-dom-elements-from-queryselectorall-in-javascript-55bd66ca4128 */
+/* https://getbootstrap.com/docs/4.0/components/navs/#javascript-behavior */
+/* https://stackoverflow.com/questions/22297964/bootstrap-tabs-next-previous-buttons-for-forms/22298275 */

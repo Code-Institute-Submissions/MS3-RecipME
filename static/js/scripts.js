@@ -90,4 +90,44 @@ $(document).ready(function () {
 
     e.preventDefault();
   });
+  $(".next").click(function () {
+    $(".nav-tabs > .nav-item > .active").parent().next("li").find("a").click();
+  });
+
+  $(".previous").click(function () {
+    $(".nav-tabs > .nav-item > .active").parent().prev("li").find("a").click();
+  });
+
+  $("#next").click(function () {
+    if ($("#recipe-tab").hasClass("active")) {
+      $("#next").show();
+      $("#previous").hide();
+    }
+
+    if ($("#ingredient-tab").hasClass("active")) {
+      $("#previous").show();
+      $("#next").show();
+    }
+
+    if ($("#recipe-steps-tab").hasClass("active")) {
+      $("#next").hide();
+      $("#previous").show();
+    }
+  });
+    $("#previous").click(function () {
+    if ($("#recipe-tab").hasClass("active")) {
+      $("#next").show();
+      $("#previous").hide();
+    }
+
+    if ($("#ingredient-tab").hasClass("active")) {
+      $("#previous").show();
+      $("#next").show();
+    }
+
+    if ($("#recipe-steps-tab").hasClass("active")) {
+      $("#next").hide();
+      $("#previous").show();
+    }
+  });
 });

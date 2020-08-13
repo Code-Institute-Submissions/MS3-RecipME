@@ -47,6 +47,7 @@
               <a class="nav-link" href="#">Find</a>
             </li>
             {% if session['username'] %}
+
             <li class="nav-item dropdown active-user">
               <a
                 class="nav-link dropdown-toggle"
@@ -80,6 +81,7 @@
               </div>
             </li>
             {% else %}
+
             <li class="nav-item">
               <a
                 class="nav-link"
@@ -95,6 +97,7 @@
       </div>
     </nav>
     {% block nav %} {% endblock %}
+
     <!-- SIGN UP MODAL -->
     <div
       class="modal fade"
@@ -117,15 +120,6 @@
                 </button>
                 <h4 class="card-title mt-3 text-center">Create Account</h4>
                 <p class="text-center">Get started with your free account</p>
-                <!-- <p>
-                           <a href="" class="btn btn-block google btn-google">
-                           <i class="fa fa-google"></i> Login via Google</a>
-                           <a href="" class="btn btn-block facebook btn-facebook">
-                           <i class="fa fa-facebook"></i> Login via facebook</a>
-                           </p>
-                           <p class="divider-text">
-                           <span class="bg-secondary">OR</span>
-                           </p> -->
                 <form name="signup_form">
                   <div class="form-group input-group">
                     <div class="input-group-prepend">
@@ -169,19 +163,11 @@
                       required
                     />
                   </div>
-                  <!-- <div class="form-group input-group">
-                              <div class="input-group-prepend">
-                                 <span class="input-group-text">
-                                 <i class="fa fa-lock"></i>
-                                 </span>
-                              </div>
-                              <input
+                  <!-- <div class="form-group input-group"><div class="input-group-prepend"><span class="input-group-text"><i class="fa fa-lock"></i></span></div><input
                                  class="form-control"
                                  placeholder="Repeat password"
                                  type="password" required
-                                 />
-                              </input>
-                              </div> -->
+                                 /></input></div> -->
                   <p class="error d-none"></p>
                   <div class="form-group">
                     <button
@@ -195,6 +181,7 @@
                   </div>
                   <p class="text-center">
                     Have an account?
+
                     <a
                       class="themed-a"
                       href=""
@@ -232,16 +219,6 @@
                   x
                 </button>
                 <h4 class="card-title mt-3 text-center">Sign In</h4>
-                <!-- <h4 class="card-title mt-3 text-center">
-                           Login via Social Media
-                           </h4>
-                           <a href="" class="btn btn-block google btn-google">
-                           <i class="fa fa-google"></i> Login via Google</a>
-                           <a href="" class="btn btn-block facebook btn-facebook">
-                           <i class="fa fa-facebook"></i> Login via facebook</a>
-                           <p class="divider-text">
-                           <span class="bg-secondary">OR</span>
-                           </p> -->
                 <form name="login_form">
                   <div class="form-group input-group">
                     <div class="input-group-prepend">
@@ -277,6 +254,7 @@
                   </div>
                   <p class="text-center">
                     Don't have an account?
+
                     <a
                       class="themed-a"
                       href=""
@@ -293,76 +271,128 @@
         </div>
       </div>
     </div>
-    <!-- New recipe Modal -->
-    <div
-      class="modal fade"
-      id="recipe-modal"
-      tabindex="-1"
-      role="dialog"
-      aria-hidden="true"
-    >
+    <!-- Recipe MODAL -->
+    <div class="modal" id="recipe-modal" tabindex="-1" role="dialog">
       <div class="modal-dialog" role="document">
         <div class="modal-content">
           <div class="modal-header">
-            <h5 class="modal-title" id="exampleModalLabel">New Recipe</h5>
-            <button
-              type="button"
-              class="close"
-              data-dismiss="modal"
-              aria-label="Close"
-            >
-              <span aria-hidden="true">&times;</span>
-            </button>
+            <ul class="nav nav-tabs" id="myTab" role="tablist">
+              <li class="nav-item">
+                <a
+                  class="nav-link active"
+                  id="recipe-tab"
+                  data-toggle="tab"
+                  href="#recipe-name"
+                  role="tab"
+                  aria-controls="recipe-name"
+                  aria-selected="true"
+                  >recipe-name</a
+                >
+              </li>
+              <li class="nav-item">
+                <a
+                  class="nav-link"
+                  id="ingredient-tab"
+                  data-toggle="tab"
+                  href="#ingredient-name"
+                  role="tab"
+                  aria-controls="ingredient-name"
+                  aria-selected="false"
+                  >ingredient-name</a
+                >
+              </li>
+              <li class="nav-item">
+                <a
+                  class="nav-link"
+                  id="recipe-steps-tab"
+                  data-toggle="tab"
+                  href="#recipe-steps"
+                  role="tab"
+                  aria-controls="recipe-steps"
+                  aria-selected="false"
+                  >recipe-steps</a
+                >
+              </li>
+            </ul>
           </div>
           <div class="modal-body">
-            <form name="recipe_form">
-              <div class="form-group">
-                <label for="recipient-name" class="col-form-label"
-                  >Recipe Name:</label
+            <form>
+              <div class="tab-content" id="myTabContent">
+                <div
+                  class="tab-pane fade show active"
+                  id="recipe-name"
+                  role="tabpanel"
+                  aria-labelledby="recipe-tab"
                 >
-                <input
-                  type="text"
-                  class="form-control"
-                  id="recipient-name"
-                  name="recipient-name"
-                />
-              </div>
-              <div class="form-group">
-                <label for="message-text" class="col-form-label"
-                  >Recipe Description:</label
+                  <div class="modal-body">
+                    <div class="form-group">
+                      <label for="recipient-name" class="col-form-label"
+                        >Recipe Name:</label
+                      >
+                      <input
+                        type="text"
+                        class="form-control"
+                        id="recipient-name"
+                        name="recipient-name"
+                      />
+                    </div>
+                    <div class="form-group">
+                      <label for="message-text" class="col-form-label"
+                        >Recipe Description:</label
+                      >
+                      <textarea
+                        name="recipe-description"
+                        class="form-control"
+                        id="recipe-description"
+                      ></textarea>
+                    </div>
+                  </div>
+                </div>
+                <div
+                  class="tab-pane fade"
+                  id="ingredient-name"
+                  role="tabpanel"
+                  aria-labelledby="ingredient-tab"
                 >
-                <textarea
-                  name="recipe-description"
-                  class="form-control"
-                  id="recipe-description"
-                ></textarea>
+                  <div class="modal-body">
+                    <div class="form-group">
+                      <button class="add_field_button btn btn-block btn-signup">
+                        <i class="fa fa-plus" aria-hidden="true"></i>Add
+                        Ingredient
+                      </button>
+                    </div>
+                    <div class="input_fields_wrap">
+                      <div
+                        class="input-group mb-3"
+                        id="ingredient-inputs"
+                      ></div>
+                    </div>
+                  </div>
+                </div>
+                <div
+                  class="tab-pane fade"
+                  id="recipe-steps"
+                  role="tabpanel"
+                  aria-labelledby="recipe-steps-tab"
+                >
+                  <div class="modal-body">
+                    <div class="form-group">
+                      <button class="add_field_button btn btn-block btn-signup">
+                        <i class="fa fa-plus" aria-hidden="true"></i>Add Steps
+                      </button>
+                    </div>
+                    <div class="input_fields_wrap">
+                      <div class="input-group mb-3" id="Steps-inputs"></div>
+                    </div>
+                  </div>
+                </div>
               </div>
-              <!-- Add ingredients -->
-              <div class="form-group">
-                <button class="add_field_button btn btn-block btn-signup">
-                  <i class="fa fa-plus" aria-hidden="true"></i>Add Ingredient
-                </button>
-              </div>
-              <div class="input_fields_wrap">
-                <div class="input-group mb-3" id="ingredient-inputs"></div>
-              </div>
-            <!-- Add Steps -->
-              <div class="form-group">
-                <button class="add_field_button btn btn-block btn-signup">
-                  <i class="fa fa-plus" aria-hidden="true"></i>Add Steps
-                </button>
-              </div>
-              <div class="input_fields_wrap">
-                <div class="input-group mb-3" id="Steps-inputs"></div>
-              </div>
-
             </form>
-          </div>
-          <div class="modal-footer">
-            <div class="form-group">
-              <button type="submit" class="btn btn-block btn-signup">
-                <i class="fa fa-plus" aria-hidden="true"></i> Add Recipe
+            <div class="modal-footer d-block">
+              <button id="previous" style="display: none;" class="btn btn-info btn-lg previous float-left">
+                Previous
               </button>
+              <button id="next" class="btn btn-info btn-lg next float-right">Next</button>
             </div>
           </div>
         </div>
@@ -387,11 +417,21 @@
       </div>
       <div class="container footer-sub-container p-4">
         <div class="icon-bar">
-          <a href="#" class="facebook"><i class="fa fa-facebook"></i></a>
-          <a href="#" class="google"><i class="fa fa-google"></i></a>
-          <a href="#" class="twitter"><i class="fa fa-twitter"></i></a>
-          <a href="#" class="youtube"><i class="fa fa-youtube"></i></a>
-          <a href="#" class="linkedin"><i class="fa fa-linkedin"></i></a>
+          <a href="#" class="facebook">
+            <i class="fa fa-facebook"></i>
+          </a>
+          <a href="#" class="google">
+            <i class="fa fa-google"></i>
+          </a>
+          <a href="#" class="twitter">
+            <i class="fa fa-twitter"></i>
+          </a>
+          <a href="#" class="youtube">
+            <i class="fa fa-youtube"></i>
+          </a>
+          <a href="#" class="linkedin">
+            <i class="fa fa-linkedin"></i>
+          </a>
         </div>
       </div>
       <div class="container p-4">
