@@ -1,96 +1,123 @@
 <!DOCTYPE html>
 <html lang="en">
-   <head>
-      <meta charset="UTF-8" />
-      <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-      <meta http-equiv="X-UA-Compatible" content="ie=edge" />
-      <!-- import BS library -->
-      <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" />
-      <link rel="stylesheet" href="/static/css/style.css" type="text/css" />
-      <!-- <link rel="icon" type="image/x-icon" href="assets/images/icon.png"> -->
-      <title>RecipME</title>
-   </head>
-   <body>
-      <div class="jumbotron">
-         <div class="container">
-            <h1 class="display-1 p-2">RecipME</h1>
-            <p class="lead-1 p-2">
-               Create & Share Recipes - the must have tool for all home cooking &
-               baking enthusiasts
-            </p>
-         </div>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <!-- import BS library -->
+    <link
+      rel="stylesheet"
+      href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css"
+    />
+    <link rel="stylesheet" href="/static/css/style.css" type="text/css" />
+    <!-- <link rel="icon" type="image/x-icon" href="assets/images/icon.png"> -->
+    <title>RecipME</title>
+  </head>
+  <body>
+    <div class="jumbotron">
+      <div class="container">
+        <h1 class="display-1 p-2">RecipME</h1>
+        <p class="lead-1 p-2">
+          Create & Share Recipes - the must have tool for all home cooking &
+          baking enthusiasts
+        </p>
       </div>
-      <nav class="navbar navbar-expand-md sticky-top navbar-expand-lg">
-  <div class="container">
-    <!-- <img src="" alt="..."></img> -->
-    <a class="navbar-brand abs logo" href="#">RecipME</a>
-    <button
-      class="navbar-toggler navbar-light"
-      type="button"
-      data-toggle="collapse"
-      data-target="#collapsingNavbar"
-    >
-      <span class="navbar-toggler-icon"></span>
-    </button>
-    <div class="navbar-collapse collapse" id="collapsingNavbar">
-      <ul class="navbar-nav ml-auto">
-        <li class="nav-item">
-          <a class="nav-link" href="{{url_for('show_home')}}">Home</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" href="#">Featured</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" href="#">Find</a>
-        </li>
-        {% if session['username'] %}
-        <li class="nav-item dropdown active-user">
-          <a
-            class="nav-link dropdown-toggle"
-            href="#"
-            id="navbarDropdown"
-            role="button"
-            data-toggle="dropdown"
-            aria-haspopup="true"
-            aria-expanded="false"
-          >
-            {{ session['user']['name'] }}
-          </a>
-          <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-            <a class="dropdown-item" href="#">{{ session['user']['name'] }}</a>
-            <a class="dropdown-item" href="{{url_for('dashboard')}}">Dashboard</a>
-            <a class="dropdown-item" href="#" data-toggle="modal" data-target="#recipe-modal ">Add recipe</a>
-            <div class="dropdown-divider"></div>
-            <a class="dropdown-item" href="{{url_for('signout')}}">Sign Out</a>
-          </div>
-        </li>
-        {% else %}
-        <li class="nav-item">
-                     <a class="nav-link" href="#" data-toggle="modal" data-target="#login-modal">Sign In</a>
-                  </li>
-        {% endif %}
-      </ul>
     </div>
-  </div>
-</nav>
-      {% block nav %} {% endblock %}
-      <!-- SIGN UP MODAL -->
-      <div class="modal fade" id="signup-modal" tabindex="-1" role="dialog" aria-hidden="true">
-         <div class="modal-dialog modal-dialog-centered" role="document">
-            <div class="modal-content">
-               <div class="modal-body modal-body-custom">
-                  <div class="card card-signup bg-secondary modal-card">
-                     <article class="card-body mx-auto" style="max-width: 400px;">
-                        <button
-                           type="button"
-                           class="btn btn-close"
-                           data-dismiss="modal"
-                           >
-                        x
-                        </button>
-                        <h4 class="card-title mt-3 text-center">Create Account</h4>
-                        <p class="text-center">Get started with your free account</p>
-                        <!-- <p>
+    <nav class="navbar navbar-expand-md sticky-top navbar-expand-lg">
+      <div class="container">
+        <!-- <img src="" alt="..."></img> -->
+        <a class="navbar-brand abs logo" href="#">RecipME</a>
+        <button
+          class="navbar-toggler navbar-light"
+          type="button"
+          data-toggle="collapse"
+          data-target="#collapsingNavbar"
+        >
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="navbar-collapse collapse" id="collapsingNavbar">
+          <ul class="navbar-nav ml-auto">
+            <li class="nav-item">
+              <a class="nav-link" href="{{url_for('show_home')}}">Home</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="#">Featured</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="#">Find</a>
+            </li>
+            {% if session['username'] %}
+            <li class="nav-item dropdown active-user">
+              <a
+                class="nav-link dropdown-toggle"
+                href="#"
+                id="navbarDropdown"
+                role="button"
+                data-toggle="dropdown"
+                aria-haspopup="true"
+                aria-expanded="false"
+              >
+                {{ session['user']['name'] }}
+              </a>
+              <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                <a class="dropdown-item" href="#"
+                  >{{ session['user']['name'] }}</a
+                >
+                <a class="dropdown-item" href="{{url_for('dashboard')}}"
+                  >Dashboard</a
+                >
+                <a
+                  class="dropdown-item"
+                  href="#"
+                  data-toggle="modal"
+                  data-target="#recipe-modal "
+                  >Add recipe</a
+                >
+                <div class="dropdown-divider"></div>
+                <a class="dropdown-item" href="{{url_for('signout')}}"
+                  >Sign Out</a
+                >
+              </div>
+            </li>
+            {% else %}
+            <li class="nav-item">
+              <a
+                class="nav-link"
+                href="#"
+                data-toggle="modal"
+                data-target="#login-modal"
+                >Sign In</a
+              >
+            </li>
+            {% endif %}
+          </ul>
+        </div>
+      </div>
+    </nav>
+    {% block nav %} {% endblock %}
+    <!-- SIGN UP MODAL -->
+    <div
+      class="modal fade"
+      id="signup-modal"
+      tabindex="-1"
+      role="dialog"
+      aria-hidden="true"
+    >
+      <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+          <div class="modal-body modal-body-custom">
+            <div class="card card-signup bg-secondary modal-card">
+              <article class="card-body mx-auto" style="max-width: 400px;">
+                <button
+                  type="button"
+                  class="btn btn-close"
+                  data-dismiss="modal"
+                >
+                  x
+                </button>
+                <h4 class="card-title mt-3 text-center">Create Account</h4>
+                <p class="text-center">Get started with your free account</p>
+                <!-- <p>
                            <a href="" class="btn btn-block google btn-google">
                            <i class="fa fa-google"></i> Login via Google</a>
                            <a href="" class="btn btn-block facebook btn-facebook">
@@ -99,50 +126,50 @@
                            <p class="divider-text">
                            <span class="bg-secondary">OR</span>
                            </p> -->
-                        <form name="signup_form">
-                           <div class="form-group input-group">
-                              <div class="input-group-prepend">
-                                 <span class="input-group-text">
-                                 <i class="fa fa-user"></i>
-                                 </span>
-                              </div>
-                              <input
-                                 name="name"
-                                 class="form-control"
-                                 placeholder="Full name"
-                                 type="text" required
-                                 />
-                              </input>
-                           </div>
-                           <div class="form-group input-group">
-                              <div class="input-group-prepend">
-                                 <span class="input-group-text">
-                                 <i class="fa fa-envelope"></i>
-                                 </span>
-                              </div>
-                              <input
-                                 name="email"
-                                 class="form-control"
-                                 placeholder="Email address"
-                                 type="email" required
-                                 />
-                              </input>
-                           </div>
-                           <div class="form-group input-group">
-                              <div class="input-group-prepend">
-                                 <span class="input-group-text">
-                                 <i class="fa fa-lock"></i>
-                                 </span>
-                              </div>
-                              <input
-                                 name="password"
-                                 class="form-control"
-                                 placeholder="Create password"
-                                 type="password" required
-                                 />
-                              </input>
-                           </div>
-                           <!-- <div class="form-group input-group">
+                <form name="signup_form">
+                  <div class="form-group input-group">
+                    <div class="input-group-prepend">
+                      <span class="input-group-text">
+                        <i class="fa fa-user"></i>
+                      </span>
+                    </div>
+                    <input
+                      name="name"
+                      class="form-control"
+                      placeholder="Full name"
+                      type="text"
+                      required
+                    />
+                  </div>
+                  <div class="form-group input-group">
+                    <div class="input-group-prepend">
+                      <span class="input-group-text">
+                        <i class="fa fa-envelope"></i>
+                      </span>
+                    </div>
+                    <input
+                      name="email"
+                      class="form-control"
+                      placeholder="Email address"
+                      type="email"
+                      required
+                    />
+                  </div>
+                  <div class="form-group input-group">
+                    <div class="input-group-prepend">
+                      <span class="input-group-text">
+                        <i class="fa fa-lock"></i>
+                      </span>
+                    </div>
+                    <input
+                      name="password"
+                      class="form-control"
+                      placeholder="Create password"
+                      type="password"
+                      required
+                    />
+                  </div>
+                  <!-- <div class="form-group input-group">
                               <div class="input-group-prepend">
                                  <span class="input-group-text">
                                  <i class="fa fa-lock"></i>
@@ -155,42 +182,57 @@
                                  />
                               </input>
                               </div> -->
-                           <p class="error d-none">
-                           </p>
-                           <div class="form-group">
-                              <button type="submit" value="Sign Up" class="btn btn-block btn-signup">
-                              <i class="fa fa-plus" aria-hidden="true"></i> Create
-                              Account
-                              </button>
-                           </div>
-                           <p class="text-center">
-                              Have an account?
-                              <a class="themed-a" href="" data-dismiss="modal" data-toggle="modal"
-                                 data-target="#login-modal">Sign In</a>
-                           </p>
-                        </form>
-                     </article>
+                  <p class="error d-none"></p>
+                  <div class="form-group">
+                    <button
+                      type="submit"
+                      value="Sign Up"
+                      class="btn btn-block btn-signup"
+                    >
+                      <i class="fa fa-plus" aria-hidden="true"></i> Create
+                      Account
+                    </button>
                   </div>
-               </div>
+                  <p class="text-center">
+                    Have an account?
+                    <a
+                      class="themed-a"
+                      href=""
+                      data-dismiss="modal"
+                      data-toggle="modal"
+                      data-target="#login-modal"
+                      >Sign In</a
+                    >
+                  </p>
+                </form>
+              </article>
             </div>
-         </div>
+          </div>
+        </div>
       </div>
-      <!-- LOGIN MODAL -->
-      <div class="modal fade" id="login-modal" tabindex="-1" role="dialog" aria-hidden="true">
-         <div class="modal-dialog modal-dialog-centered" role="document">
-            <div class="modal-content">
-               <div class="modal-body modal-body-custom">
-                  <div class="card card-signup bg-secondary modal-card">
-                     <article class="card-body mx-auto" style="max-width: 400px;">
-                        <button
-                           type="button"
-                           class="btn btn-close"
-                           data-dismiss="modal"
-                           >
-                        x
-                        </button>
-                        <h4 class="card-title mt-3 text-center">Sign In</h4>
-                        <!-- <h4 class="card-title mt-3 text-center">
+    </div>
+    <!-- LOGIN MODAL -->
+    <div
+      class="modal fade"
+      id="login-modal"
+      tabindex="-1"
+      role="dialog"
+      aria-hidden="true"
+    >
+      <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+          <div class="modal-body modal-body-custom">
+            <div class="card card-signup bg-secondary modal-card">
+              <article class="card-body mx-auto" style="max-width: 400px;">
+                <button
+                  type="button"
+                  class="btn btn-close"
+                  data-dismiss="modal"
+                >
+                  x
+                </button>
+                <h4 class="card-title mt-3 text-center">Sign In</h4>
+                <!-- <h4 class="card-title mt-3 text-center">
                            Login via Social Media
                            </h4>
                            <a href="" class="btn btn-block google btn-google">
@@ -200,139 +242,183 @@
                            <p class="divider-text">
                            <span class="bg-secondary">OR</span>
                            </p> -->
-                        <form name="login_form">
-                           <div class="form-group input-group">
-                              <div class="input-group-prepend">
-                                 <span class="input-group-text">
-                                 <i class="fa fa-envelope"></i>
-                                 </span>
-                              </div>
-                              <input
-                                 name="email"
-                                 class="form-control"
-                                 placeholder="Email address"
-                                 type="email"
-                                 />
-                              </input>
-                           </div>
-                           <div class="form-group input-group">
-                              <div class="input-group-prepend">
-                                 <span class="input-group-text">
-                                 <i class="fa fa-lock"></i>
-                                 </span>
-                              </div>
-                              <input
-                                 name="password"
-                                 class="form-control"
-                                 placeholder="Password"
-                                 type="password"
-                                 />
-                              </input>
-                           </div>
-                           <p class="error d-none">
-                           </p>
-                           <div class="form-group">
-                              <button type="submit" class="btn btn-block btn-signup">
-                              <i class="fa fa-sign-in" aria-hidden="true"></i> Sign in
-                              </button>
-                           </div>
-                           <p class="text-center">
-                              Don't have an account?
-                              <a class="themed-a" href="" data-dismiss="modal" data-toggle="modal"
-                                 data-target="#signup-modal">Create one!</a>
-                           </p>
-                        </form>
-                     </article>
+                <form name="login_form">
+                  <div class="form-group input-group">
+                    <div class="input-group-prepend">
+                      <span class="input-group-text">
+                        <i class="fa fa-envelope"></i>
+                      </span>
+                    </div>
+                    <input
+                      name="email"
+                      class="form-control"
+                      placeholder="Email address"
+                      type="email"
+                    />
                   </div>
-               </div>
-            </div>
-         </div>
-      </div>
-      <!-- New recipe Modal -->
-      <div class="modal fade" id="recipe-modal" tabindex="-1" role="dialog" aria-hidden="true">
-         <div class="modal-dialog" role="document">
-            <div class="modal-content">
-               <div class="modal-header">
-                  <h5 class="modal-title" id="exampleModalLabel">New message</h5>
-                  <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                  <span aria-hidden="true">&times;</span>
-                  </button>
-               </div>
-               <div class="modal-body">
-                  <form name="recipe_form">
-                     <div class="form-group">
-                        <label for="recipient-name" class="col-form-label">Recipe Name:</label>
-                        <input type="text" class="form-control" id="recipient-name" name="recipient-name">
-                     </div>
-                     <div class="form-group">
-                        <label for="message-text" class="col-form-label">Recipe Description:</label>
-                        <textarea name="recipe-description" class="form-control" id="recipe-description"></textarea>
-                     </div>
-                     <div class="form-group">
-                     <button class="add_field_button btn btn-block btn-signup">
-                     <i class="fa fa-plus" aria-hidden="true"></i>Add Ingredient
-                     </button>
-                     </div>
-                     <div class="input_fields_wrap">
-                        <div class="input-group mb-3" id="ingredient-inputs">
-
-                     </div>
-                     </div>
-                  </form>
-               </div>
-               <div class="modal-footer">
+                  <div class="form-group input-group">
+                    <div class="input-group-prepend">
+                      <span class="input-group-text">
+                        <i class="fa fa-lock"></i>
+                      </span>
+                    </div>
+                    <input
+                      name="password"
+                      class="form-control"
+                      placeholder="Password"
+                      type="password"
+                    />
+                  </div>
+                  <p class="error d-none"></p>
                   <div class="form-group">
-                     <button type="submit" class="btn btn-block btn-signup">
-                     <i class="fa fa-plus" aria-hidden="true"></i> Add Recipe
-                     </button>
+                    <button type="submit" class="btn btn-block btn-signup">
+                      <i class="fa fa-sign-in" aria-hidden="true"></i> Sign in
+                    </button>
                   </div>
-               </div>
+                  <p class="text-center">
+                    Don't have an account?
+                    <a
+                      class="themed-a"
+                      href=""
+                      data-dismiss="modal"
+                      data-toggle="modal"
+                      data-target="#signup-modal"
+                      >Create one!</a
+                    >
+                  </p>
+                </form>
+              </article>
             </div>
-         </div>
+          </div>
+        </div>
       </div>
-      <div class="container">
-         {% block content %} {% endblock %}
-         {% block content2 %} {% endblock %}
+    </div>
+    <!-- New recipe Modal -->
+    <div
+      class="modal fade"
+      id="recipe-modal"
+      tabindex="-1"
+      role="dialog"
+      aria-hidden="true"
+    >
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="exampleModalLabel">New Recipe</h5>
+            <button
+              type="button"
+              class="close"
+              data-dismiss="modal"
+              aria-label="Close"
+            >
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body">
+            <form name="recipe_form">
+              <div class="form-group">
+                <label for="recipient-name" class="col-form-label"
+                  >Recipe Name:</label
+                >
+                <input
+                  type="text"
+                  class="form-control"
+                  id="recipient-name"
+                  name="recipient-name"
+                />
+              </div>
+              <div class="form-group">
+                <label for="message-text" class="col-form-label"
+                  >Recipe Description:</label
+                >
+                <textarea
+                  name="recipe-description"
+                  class="form-control"
+                  id="recipe-description"
+                ></textarea>
+              </div>
+              <!-- Add ingredients -->
+              <div class="form-group">
+                <button class="add_field_button btn btn-block btn-signup">
+                  <i class="fa fa-plus" aria-hidden="true"></i>Add Ingredient
+                </button>
+              </div>
+              <div class="input_fields_wrap">
+                <div class="input-group mb-3" id="ingredient-inputs"></div>
+              </div>
+            <!-- Add Steps -->
+              <div class="form-group">
+                <button class="add_field_button btn btn-block btn-signup">
+                  <i class="fa fa-plus" aria-hidden="true"></i>Add Steps
+                </button>
+              </div>
+              <div class="input_fields_wrap">
+                <div class="input-group mb-3" id="Steps-inputs"></div>
+              </div>
+
+            </form>
+          </div>
+          <div class="modal-footer">
+            <div class="form-group">
+              <button type="submit" class="btn btn-block btn-signup">
+                <i class="fa fa-plus" aria-hidden="true"></i> Add Recipe
+              </button>
+            </div>
+          </div>
+        </div>
       </div>
-      <footer class="container-footer mt-10">
-         <div class="container p-4">
-            <ul class="nav justify-content-center">
-               <li class="nav-item">
-                  <a class="nav-link active" href="#">Active</a>
-               </li>
-               <li class="nav-item">
-                  <a class="nav-link" href="#">Link</a>
-               </li>
-               <li class="nav-item">
-                  <a class="nav-link" href="#">Link</a>
-               </li>
-            </ul>
-         </div>
-         <div class="container footer-sub-container p-4">
-            <div class="icon-bar">
-               <a href="#" class="facebook"><i class="fa fa-facebook"></i></a>
-               <a href="#" class="google"><i class="fa fa-google"></i></a>
-               <a href="#" class="twitter"><i class="fa fa-twitter"></i></a>
-               <a href="#" class="youtube"><i class="fa fa-youtube"></i></a>
-               <a href="#" class="linkedin"><i class="fa fa-linkedin"></i></a>
-            </div>
-         </div>
-         <div class="container p-4">
-            <div class="row">
-               <div class="col s12 center copyright-text">
-                  <p>Developer: Paul Edwards © 2020 - Educational Project</p>
-               </div>
-            </div>
-         </div>
-      </footer>
-   </body>
-   <!-- import JQuery library -->
-   <script src="https://code.jquery.com/jquery-3.5.1.js" integrity="sha256-QWo7LDvxbWT2tbbQ97B53yJnYU3WhH/C8ycbRAkjPDc="
-      crossorigin="anonymous"></script>
-   <!-- import FA JS library -->
-   <script src="https://kit.fontawesome.com/0c99553673.js" crossorigin="anonymous"></script>
-   <!-- import BS JS library -->
-   <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js" crossorigin="anonymous"></script>
-   <script src="/static/js/jquery.js"></script>
-   <script src="/static/js/scripts.js"></script>
+    </div>
+    <div class="container">
+      {% block content %} {% endblock %} {% block content2 %} {% endblock %}
+    </div>
+    <footer class="container-footer mt-10">
+      <div class="container p-4">
+        <ul class="nav justify-content-center">
+          <li class="nav-item">
+            <a class="nav-link active" href="#">Active</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="#">Link</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="#">Link</a>
+          </li>
+        </ul>
+      </div>
+      <div class="container footer-sub-container p-4">
+        <div class="icon-bar">
+          <a href="#" class="facebook"><i class="fa fa-facebook"></i></a>
+          <a href="#" class="google"><i class="fa fa-google"></i></a>
+          <a href="#" class="twitter"><i class="fa fa-twitter"></i></a>
+          <a href="#" class="youtube"><i class="fa fa-youtube"></i></a>
+          <a href="#" class="linkedin"><i class="fa fa-linkedin"></i></a>
+        </div>
+      </div>
+      <div class="container p-4">
+        <div class="row">
+          <div class="col s12 center copyright-text">
+            <p>Developer: Paul Edwards © 2020 - Educational Project</p>
+          </div>
+        </div>
+      </div>
+    </footer>
+  </body>
+  <!-- import JQuery library -->
+  <script
+    src="https://code.jquery.com/jquery-3.5.1.js"
+    integrity="sha256-QWo7LDvxbWT2tbbQ97B53yJnYU3WhH/C8ycbRAkjPDc="
+    crossorigin="anonymous"
+  ></script>
+  <!-- import FA JS library -->
+  <script
+    src="https://kit.fontawesome.com/0c99553673.js"
+    crossorigin="anonymous"
+  ></script>
+  <!-- import BS JS library -->
+  <script
+    src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"
+    crossorigin="anonymous"
+  ></script>
+  <script src="/static/js/jquery.js"></script>
+  <script src="/static/js/scripts.js"></script>
 </html>

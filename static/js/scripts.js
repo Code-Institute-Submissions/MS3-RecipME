@@ -11,18 +11,24 @@ $(document).ready(function () {
       //max input box allowed
       x++; //text box increment
       $(wrapper).append(
-        '<div class="input-group mb-3"><input name="ingredient-'+x+'"type="text" placeholder="ingredient-'+x+'"class="form-control ingredient-input"aria-describedby="basic-addon2"><div class="input-group-append"><button class="btn btn-outline-secondary remove_field" type="button">Remove</button></div></div>'
+        '<div class="input-group mb-3"><input name="ingredient-' +
+          x +
+          '"type="text" placeholder="ingredient & Amount - ' +
+          x +
+          '"class="form-control ingredient-input"aria-describedby="basic-addon2"><div class="input-group-append"><button class="btn btn-outline-secondary remove_field" type="button">Remove</button></div></div>'
       ); //add input box
       var y = 1;
       const ingredientInputs = document.querySelectorAll(".ingredient-input");
-	ingredientInputs.forEach(ingredientInput => {
-	  console.log('ingredientInput: ', ingredientInput);
-      $(ingredientInput).attr('name', 'ingredient-'+y).attr('placeholder', 'ingredient-'+y);
-      y++
-	});
+      ingredientInputs.forEach((ingredientInput) => {
+        console.log("ingredientInput: ", ingredientInput);
+        $(ingredientInput)
+          .attr("name", "ingredient-" + y)
+          .attr("placeholder", "ingredient & Amount - " + y);
+        y++;
+        x--;
+      });
     }
   });
-
 
   $(wrapper).on("click", ".remove_field", function (e) {
     //user click on remove text
@@ -30,11 +36,13 @@ $(document).ready(function () {
     $(this).parent("div").parent("div").remove();
     var y = 1;
     const ingredientInputs = document.querySelectorAll(".ingredient-input");
-	ingredientInputs.forEach(ingredientInput => {
-	  console.log('ingredientInput: ', ingredientInput);
-      $(ingredientInput).attr('name', 'ingredient-'+y).attr('placeholder', 'ingredient-'+y);
-      y++
-	});
+    ingredientInputs.forEach((ingredientInput) => {
+      console.log("ingredientInput: ", ingredientInput);
+      $(ingredientInput)
+        .attr("name", "ingredient-" + y)
+        .attr("placeholder", "ingredient & Amount - " + y);
+      y++;
+    });
   });
 
   $("form[name=signup_form").submit(function (e) {
