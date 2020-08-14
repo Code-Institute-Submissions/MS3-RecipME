@@ -110,17 +110,20 @@
 }
 
 .navbar .navbar-nav .active-user .nav-link {
-    color: black;
+    color: #fcc438;
 }
 
 /* Navbar customisations END */
 
 /* Modal & Social custom buttons */
 .themed-a {
-  color: #004ea1;
+    background-color: #fcc438;
+    color: #fff;
   text-decoration: none;
-  background-color: transparent;
   font-weight: 600;
+  border: 1px #fcc438 solid;
+  border-radius: 5px;
+    padding: 0 2px 3px 2px;
 }
 
 .themed-a:hover {
@@ -244,6 +247,12 @@
   padding: 5px;
 }
 
+
+.themed{
+    background-color: #fcc438;
+    color: #fff;
+}
+
 .ingredient{
     max-width: 70%;
 }
@@ -254,6 +263,43 @@
 
 .prepend-text{
     width: 100%;
+}
+
+.nav-tabs-custom > .nav-item > a {
+    color: #fcc438;
+}
+
+.nav-tabs-custom > .nav-item > a.active{
+    background-color:  #fcc438;
+    color: #fff;
+}
+
+.remove_field{
+    background-color:  #fcc438;
+    color: #fff;
+    border: none;
+}
+@media (max-width: 575px) {
+.nav-item > .nav-link {
+    font-size: 0.89rem;
+}
+.nav-tabs-custom{
+    padding-left: 3px;
+}
+.prepend-text, .font-sizing{
+    font-size: .75rem;
+}
+
+}
+
+.nav-item-custom{
+    margin: 0;
+    width: 33%;
+    text-align: center;
+}
+
+.nav-tabs-custom{
+    padding-left: 5px;
 }
 
 /* Modal customisations END */
@@ -349,3 +395,5 @@
 /* https://getbootstrap.com/docs/4.0/components/navs/#javascript-behavior */
 /* https://stackoverflow.com/questions/22297964/bootstrap-tabs-next-previous-buttons-for-forms/22298275 */
 /* https://stackoverflow.com/questions/4565075/jquery-if-element-has-class-do-this */
+/* https://stackoverflow.com/questions/2727303/jquery-counting-elements-by-class-what-is-the-best-way-to-implement-this */
+/* https://www.codewall.co.uk/jquery-on-click-function-not-working-after-appending-html/ */

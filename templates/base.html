@@ -109,7 +109,7 @@
       <div class="modal-dialog modal-dialog-centered" role="document">
         <div class="modal-content">
           <div class="modal-body modal-body-custom">
-            <div class="card card-signup bg-secondary modal-card">
+            <div class="card card-signup modal-card">
               <article class="card-body mx-auto" style="max-width: 400px;">
                 <button
                   type="button"
@@ -123,7 +123,7 @@
                 <form name="signup_form">
                   <div class="form-group input-group">
                     <div class="input-group-prepend">
-                      <span class="input-group-text">
+                      <span class="input-group-text themed">
                         <i class="fa fa-user"></i>
                       </span>
                     </div>
@@ -137,7 +137,7 @@
                   </div>
                   <div class="form-group input-group">
                     <div class="input-group-prepend">
-                      <span class="input-group-text">
+                      <span class="input-group-text themed">
                         <i class="fa fa-envelope"></i>
                       </span>
                     </div>
@@ -151,7 +151,7 @@
                   </div>
                   <div class="form-group input-group">
                     <div class="input-group-prepend">
-                      <span class="input-group-text">
+                      <span class="input-group-text themed">
                         <i class="fa fa-lock"></i>
                       </span>
                     </div>
@@ -209,7 +209,7 @@
       <div class="modal-dialog modal-dialog-centered" role="document">
         <div class="modal-content">
           <div class="modal-body modal-body-custom">
-            <div class="card card-signup bg-secondary modal-card">
+            <div class="card card-signup modal-card">
               <article class="card-body mx-auto" style="max-width: 400px;">
                 <button
                   type="button"
@@ -222,7 +222,7 @@
                 <form name="login_form">
                   <div class="form-group input-group">
                     <div class="input-group-prepend">
-                      <span class="input-group-text">
+                      <span class="input-group-text themed">
                         <i class="fa fa-envelope"></i>
                       </span>
                     </div>
@@ -235,7 +235,7 @@
                   </div>
                   <div class="form-group input-group">
                     <div class="input-group-prepend">
-                      <span class="input-group-text">
+                      <span class="input-group-text themed">
                         <i class="fa fa-lock"></i>
                       </span>
                     </div>
@@ -275,46 +275,44 @@
     <div class="modal" id="recipe-modal" tabindex="-1" role="dialog">
       <div class="modal-dialog" role="document">
         <div class="modal-content">
-          <div class="modal-header">
-            <ul class="nav nav-tabs" id="myTab" role="tablist">
-              <li class="nav-item">
+            <ul class="nav nav-tabs nav-tabs-custom" id="myTab" role="tablist">
+              <li class="nav-item nav-item-custom">
                 <a
-                  class="nav-link active"
+                  class="nav-link active process-button"
                   id="recipe-tab"
                   data-toggle="tab"
                   href="#recipe-name"
                   role="tab"
                   aria-controls="recipe-name"
                   aria-selected="true"
-                  >recipe-name</a
+                  >General</a
                 >
               </li>
-              <li class="nav-item">
+              <li class="nav-item nav-item-custom">
                 <a
-                  class="nav-link"
+                  class="nav-link process-button"
                   id="ingredient-tab"
                   data-toggle="tab"
                   href="#ingredient-name"
                   role="tab"
                   aria-controls="ingredient-name"
                   aria-selected="false"
-                  >ingredient-name</a
+                  >Ingredients</a
                 >
               </li>
-              <li class="nav-item">
+              <li class="nav-item nav-item-custom">
                 <a
-                  class="nav-link"
+                  class="nav-link process-button"
                   id="recipe-steps-tab"
                   data-toggle="tab"
                   href="#recipe-steps"
                   role="tab"
                   aria-controls="recipe-steps"
                   aria-selected="false"
-                  >recipe-steps</a
+                  >Method</a
                 >
               </li>
             </ul>
-          </div>
           <div class="modal-body">
             <form>
               <div class="tab-content" id="myTabContent">
@@ -331,7 +329,7 @@
                       >
                       <input
                         type="text"
-                        class="form-control"
+                        class="form-control font-sizing"
                         id="recipient-name"
                         name="recipient-name"
                         required
@@ -343,7 +341,7 @@
                       >
                       <textarea
                         name="recipe-description"
-                        class="form-control"
+                        class="form-control font-sizing"
                         id="recipe-description"
                         required
                       ></textarea>
@@ -357,7 +355,7 @@
                       <input
                         id="inputPrepTime"
                         type="number"
-                        class="form-control"
+                        class="form-control font-sizing"
                         placeholder="Enter numerical value"
                         aria-label="prepTime"
                         aria-describedby="prepTime"
@@ -373,7 +371,7 @@
                       <input
                         id="inputCookTime"
                         type="number"
-                        class="form-control"
+                        class="form-control font-sizing"
                         placeholder="Enter numerical value"
                         aria-label="cookTime"
                         aria-describedby="cookTime"
@@ -387,7 +385,7 @@
                       <input
                         id="inputServes"
                         type="number"
-                        class="form-control"
+                        class="form-control font-sizing"
                         placeholder="Enter numerical value"
                         aria-label="serves"
                         aria-describedby="serves"
@@ -400,7 +398,7 @@
                           >Difficulty</label
                         >
                       </div>
-                      <select class="custom-select" id="difficultySelector">
+                      <select class="custom-select font-sizing" id="difficultySelector">
                         <option selected value="easy">Easy</option>
                         <option value="medium">Medium</option>
                         <option value="hard">Hard</option>
@@ -416,8 +414,8 @@
                 >
                   <div class="modal-body">
                     <div class="form-group">
-                      <button class="add_field_button btn btn-block btn-themed">
-                        <i class="fa fa-plus" aria-hidden="true"></i>Add
+                      <button class="add_ingredient_button btn btn-block btn-themed">
+                        <i class="fa fa-plus" aria-hidden="true"></i> Add
                         Ingredient
                       </button>
                     </div>
@@ -437,12 +435,12 @@
                 >
                   <div class="modal-body">
                     <div class="form-group">
-                      <button class="add_field_button btn btn-block btn-themed">
-                        <i class="fa fa-plus" aria-hidden="true"></i>Add Steps
+                      <button class="add_step_button btn btn-block btn-themed">
+                        <i class="fa fa-plus" aria-hidden="true"></i> Add Steps
                       </button>
                     </div>
                     <div class="input_fields_wrap">
-                      <div class="input-group mb-3" id="Steps-inputs"></div>
+                      <div class="input-group mb-3" id="steps-inputs"></div>
                     </div>
                   </div>
                 </div>
@@ -452,11 +450,11 @@
               <button
                 id="previous"
                 style="display: none;"
-                class="btn btn-themed btn-lg previous float-left"
+                class="btn btn-themed btn-lg process-button previous float-left"
               >
                 Previous
               </button>
-              <button id="next" class="btn btn-themed btn-lg next float-right">
+              <button id="next" class="btn btn-themed btn-lg process-button next float-right">
                 Next
               </button>
             </div>
