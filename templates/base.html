@@ -173,7 +173,7 @@
                     <button
                       type="submit"
                       value="Sign Up"
-                      class="btn btn-block btn-signup"
+                      class="btn btn-block btn-themed"
                     >
                       <i class="fa fa-plus" aria-hidden="true"></i> Create
                       Account
@@ -248,7 +248,7 @@
                   </div>
                   <p class="error d-none"></p>
                   <div class="form-group">
-                    <button type="submit" class="btn btn-block btn-signup">
+                    <button type="submit" class="btn btn-block btn-themed">
                       <i class="fa fa-sign-in" aria-hidden="true"></i> Sign in
                     </button>
                   </div>
@@ -334,6 +334,7 @@
                         class="form-control"
                         id="recipient-name"
                         name="recipient-name"
+                        required
                       />
                     </div>
                     <div class="form-group">
@@ -344,7 +345,66 @@
                         name="recipe-description"
                         class="form-control"
                         id="recipe-description"
+                        required
                       ></textarea>
+                    </div>
+                    <div class="input-group mb-3">
+                      <div class="input-group-prepend prepend-uniform">
+                        <span class="input-group-text prepend-text" id="prepTime"
+                          >Prep Time (Min)</span
+                        >
+                      </div>
+                      <input
+                        id="inputPrepTime"
+                        type="number"
+                        class="form-control"
+                        placeholder="Enter numerical value"
+                        aria-label="prepTime"
+                        aria-describedby="prepTime"
+                        required
+                      />
+                    </div>
+                    <div class="input-group mb-3">
+                      <div class="input-group-prepend prepend-uniform">
+                        <span class="input-group-text prepend-text" id="cookTime"
+                          >Cook Time (min)</span
+                        >
+                      </div>
+                      <input
+                        id="inputCookTime"
+                        type="number"
+                        class="form-control"
+                        placeholder="Enter numerical value"
+                        aria-label="cookTime"
+                        aria-describedby="cookTime"
+                        required
+                      />
+                    </div>
+                    <div class="input-group mb-3">
+                      <div class="input-group-prepend prepend-uniform">
+                        <span class="input-group-text prepend-text" id="serves">Serves</span>
+                      </div>
+                      <input
+                        id="inputServes"
+                        type="number"
+                        class="form-control"
+                        placeholder="Enter numerical value"
+                        aria-label="serves"
+                        aria-describedby="serves"
+                        v
+                      />
+                    </div>
+                    <div class="input-group mb-3">
+                      <div class="input-group-prepend prepend-uniform">
+                        <label class="input-group-text prepend-text" for="difficultySelector"
+                          >Difficulty</label
+                        >
+                      </div>
+                      <select class="custom-select" id="difficultySelector">
+                        <option selected value="easy">Easy</option>
+                        <option value="medium">Medium</option>
+                        <option value="hard">Hard</option>
+                      </select>
                     </div>
                   </div>
                 </div>
@@ -356,7 +416,7 @@
                 >
                   <div class="modal-body">
                     <div class="form-group">
-                      <button class="add_field_button btn btn-block btn-signup">
+                      <button class="add_field_button btn btn-block btn-themed">
                         <i class="fa fa-plus" aria-hidden="true"></i>Add
                         Ingredient
                       </button>
@@ -377,7 +437,7 @@
                 >
                   <div class="modal-body">
                     <div class="form-group">
-                      <button class="add_field_button btn btn-block btn-signup">
+                      <button class="add_field_button btn btn-block btn-themed">
                         <i class="fa fa-plus" aria-hidden="true"></i>Add Steps
                       </button>
                     </div>
@@ -389,10 +449,16 @@
               </div>
             </form>
             <div class="modal-footer d-block">
-              <button id="previous" style="display: none;" class="btn btn-info btn-lg previous float-left">
+              <button
+                id="previous"
+                style="display: none;"
+                class="btn btn-themed btn-lg previous float-left"
+              >
                 Previous
               </button>
-              <button id="next" class="btn btn-info btn-lg next float-right">Next</button>
+              <button id="next" class="btn btn-themed btn-lg next float-right">
+                Next
+              </button>
             </div>
           </div>
         </div>

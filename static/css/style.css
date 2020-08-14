@@ -177,12 +177,12 @@
   color: #b00;
 }
 
-.btn-signup {
+.btn-themed {
   color: #fff;
   background-color: #fcc438;
   border: 1px solid #fcc438;
 }
-.btn-signup:hover {
+.btn-themed:hover {
   border: 1px solid #fcc438;
   color: #fcc438;
   background-color: #fff;
@@ -248,6 +248,13 @@
     max-width: 70%;
 }
 
+.prepend-uniform{
+    min-width: 40%;
+}
+
+.prepend-text{
+    width: 100%;
+}
 
 /* Modal customisations END */
 
@@ -341,3 +348,4 @@
 /* https://itnext.io/5-ways-to-loop-over-dom-elements-from-queryselectorall-in-javascript-55bd66ca4128 */
 /* https://getbootstrap.com/docs/4.0/components/navs/#javascript-behavior */
 /* https://stackoverflow.com/questions/22297964/bootstrap-tabs-next-previous-buttons-for-forms/22298275 */
+/* https://stackoverflow.com/questions/4565075/jquery-if-element-has-class-do-this */

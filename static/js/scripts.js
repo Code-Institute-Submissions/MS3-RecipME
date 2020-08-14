@@ -90,6 +90,8 @@ $(document).ready(function () {
 
     e.preventDefault();
   });
+
+//   Simulate the clicking of the modal tabs
   $(".next").click(function () {
     $(".nav-tabs > .nav-item > .active").parent().next("li").find("a").click();
   });
@@ -98,6 +100,8 @@ $(document).ready(function () {
     $(".nav-tabs > .nav-item > .active").parent().prev("li").find("a").click();
   });
 
+
+//   adjust visable buttons on add recipe model when Next is clicked
   $("#next").click(function () {
     if ($("#recipe-tab").hasClass("active")) {
       $("#next").show();
@@ -114,6 +118,8 @@ $(document).ready(function () {
       $("#previous").show();
     }
   });
+
+//   adjust visable buttons on add recipe model when Previous is clicked
     $("#previous").click(function () {
     if ($("#recipe-tab").hasClass("active")) {
       $("#next").show();
@@ -130,4 +136,34 @@ $(document).ready(function () {
       $("#previous").show();
     }
   });
+
+//  $("#serveSelect").click(function () {
+//     $("#serveSelect").append(`<option value="1">1</option>
+//                         <option value="2">Two</option>
+//                         <option value="3">Three</option>
+//                         <option value="4">Four</option>
+//                         <option value="5">Five</option>
+//                         <option value="6">Six</option>
+//                         <option value="7">Seven</option>
+//                         <option value="8">Eight</option>
+//                         <option value="9">Nine</option>
+//                         <option value="10">Ten</option>`)
+//   });
+
+function checkInp()
+{
+  var x=document.forms["myForm"]["age"].value;
+  if (isNaN(x)) 
+  {
+    alert("Must input numbers");
+    return false;
+  }
+}
+
+$("#inputPrepTime").on("input propertychange",function(){
+
+   // Do your thing here.
+});
+
+
 });
