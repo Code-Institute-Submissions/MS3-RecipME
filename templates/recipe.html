@@ -22,7 +22,9 @@
     <h5 class="card-title">Ingredients</h5>
     <ul>
       {% for ingredient in recipe.recipe_ingredients %}
+       {% if ingredient != Null %}
       <li class="card-text">{{ingredient}}</li>
+      {% endif %}
       {% endfor %}
     </ul>
   </div>

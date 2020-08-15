@@ -124,35 +124,112 @@ class Recipe:
 
     def add(self):
 
+        recipe_ingredients = []
+
+        for x in range(1, 21):
+            if request.form.get("ingredient-%d" % (x)):
+                recipe_ingredients.append(request.form.get("ingredient-%d" % (x)))
+        
+        # if request.form.get('ingredient-1'):
+        #     recipe_ingredients.append(request.form.get('ingredient-1'))
+        # if request.form.get('ingredient-2'):
+        #     recipe_ingredients.append(request.form.get('ingredient-2'))
+        # if request.form.get('ingredient-3'):
+        #     recipe_ingredients.append(request.form.get('ingredient-3'))
+        # if request.form.get('ingredient-4'):
+        #     recipe_ingredients.append(request.form.get('ingredient-4'))
+        # if request.form.get('ingredient-5'):
+        #     recipe_ingredients.append(request.form.get('ingredient-5'))
+        # if request.form.get('ingredient-6'):
+        #     recipe_ingredients.append(request.form.get('ingredient-6'))
+        # if request.form.get('ingredient-7'):
+        #     recipe_ingredients.append(request.form.get('ingredient-7'))
+        # if request.form.get('ingredient-8'):
+        #     recipe_ingredients.append(request.form.get('ingredient-8'))
+        # if request.form.get('ingredient-9'):
+        #     recipe_ingredients.append(request.form.get('ingredient-9'))
+        # if request.form.get('ingredient-10'):
+        #     recipe_ingredients.append(request.form.get('ingredient-10'))
+        # if request.form.get('ingredient-11'):
+        #     recipe_ingredients.append(request.form.get('ingredient-11'))
+        # if request.form.get('ingredient-12'):
+        #     recipe_ingredients.append(request.form.get('ingredient-12'))
+        # if request.form.get('ingredient-13'):
+        #     recipe_ingredients.append(request.form.get('ingredient-13'))
+        # if request.form.get('ingredient-14'):
+        #     recipe_ingredients.append(request.form.get('ingredient-14'))
+        # if request.form.get('ingredient-15'):
+        #     recipe_ingredients.append(request.form.get('ingredient-15'))
+        # if request.form.get('ingredient-16'):
+        #     recipe_ingredients.append(request.form.get('ingredient-16'))
+        # if request.form.get('ingredient-17'):
+        #     recipe_ingredients.append(request.form.get('ingredient-17'))
+        # if request.form.get('ingredient-18'):
+        #     recipe_ingredients.append(request.form.get('ingredient-18'))
+        # if request.form.get('ingredient-19'):
+        #     recipe_ingredients.append(request.form.get('ingredient-19'))
+        # if request.form.get('ingredient-20'):
+        #     recipe_ingredients.append(request.form.get('ingredient-20'))
+
+        recipe_steps = []
+
+        for x in range(1, 21):
+            if request.form.get("step-%d" % (x)):
+                recipe_steps.append(request.form.get("step-%d" % (x)))
+        
+        # if request.form.get('step-1'):
+        #     recipe_steps.append(request.form.get('step-1'))
+        # if request.form.get('step-2'):
+        #     recipe_steps.append(request.form.get('step-2'))
+        # if request.form.get('step-3'):
+        #     recipe_steps.append(request.form.get('step-3'))
+        # if request.form.get('step-4'):
+        #     recipe_steps.append(request.form.get('step-4'))
+        # if request.form.get('step-5'):
+        #     recipe_steps.append(request.form.get('step-5'))
+        # if request.form.get('step-6'):
+        #     recipe_steps.append(request.form.get('step-6'))
+        # if request.form.get('step-7'):
+        #     recipe_steps.append(request.form.get('step-7'))
+        # if request.form.get('step-8'):
+        #     recipe_steps.append(request.form.get('step-8'))
+        # if request.form.get('step-9'):
+        #     recipe_steps.append(request.form.get('step-9'))
+        # if request.form.get('step-10'):
+        #     recipe_steps.append(request.form.get('step-10'))
+        # if request.form.get('step-11'):
+        #     recipe_steps.append(request.form.get('step-11'))
+        # if request.form.get('step-12'):
+        #     recipe_steps.append(request.form.get('step-12'))
+        # if request.form.get('step-13'):
+        #     recipe_steps.append(request.form.get('step-13'))
+        # if request.form.get('step-14'):
+        #     recipe_steps.append(request.form.get('step-14'))
+        # if request.form.get('step-15'):
+        #     recipe_steps.append(request.form.get('step-15'))
+        # if request.form.get('step-16'):
+        #     recipe_steps.append(request.form.get('step-16'))
+        # if request.form.get('step-17'):
+        #     recipe_steps.append(request.form.get('step-17'))
+        # if request.form.get('step-18'):
+        #     recipe_steps.append(request.form.get('step-18'))
+        # if request.form.get('step-19'):
+        #     recipe_steps.append(request.form.get('step-19'))
+        # if request.form.get('step-20'):
+        #     recipe_steps.append(request.form.get('step-20'))
+            
+
 
         recipe_insert = {
             "_id": uuid.uuid4().hex,
             "recipe_name": request.form.get('recipient-name'),
             "recipe_description": request.form.get('recipe-description'),
-            "recipe_ingredients": [request.form.get('ingredient-1'),
-                                   request.form.get('ingredient-2'),
-                                   request.form.get('ingredient-3'),
-                                   request.form.get('ingredient-4'),
-                                   request.form.get('ingredient-5'),
-                                   request.form.get('ingredient-6'),
-                                   request.form.get('ingredient-7'),
-                                   request.form.get('ingredient-8'),
-                                   request.form.get('ingredient-9'),
-                                   request.form.get('ingredient-10'),
-                                   request.form.get('ingredient-11'),
-                                   request.form.get('ingredient-12'),
-                                   request.form.get('ingredient-13'),
-                                   request.form.get('ingredient-14'),
-                                   request.form.get('ingredient-15'),
-                                   request.form.get('ingredient-16'),
-                                   request.form.get('ingredient-17'),
-                                   request.form.get('ingredient-18'),
-                                   request.form.get('ingredient-19'),
-                                   request.form.get('ingredient-20')],
+            "recipe_ingredients": recipe_ingredients,
             "prep_time": request.form.get('prep-time'),
             "cook_time": request.form.get('cook-time'),
             "serves": request.form.get('serves'),
-            "recipe_steps": ["get bowl", "add cornflakes", "add milk", "add sugar"], "notes": "X",
+            "recipe_steps": recipe_steps,
+            "notes": "X",
             "img_url": "X",
             "difficulty": request.form.get('difficulty'),
             "owner": session['username']
