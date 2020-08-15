@@ -24,6 +24,8 @@ app = Flask(__name__)
 app.secret_key = secret_key
 
 # Decorators
+
+
 def login_required(f):
     @wraps(f)
     def wrap(*args, **kwargs):
@@ -32,6 +34,7 @@ def login_required(f):
         else:
             return redirect('/')
     return wrap
+
 
 @app.route('/')
 @app.route('/home')
@@ -53,6 +56,11 @@ def signup():
     return User().signup()
 
 
+@app.route('/recipe/add', methods=['POST'])
+def add_recipe():
+    return Recipe().add()
+
+
 @app.route('/user/signout')
 def signout():
     return User().signout()
@@ -67,22 +75,25 @@ def login():
 @login_required
 def dashboard():
     existing_user = mongo.db.users.find_one({'_id': session['username']})
-    saved_recipes = mongo.db.recipes.find({'_id': {'$in': existing_user['recipes']}})
-    return render_template('dashboard.html', saved_recipes=saved_recipes)
+    saved_recipes = mongo.db.recipes.find(
+        {'_id': {'$in': existing_user['recipes']}})
+    return render_template('dashboard.html', active_user=existing_user, saved_recipes=saved_recipes)
 
 
-#login session testing
+# login session testing
 @app.route('/test')
 def index():
     if 'username' in session:
         existing_user = mongo.db.users.find_one({'_id': session['username']})
         existing_recipes = jsonify(existing_user["recipes"])
-        saved_recipes = mongo.db.recipes.find({'_id': {'$in': existing_user['recipes']}})
+        saved_recipes = mongo.db.recipes.find(
+            {'_id': {'$in': existing_user['recipes']}})
         # return 'You are logged in as ' + session['username']
         # return jsonify(session['user'])
         return existing_recipes
 
     return 'You are not logged in'
+
 
 @app.route('/save_recipe/<recipe_id>')
 def save_recipe(recipe_id):
@@ -100,7 +111,7 @@ def save_recipe(recipe_id):
             # recipes.append(ObjectId(recipe_id))
 
         mongo.db.users.update_one({'_id': user['_id']},
-                            {"$set": {'recipes': recipes, }}, upsert=True)
+                                  {"$set": {'recipes': recipes, }}, upsert=True)
 
         updated_user = mongo.db.users.find_one({'_id': username})
         updated_recipes = updated_user['recipes']
@@ -108,50 +119,58 @@ def save_recipe(recipe_id):
     return redirect(url_for('show_recipe', recipe_id=recipe_id, recipes=updated_recipes))
 
 
-@app.route('/add_recipe/<user_id>')
-def add_recipe(user_id):
-    if session.get('USERNAME', None):
-        username = session['USERNAME']
-        # user exists in the database
-        try:
-            current_user = mongo.db.users.find_one({'username': username})
-            requested_user = mongo.db.users.find_one({'_id': user_id})
-            # if the current logged in user is the user requested
-            if requested_user['_id'] == current_user['_id']:
-                # Default recipe image
-                # image_url = 'https://res.cloudinary.com/dajuujhvs/image/upload/v1591896759/gi5h7ejymbig1yybptcy.png'
-                # image_url_id = 'gi5h7ejymbig1yybptcy'
-                # create empty temp record
-                temp_record = DB_RECIPES.insert_one(
-                    {
-                        'name': 'My Awesome Recipe',
-                        'image_url': image_url,
-                        'image_url_id': image_url_id,
-                        'featured': 'false',
-                        'current_rating': '0',
-                        'total_ratings': 0,
-                        'sum_ratings': 0,
-                        'author_id': user_id,
-                        'preptime_hrs': '0',
-                        'preptime_min': '0',
-                        'cooktime_hrs': '0',
-                        'cooktime_min': '0'
-                    })
-                return redirect(url_for('edit_recipe', user_id=user_id, recipe_id=temp_record.inserted_id))
-            else:
-                # raises a 403 error
-                return abort(403, description="Forbidden")
-        except:
-            # raises a 404
-            return abort(404, description="Resource not found")
-    else:
-        # User not signed in
-        return redirect(url_for('sign_in'))
+# ////////////////////////////////////////////////////////////////////////////
+class Recipe:
+
+    def add(self):
+
+
+        recipe_insert = {
+            "_id": uuid.uuid4().hex,
+            "recipe_name": request.form.get('recipient-name'),
+            "recipe_description": request.form.get('recipe-description'),
+            "recipe_ingredients": [request.form.get('ingredient-1'),
+                                   request.form.get('ingredient-2'),
+                                   request.form.get('ingredient-3'),
+                                   request.form.get('ingredient-4'),
+                                   request.form.get('ingredient-5'),
+                                   request.form.get('ingredient-6'),
+                                   request.form.get('ingredient-7'),
+                                   request.form.get('ingredient-8'),
+                                   request.form.get('ingredient-9'),
+                                   request.form.get('ingredient-10'),
+                                   request.form.get('ingredient-11'),
+                                   request.form.get('ingredient-12'),
+                                   request.form.get('ingredient-13'),
+                                   request.form.get('ingredient-14'),
+                                   request.form.get('ingredient-15'),
+                                   request.form.get('ingredient-16'),
+                                   request.form.get('ingredient-17'),
+                                   request.form.get('ingredient-18'),
+                                   request.form.get('ingredient-19'),
+                                   request.form.get('ingredient-20')],
+            "prep_time": request.form.get('prep-time'),
+            "cook_time": request.form.get('cook-time'),
+            "serves": request.form.get('serves'),
+            "recipe_steps": ["get bowl", "add cornflakes", "add milk", "add sugar"], "notes": "X",
+            "img_url": "X",
+            "difficulty": request.form.get('difficulty'),
+            "owner": session['username']
+        }
+
+        # recipe_insert = list(filter(None, data))
+
+        if mongo.db.recipes.insert_one(recipe_insert):
+            return jsonify(recipe_insert), 200
+
+        return jsonify({"error": "Signup failed"}), 400
+
+# ////////////////////////////////////////////////////////////////////////////
 
 
 class User:
 
-    def start_session(self, user): 
+    def start_session(self, user):
         del user['password']
         session['logged_in'] = True
         session['user'] = user
@@ -179,9 +198,6 @@ class User:
 
         if mongo.db.users.find_one({"email": user['email']}):
             return jsonify({"error": "Email address already in use"}), 400
-
-        # recipe_insert = {"_id":uuid.uuid4().hex,"recipe_name":"cereal 8","recipe_description":"simple morning meal","recipe_ingredients":["cornflakes","milk","sugar"],"prep_time":"5 min","cook_time":"0 min","serves":"1","recipe_steps":["get bowl","add cornflakes","add milk","add sugar"],"notes":"not too much sugar","img_url":"https://res.cloudinary.com/dm2vu1yzr/image/upload/v1596794708/Cornflakes_in_bowl_vmnm7z.jpg","difficulty":"easy"}
-        # mongo.db.recipes.insert_one(recipe_insert)
 
         # add user to DB
         if mongo.db.users.insert_one(user):

@@ -137,6 +137,35 @@ $(document).ready(function () {
     e.preventDefault();
   });
 
+  $("form[name=recipe_form").submit(function (e) {
+    var $form = $(this);
+    var $error = $form.find(".error");
+    var data = $form.serialize();
+
+    $.ajax({
+      url: "/recipe/add",
+      type: "POST",
+      data: data,
+      dataType: "json",
+      success: function (resp) {
+        // window.location.href = "/dashboard/";
+        $('#recipe-modal').modal('hide');
+        setTimeout(function () {
+        $("#success-alert").show();
+        }, 1000);
+        setTimeout(function () {
+          $("#success-alert").hide();
+        }, 5000);
+      },
+      error: function (resp) {
+        console.log(resp);
+        // $error.text(resp.responseJSON.error).removeClass("d-none");
+      },
+    });
+
+    e.preventDefault();
+  });
+
   //   Simulate the clicking of the modal tabs
   $(".next").click(function () {
     $(".nav-tabs > .nav-item > .active").parent().next("li").find("a").click();
@@ -147,16 +176,16 @@ $(document).ready(function () {
   });
 
   $("body").delegate("#recipe-tab", "click", function () {
-      $("#next").show();
-      $("#previous").hide();
+    $("#next").show();
+    $("#previous").hide();
   });
   $("body").delegate("#ingredient-tab", "click", function () {
     $("#previous").show();
     $("#next").show();
   });
   $("body").delegate("#recipe-steps-tab", "click", function () {
-      $("#next").hide();
-      $("#previous").show();
+    $("#next").hide();
+    $("#previous").show();
   });
 
   //   adjust visable buttons on add recipe model when Next is clicked

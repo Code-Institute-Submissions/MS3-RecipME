@@ -7,8 +7,8 @@
     <p class="center">You are currently logged in.</p>
 
     <div class="center">
-      <a href="/user/signout"
-        ><button type="button" class="btn btn-primary">Sign Out</button></a
+      <a href="{{ url_for('add_recipe', user_id=active_user._id) }}"
+        ><button type="button" class="btn btn-primary">add Recipe</button></a
       >
     </div>
   </div>

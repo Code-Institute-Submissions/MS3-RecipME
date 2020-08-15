@@ -96,6 +96,7 @@
         </div>
       </div>
     </nav>
+    <div class="alert alert-success" id="success-alert" style="display:none"> Recipe Successfully Added!</div>
     {% block nav %} {% endblock %}
 
     <!-- SIGN UP MODAL -->
@@ -314,7 +315,7 @@
               </li>
             </ul>
           <div class="modal-body">
-            <form>
+            <form name="recipe_form">
               <div class="tab-content" id="myTabContent">
                 <div
                   class="tab-pane fade show active"
@@ -348,11 +349,12 @@
                     </div>
                     <div class="input-group mb-3">
                       <div class="input-group-prepend prepend-uniform">
-                        <span class="input-group-text prepend-text" id="prepTime"
+                        <span class="input-group-text themed prepend-text" id="prepTime"
                           >Prep Time (Min)</span
                         >
                       </div>
                       <input
+                      name="prep-time"
                         id="inputPrepTime"
                         type="number"
                         class="form-control font-sizing"
@@ -364,11 +366,12 @@
                     </div>
                     <div class="input-group mb-3">
                       <div class="input-group-prepend prepend-uniform">
-                        <span class="input-group-text prepend-text" id="cookTime"
+                        <span class="input-group-text themed prepend-text" id="cookTime"
                           >Cook Time (min)</span
                         >
                       </div>
                       <input
+                      name="cook-time"
                         id="inputCookTime"
                         type="number"
                         class="form-control font-sizing"
@@ -380,9 +383,10 @@
                     </div>
                     <div class="input-group mb-3">
                       <div class="input-group-prepend prepend-uniform">
-                        <span class="input-group-text prepend-text" id="serves">Serves</span>
+                        <span class="input-group-text themed prepend-text" id="serves">Serves</span>
                       </div>
                       <input
+                      name="serves"
                         id="inputServes"
                         type="number"
                         class="form-control font-sizing"
@@ -394,11 +398,11 @@
                     </div>
                     <div class="input-group mb-3">
                       <div class="input-group-prepend prepend-uniform">
-                        <label class="input-group-text prepend-text" for="difficultySelector"
+                        <label class="input-group-text themed prepend-text" for="difficultySelector"
                           >Difficulty</label
                         >
                       </div>
-                      <select class="custom-select font-sizing" id="difficultySelector">
+                      <select name="difficulty" class="custom-select font-sizing" id="difficultySelector">
                         <option selected value="easy">Easy</option>
                         <option value="medium">Medium</option>
                         <option value="hard">Hard</option>
@@ -445,6 +449,9 @@
                   </div>
                 </div>
               </div>
+              <button type="submit" class="btn btn-block btn-themed">
+                      <i class="fa fa-plus" aria-hidden="true"></i> Add Recipe
+                    </button>
             </form>
             <div class="modal-footer d-block">
               <button
