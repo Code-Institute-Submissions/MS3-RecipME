@@ -18,7 +18,7 @@
     height: 15vw;
     object-fit: contain;
     overflow: hidden;
-    background-color: 
+    /* background-color:  */
 }
 
 .card-img-custom{
@@ -448,3 +448,5 @@
 /* https://stackoverflow.com/questions/10434599/get-the-data-received-in-a-flask-request */
 /* https://flask.palletsprojects.com/en/1.1.x/patterns/fileuploads/ */
 /* https://stackoverflow.com/questions/37287153/how-to-get-images-in-bootstraps-card-to-be-the-same-height-width */
+/* https://stackoverflow.com/questions/43816331/bootstrap-4-card-image-zoom */
+/* https://tympanus.net/codrops/css_reference/object-fit/#:~:text=object%2Dfit%20options%20include%20%22contain,repositioned%20like%20background%2Dimage%20does. */

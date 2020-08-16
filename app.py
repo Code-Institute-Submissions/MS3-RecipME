@@ -55,7 +55,15 @@ def show_home():
 @app.route('/recipe/<recipe_id>')
 def show_recipe(recipe_id):
     recipe = mongo.db.recipes.find_one({'_id': recipe_id})
-    return render_template('recipe.html', recipe=recipe, recipe_id=recipe_id)
+    owner = mongo.db.users.find_one({'_id': recipe['owner']})
+    if session.get('username', None):
+        # recipe = mongo.db.recipes.find_one({'_id': recipe_id})
+        # owner = mongo.db.users.find_one({'_id': recipe['owner']})
+        existing_user = mongo.db.users.find_one({'_id': session['username']})
+        return render_template('recipe.html', recipe=recipe, recipe_id=recipe_id, owner=owner, active_user=existing_user)
+
+    return render_template('recipe.html', recipe=recipe, recipe_id=recipe_id,owner=owner)
+
 
 
 # Sign up
@@ -121,6 +129,28 @@ def save_recipe(recipe_id):
         # if the recipe is not already in the list
         if recipe_id not in recipes:
             recipes.append(recipe_id)
+            # recipes.append(ObjectId(recipe_id))
+
+        mongo.db.users.update_one({'_id': user['_id']},
+                                  {"$set": {'recipes': recipes, }}, upsert=True)
+
+        updated_user = mongo.db.users.find_one({'_id': username})
+        updated_recipes = updated_user['recipes']
+
+    return redirect(url_for('show_recipe', recipe_id=recipe_id, recipes=updated_recipes))
+
+@app.route('/remove_recipe/<recipe_id>')
+def remove_recipe(recipe_id):
+    updated_recipes = []
+    if session.get('username', None):
+        username = session['username']
+        user = mongo.db.users.find_one({'_id': username})
+        recipe = mongo.db.recipes.find_one({'_id': recipe_id})
+        #  Update users recipes
+        recipes = user['recipes']
+        # if the recipe is not already in the list
+        if recipe_id in recipes:
+            recipes.remove(recipe_id)
             # recipes.append(ObjectId(recipe_id))
 
         mongo.db.users.update_one({'_id': user['_id']},

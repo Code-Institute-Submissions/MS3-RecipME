@@ -1,20 +1,37 @@
-{% extends 'base.html'%} 
-
-{% block content %}
+{% extends 'base.html'%} {% block content %}
+{% if session['username'] %} 
+{% if recipe._id in active_user.recipes %}
 <div class="center">
-      <a href="{{ url_for('save_recipe', recipe_id=recipe._id) }}"
-        ><button type="button" class="btn btn-primary">save recipe</button></a
-      >
-    </div>
-<form enctype="multipart/form-data" method="POST" action="{{url_for('add_image', recipe_id=recipe._id)}}">
-	<div class="center">
-		<input name="file" id="file" type="file"/>
-        <button class="btn btn-primary" type="submit">add image</button>
-	</div>
+  <a href="{{ url_for('remove_recipe', recipe_id=recipe._id) }}"
+    ><button type="button" class="btn btn-primary">Remove recipe</button></a
+  >
+</div>
+{% else %}
+<div class="center">
+  <a href="{{ url_for('save_recipe', recipe_id=recipe._id) }}"
+    ><button type="button" class="btn btn-primary">save recipe</button></a
+  >
+</div>
+{% endif %}
+{% if owner._id == active_user._id %}
+<form
+  enctype="multipart/form-data"
+  method="POST"
+  action="{{url_for('add_image', recipe_id=recipe._id)}}"
+>
+  <div class="center">
+    <input name="file" id="file" type="file" />
+    <button class="btn btn-primary" type="submit">add image</button>
+  </div>
 </form>
+{% endif %}
+{% endif %}
 <div class="card mb-4">
   <div class="card-header">
-    <div class="card-title">{{recipe.recipe_name}}    <p>Difficulty: {{recipe.difficulty}}</p></div>
+    <div class="card-title">
+      {{recipe.recipe_name}}-{{owner.name}}
+      <p>Difficulty: {{recipe.difficulty}}</p>
+    </div>
   </div>
   <img
     src="{{recipe.img_url}}"
@@ -26,11 +43,10 @@
   <div class="card-body">
     <h5 class="card-title">Ingredients</h5>
     <ul>
-      {% for ingredient in recipe.recipe_ingredients %}
-       {% if ingredient != Null %}
+      {% for ingredient in recipe.recipe_ingredients %} {% if ingredient != Null
+      %}
       <li class="card-text">{{ingredient}}</li>
-      {% endif %}
-      {% endfor %}
+      {% endif %} {% endfor %}
     </ul>
   </div>
 </div>
