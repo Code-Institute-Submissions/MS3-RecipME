@@ -6,14 +6,19 @@
         ><button type="button" class="btn btn-primary">save recipe</button></a
       >
     </div>
-
+<form enctype="multipart/form-data" method="POST" action="{{url_for('add_image', recipe_id=recipe._id)}}">
+	<div class="center">
+		<input name="file" id="file" type="file"/>
+        <button class="btn btn-primary" type="submit">add image</button>
+	</div>
+</form>
 <div class="card mb-4">
   <div class="card-header">
     <div class="card-title">{{recipe.recipe_name}}    <p>Difficulty: {{recipe.difficulty}}</p></div>
   </div>
   <img
     src="{{recipe.img_url}}"
-    class="card-img-top"
+    class="card-img-top card-img-custom"
     alt="{{recipe.recipe_name}}"
   />
 </div>

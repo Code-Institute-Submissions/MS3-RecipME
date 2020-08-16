@@ -4,19 +4,28 @@ from flask import Flask, render_template, redirect, request, url_for, jsonify, s
 from flask_pymongo import PyMongo
 from passlib.hash import pbkdf2_sha256
 from functools import wraps
+from cloudinary.uploader import upload, destroy
+import cloudinary as Cloud
 import uuid
 
 # Local deploy only
 from os import path
 if path.exists("env.py"):
     import env
-    from env import secret_key
+    from env import secret_key, db_name
 
 
 app = Flask(__name__)
-app.config["MONGO_DBNAME"] = 'cookbook'
+app.config["MONGO_DBNAME"] = db_name
 app.config["MONGO_URI"] = os.getenv('MONGO_URI')
-# app.config["MONGO_URI"] = os.getenv('MONGO_URI', 'mongodb://localhost') #Heroku Deplyment
+Cloud.config.update = ({
+    'cloud_name':os.environ.get('CLOUDINARY_CLOUD_NAME'),
+    'api_key': os.environ.get('CLOUDINARY_API_KEY'),
+    'api_secret': os.environ.get('CLOUDINARY_API_SECRET')
+})
+
+
+# app.config["MONGO_URI"] = os.getenv('MONGO_URI', 'mongodb://localhost') #Heroku Deployment
 
 
 mongo = PyMongo(app)
@@ -45,9 +54,8 @@ def show_home():
 
 @app.route('/recipe/<recipe_id>')
 def show_recipe(recipe_id):
-    # recipe = mongo.db.recipes.find_one({'_id': ObjectId(recipe_id)})
     recipe = mongo.db.recipes.find_one({'_id': recipe_id})
-    return render_template('recipe.html', recipe=recipe)
+    return render_template('recipe.html', recipe=recipe, recipe_id=recipe_id)
 
 
 # Sign up
@@ -80,20 +88,26 @@ def dashboard():
     return render_template('dashboard.html', active_user=existing_user, saved_recipes=saved_recipes)
 
 
-# login session testing
-@app.route('/test')
-def index():
-    if 'username' in session:
-        existing_user = mongo.db.users.find_one({'_id': session['username']})
-        existing_recipes = jsonify(existing_user["recipes"])
-        saved_recipes = mongo.db.recipes.find(
-            {'_id': {'$in': existing_user['recipes']}})
-        # return 'You are logged in as ' + session['username']
-        # return jsonify(session['user'])
-        return existing_recipes
+# testing //////////////////////////////////////////////////////////////
+@app.route('/add_image/<recipe_id>',methods=['GET', 'POST'])
+def add_image(recipe_id):
+    ufile = request.files.get('file')
+    print(ufile)
+    if ufile:
+        print("File Found")
+        uploaded = upload(ufile)
+        image_url = uploaded['secure_url']
+        print(image_url)
+        mongo.db.recipes.update_one({'_id': recipe_id}, {"$set": {
+            'img_url': image_url,
+        }}, upsert=True)
+    else:
+        print('no file found')
+    return redirect(url_for('show_recipe', recipe_id=recipe_id))
 
-    return 'You are not logged in'
 
+
+# ///////////////////////////////////////////////////////////////////
 
 @app.route('/save_recipe/<recipe_id>')
 def save_recipe(recipe_id):
@@ -101,7 +115,6 @@ def save_recipe(recipe_id):
     if session.get('username', None):
         username = session['username']
         user = mongo.db.users.find_one({'_id': username})
-        # recipe = mongo.db.recipes.find_one({'_id': ObjectId(recipe_id)})
         recipe = mongo.db.recipes.find_one({'_id': recipe_id})
         #  Update users recipes
         recipes = user['recipes']
@@ -122,103 +135,20 @@ def save_recipe(recipe_id):
 # ////////////////////////////////////////////////////////////////////////////
 class Recipe:
 
+
     def add(self):
 
         recipe_ingredients = []
 
-        for x in range(1, 21):
+        for x in range(1, 41):
             if request.form.get("ingredient-%d" % (x)):
                 recipe_ingredients.append(request.form.get("ingredient-%d" % (x)))
-        
-        # if request.form.get('ingredient-1'):
-        #     recipe_ingredients.append(request.form.get('ingredient-1'))
-        # if request.form.get('ingredient-2'):
-        #     recipe_ingredients.append(request.form.get('ingredient-2'))
-        # if request.form.get('ingredient-3'):
-        #     recipe_ingredients.append(request.form.get('ingredient-3'))
-        # if request.form.get('ingredient-4'):
-        #     recipe_ingredients.append(request.form.get('ingredient-4'))
-        # if request.form.get('ingredient-5'):
-        #     recipe_ingredients.append(request.form.get('ingredient-5'))
-        # if request.form.get('ingredient-6'):
-        #     recipe_ingredients.append(request.form.get('ingredient-6'))
-        # if request.form.get('ingredient-7'):
-        #     recipe_ingredients.append(request.form.get('ingredient-7'))
-        # if request.form.get('ingredient-8'):
-        #     recipe_ingredients.append(request.form.get('ingredient-8'))
-        # if request.form.get('ingredient-9'):
-        #     recipe_ingredients.append(request.form.get('ingredient-9'))
-        # if request.form.get('ingredient-10'):
-        #     recipe_ingredients.append(request.form.get('ingredient-10'))
-        # if request.form.get('ingredient-11'):
-        #     recipe_ingredients.append(request.form.get('ingredient-11'))
-        # if request.form.get('ingredient-12'):
-        #     recipe_ingredients.append(request.form.get('ingredient-12'))
-        # if request.form.get('ingredient-13'):
-        #     recipe_ingredients.append(request.form.get('ingredient-13'))
-        # if request.form.get('ingredient-14'):
-        #     recipe_ingredients.append(request.form.get('ingredient-14'))
-        # if request.form.get('ingredient-15'):
-        #     recipe_ingredients.append(request.form.get('ingredient-15'))
-        # if request.form.get('ingredient-16'):
-        #     recipe_ingredients.append(request.form.get('ingredient-16'))
-        # if request.form.get('ingredient-17'):
-        #     recipe_ingredients.append(request.form.get('ingredient-17'))
-        # if request.form.get('ingredient-18'):
-        #     recipe_ingredients.append(request.form.get('ingredient-18'))
-        # if request.form.get('ingredient-19'):
-        #     recipe_ingredients.append(request.form.get('ingredient-19'))
-        # if request.form.get('ingredient-20'):
-        #     recipe_ingredients.append(request.form.get('ingredient-20'))
 
         recipe_steps = []
 
-        for x in range(1, 21):
+        for x in range(1, 41):
             if request.form.get("step-%d" % (x)):
                 recipe_steps.append(request.form.get("step-%d" % (x)))
-        
-        # if request.form.get('step-1'):
-        #     recipe_steps.append(request.form.get('step-1'))
-        # if request.form.get('step-2'):
-        #     recipe_steps.append(request.form.get('step-2'))
-        # if request.form.get('step-3'):
-        #     recipe_steps.append(request.form.get('step-3'))
-        # if request.form.get('step-4'):
-        #     recipe_steps.append(request.form.get('step-4'))
-        # if request.form.get('step-5'):
-        #     recipe_steps.append(request.form.get('step-5'))
-        # if request.form.get('step-6'):
-        #     recipe_steps.append(request.form.get('step-6'))
-        # if request.form.get('step-7'):
-        #     recipe_steps.append(request.form.get('step-7'))
-        # if request.form.get('step-8'):
-        #     recipe_steps.append(request.form.get('step-8'))
-        # if request.form.get('step-9'):
-        #     recipe_steps.append(request.form.get('step-9'))
-        # if request.form.get('step-10'):
-        #     recipe_steps.append(request.form.get('step-10'))
-        # if request.form.get('step-11'):
-        #     recipe_steps.append(request.form.get('step-11'))
-        # if request.form.get('step-12'):
-        #     recipe_steps.append(request.form.get('step-12'))
-        # if request.form.get('step-13'):
-        #     recipe_steps.append(request.form.get('step-13'))
-        # if request.form.get('step-14'):
-        #     recipe_steps.append(request.form.get('step-14'))
-        # if request.form.get('step-15'):
-        #     recipe_steps.append(request.form.get('step-15'))
-        # if request.form.get('step-16'):
-        #     recipe_steps.append(request.form.get('step-16'))
-        # if request.form.get('step-17'):
-        #     recipe_steps.append(request.form.get('step-17'))
-        # if request.form.get('step-18'):
-        #     recipe_steps.append(request.form.get('step-18'))
-        # if request.form.get('step-19'):
-        #     recipe_steps.append(request.form.get('step-19'))
-        # if request.form.get('step-20'):
-        #     recipe_steps.append(request.form.get('step-20'))
-            
-
 
         recipe_insert = {
             "_id": uuid.uuid4().hex,
@@ -229,8 +159,8 @@ class Recipe:
             "cook_time": request.form.get('cook-time'),
             "serves": request.form.get('serves'),
             "recipe_steps": recipe_steps,
-            "notes": "X",
-            "img_url": "X",
+            "notes": request.form.get('recipe-notes'),
+            "img_url": 'https://res.cloudinary.com/dm2vu1yzr/image/upload/v1597575587/ynfzhoovai1r2jkjjq4l.png',
             "difficulty": request.form.get('difficulty'),
             "owner": session['username']
         }
@@ -240,7 +170,7 @@ class Recipe:
         if mongo.db.recipes.insert_one(recipe_insert):
             return jsonify(recipe_insert), 200
 
-        return jsonify({"error": "Signup failed"}), 400
+        return jsonify({"error": "Add Failed"}), 400
 
 # ////////////////////////////////////////////////////////////////////////////
 
@@ -258,7 +188,7 @@ class User:
 
         # debugging
 
-        print(request.form)
+        # print(request.form)
 
         # Create user object
 

@@ -1,5 +1,5 @@
 $(document).ready(function () {
-  var max_fields = 20; //maximum input boxes allowed
+  var max_fields = 40; //maximum input boxes allowed
   var wrapper = $("#ingredient-inputs"); //Fields wrapper
   var add_button = $(".add_ingredient_button"); //Add button ID
 
@@ -178,14 +178,17 @@ $(document).ready(function () {
   $("body").delegate("#recipe-tab", "click", function () {
     $("#next").show();
     $("#previous").hide();
+    $("#recipe-submit").hide();
   });
   $("body").delegate("#ingredient-tab", "click", function () {
     $("#previous").show();
     $("#next").show();
+    $("#recipe-submit").hide();
   });
   $("body").delegate("#recipe-steps-tab", "click", function () {
     $("#next").hide();
     $("#previous").show();
+    $("#recipe-submit").show();
   });
 
   //   adjust visable buttons on add recipe model when Next is clicked
@@ -193,49 +196,22 @@ $(document).ready(function () {
     if ($("#recipe-tab").hasClass("active")) {
       $("#next").show();
       $("#previous").hide();
+      $("#recipe-submit").hide();
     }
 
     if ($("#ingredient-tab").hasClass("active")) {
       $("#previous").show();
       $("#next").show();
+      $("#recipe-submit").hide();
     }
 
     if ($("#recipe-steps-tab").hasClass("active")) {
       $("#next").hide();
       $("#previous").show();
+      $("#recipe-submit").show();
     }
   });
 
-  //   adjust visable buttons on add recipe model when Previous is clicked
-  //     $("#previous").click(function () {
-  //     if ($("#recipe-tab").hasClass("active")) {
-  //       $("#next").show();
-  //       $("#previous").hide();
-  //     }
-
-  //     if ($("#ingredient-tab").hasClass("active")) {
-  //       $("#previous").show();
-  //       $("#next").show();
-  //     }
-
-  //     if ($("#recipe-steps-tab").hasClass("active")) {
-  //       $("#next").hide();
-  //       $("#previous").show();
-  //     }
-  //   });
-
-  //  $("#serveSelect").click(function () {
-  //     $("#serveSelect").append(`<option value="1">1</option>
-  //                         <option value="2">Two</option>
-  //                         <option value="3">Three</option>
-  //                         <option value="4">Four</option>
-  //                         <option value="5">Five</option>
-  //                         <option value="6">Six</option>
-  //                         <option value="7">Seven</option>
-  //                         <option value="8">Eight</option>
-  //                         <option value="9">Nine</option>
-  //                         <option value="10">Ten</option>`)
-  //   });
 
   function checkInp() {
     var x = document.forms["myForm"]["age"].value;

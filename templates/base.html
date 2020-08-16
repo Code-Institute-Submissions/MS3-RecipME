@@ -96,7 +96,9 @@
         </div>
       </div>
     </nav>
-    <div class="alert alert-success" id="success-alert" style="display:none"> Recipe Successfully Added!</div>
+    <div class="alert alert-success" id="success-alert" style="display: none;">
+      Recipe Successfully Added!
+    </div>
     {% block nav %} {% endblock %}
 
     <!-- SIGN UP MODAL -->
@@ -276,46 +278,46 @@
     <div class="modal" id="recipe-modal" tabindex="-1" role="dialog">
       <div class="modal-dialog" role="document">
         <div class="modal-content">
-            <ul class="nav nav-tabs nav-tabs-custom" id="myTab" role="tablist">
-              <li class="nav-item nav-item-custom">
-                <a
-                  class="nav-link active process-button"
-                  id="recipe-tab"
-                  data-toggle="tab"
-                  href="#recipe-name"
-                  role="tab"
-                  aria-controls="recipe-name"
-                  aria-selected="true"
-                  >General</a
-                >
-              </li>
-              <li class="nav-item nav-item-custom">
-                <a
-                  class="nav-link process-button"
-                  id="ingredient-tab"
-                  data-toggle="tab"
-                  href="#ingredient-name"
-                  role="tab"
-                  aria-controls="ingredient-name"
-                  aria-selected="false"
-                  >Ingredients</a
-                >
-              </li>
-              <li class="nav-item nav-item-custom">
-                <a
-                  class="nav-link process-button"
-                  id="recipe-steps-tab"
-                  data-toggle="tab"
-                  href="#recipe-steps"
-                  role="tab"
-                  aria-controls="recipe-steps"
-                  aria-selected="false"
-                  >Method</a
-                >
-              </li>
-            </ul>
+          <ul class="nav nav-tabs nav-tabs-custom" id="myTab" role="tablist">
+            <li class="nav-item nav-item-custom">
+              <a
+                class="nav-link active process-button"
+                id="recipe-tab"
+                data-toggle="tab"
+                href="#recipe-name"
+                role="tab"
+                aria-controls="recipe-name"
+                aria-selected="true"
+                >General</a
+              >
+            </li>
+            <li class="nav-item nav-item-custom">
+              <a
+                class="nav-link process-button"
+                id="ingredient-tab"
+                data-toggle="tab"
+                href="#ingredient-name"
+                role="tab"
+                aria-controls="ingredient-name"
+                aria-selected="false"
+                >Ingredients</a
+              >
+            </li>
+            <li class="nav-item nav-item-custom">
+              <a
+                class="nav-link process-button"
+                id="recipe-steps-tab"
+                data-toggle="tab"
+                href="#recipe-steps"
+                role="tab"
+                aria-controls="recipe-steps"
+                aria-selected="false"
+                >Method</a
+              >
+            </li>
+          </ul>
           <div class="modal-body">
-            <form name="recipe_form">
+            <form name="recipe_form" enctype="multipart/form-data" method="POST">
               <div class="tab-content" id="myTabContent">
                 <div
                   class="tab-pane fade show active"
@@ -337,7 +339,7 @@
                       />
                     </div>
                     <div class="form-group">
-                      <label for="message-text" class="col-form-label"
+                      <label for="recipe-description" class="col-form-label"
                         >Recipe Description:</label
                       >
                       <textarea
@@ -347,14 +349,43 @@
                         required
                       ></textarea>
                     </div>
+                    <div class="form-group">
+                      <label for="recipe-notes" class="col-form-label"
+                        >Recipe Notes:</label
+                      >
+                      <textarea
+                        name="recipe-notes"
+                        class="form-control font-sizing"
+                        id="recipe-notes"
+                      ></textarea>
+                    </div>
+                    <!-- <div class="input-group mb-3">
+                      <div class="input-group-prepend prepend-uniform">
+                        <span
+                          class="input-group-text themed prepend-text"
+                          id="upload"
+                          >Upload Image</span
+                        >
+                      </div>
+                      <label class="form-control font-sizing label-upload" for="upload-image">
+                        <input
+                          name="upload-image"
+                          id="upload-image"
+                          type="file"
+
+                        />Click to select image
+                      </label>
+                    </div> -->
                     <div class="input-group mb-3">
                       <div class="input-group-prepend prepend-uniform">
-                        <span class="input-group-text themed prepend-text" id="prepTime"
+                        <span
+                          class="input-group-text themed prepend-text"
+                          id="prepTime"
                           >Prep Time (Min)</span
                         >
                       </div>
                       <input
-                      name="prep-time"
+                        name="prep-time"
                         id="inputPrepTime"
                         type="number"
                         class="form-control font-sizing"
@@ -366,12 +397,14 @@
                     </div>
                     <div class="input-group mb-3">
                       <div class="input-group-prepend prepend-uniform">
-                        <span class="input-group-text themed prepend-text" id="cookTime"
+                        <span
+                          class="input-group-text themed prepend-text"
+                          id="cookTime"
                           >Cook Time (min)</span
                         >
                       </div>
                       <input
-                      name="cook-time"
+                        name="cook-time"
                         id="inputCookTime"
                         type="number"
                         class="form-control font-sizing"
@@ -383,10 +416,14 @@
                     </div>
                     <div class="input-group mb-3">
                       <div class="input-group-prepend prepend-uniform">
-                        <span class="input-group-text themed prepend-text" id="serves">Serves</span>
+                        <span
+                          class="input-group-text themed prepend-text"
+                          id="serves"
+                          >Serves</span
+                        >
                       </div>
                       <input
-                      name="serves"
+                        name="serves"
                         id="inputServes"
                         type="number"
                         class="form-control font-sizing"
@@ -398,11 +435,17 @@
                     </div>
                     <div class="input-group mb-3">
                       <div class="input-group-prepend prepend-uniform">
-                        <label class="input-group-text themed prepend-text" for="difficultySelector"
+                        <label
+                          class="input-group-text themed prepend-text"
+                          for="difficultySelector"
                           >Difficulty</label
                         >
                       </div>
-                      <select name="difficulty" class="custom-select font-sizing" id="difficultySelector">
+                      <select
+                        name="difficulty"
+                        class="custom-select font-sizing"
+                        id="difficultySelector"
+                      >
                         <option selected value="easy">Easy</option>
                         <option value="medium">Medium</option>
                         <option value="hard">Hard</option>
@@ -418,7 +461,9 @@
                 >
                   <div class="modal-body">
                     <div class="form-group">
-                      <button class="add_ingredient_button btn btn-block btn-themed">
+                      <button
+                        class="add_ingredient_button btn btn-block btn-themed"
+                      >
                         <i class="fa fa-plus" aria-hidden="true"></i> Add
                         Ingredient
                       </button>
@@ -449,19 +494,27 @@
                   </div>
                 </div>
               </div>
-              <button type="submit" class="btn btn-block btn-themed">
-                      <i class="fa fa-plus" aria-hidden="true"></i> Add Recipe
-                    </button>
+              <button
+                type="submit"
+                id="recipe-submit"
+                style="display: none;"
+                class="btn btn-lg btn-themed btn-submit"
+              >
+                <i class="fa fa-plus" aria-hidden="true"></i> Add Recipe
+              </button>
             </form>
             <div class="modal-footer d-block">
               <button
                 id="previous"
                 style="display: none;"
-                class="btn btn-themed btn-lg process-button previous float-left"
+                class="btn btn-themed-invert btn-lg process-button previous float-left"
               >
                 Previous
               </button>
-              <button id="next" class="btn btn-themed btn-lg process-button next float-right">
+              <button
+                id="next"
+                class="btn btn-themed-invert btn-lg process-button next float-right"
+              >
                 Next
               </button>
             </div>
