@@ -161,6 +161,60 @@ def remove_recipe(recipe_id):
 
     return redirect(url_for('show_recipe', recipe_id=recipe_id, recipes=updated_recipes))
 
+@app.route('/edit_recipe/<recipe_id>')
+def edit_recipe(recipe_id):
+    username = session['username']
+    recipe = mongo.db.recipes.find_one({'_id': recipe_id})
+    owner = mongo.db.users.find_one({'_id': recipe['owner']})
+    existing_user = mongo.db.users.find_one({'_id': session['username']})
+    user = mongo.db.users.find_one({'_id': username})
+    if session.get('username', None):
+        return render_template('edit-recipe.html', recipe=recipe, recipe_id=recipe_id, owner=owner, active_user=existing_user)
+
+    return render_template('recipe.html', recipe=recipe, recipe_id=recipe_id,owner=owner)
+
+
+
+
+@app.route('/edit_recipe/<recipe_id>',methods=['GET', 'POST'])
+def update_recipe(recipe_id):
+    username = session['username']
+    recipe = mongo.db.recipes.find_one({'_id': recipe_id})
+    owner = mongo.db.users.find_one({'_id': recipe['owner']})
+    existing_user = mongo.db.users.find_one({'_id': session['username']})
+    user = mongo.db.users.find_one({'_id': username})
+    if session.get('username', None):
+        recipe_ingredients = []
+
+        for x in range(1, 41):
+            if request.form.get("edit-ingredient-%d" % (x)):
+                recipe_ingredients.append(request.form.get("edit-ingredient-%d" % (x)))
+
+        recipe_steps = []
+
+        for x in range(1, 41):
+            if request.form.get("edit-step-%d" % (x)):
+                recipe_steps.append(request.form.get("edit-step-%d" % (x)))
+
+        mongo.db.recipes.update_one({'_id': recipe_id}, {"$set": {
+            'recipe_name': request.form.get('edit-recipient-name'),
+            'recipe_description': request.form.get('edit-recipe-description'),
+            "recipe_ingredients": recipe_ingredients,
+            "recipe_steps": recipe_steps,
+            'notes': request.form.get('edit-recipe-notes'),
+            'prep_time': request.form.get('edit-prep-time'),
+            'cook_time': request.form.get('edit-cook-time'),
+            'serves': request.form.get('edit-serves'),
+            "difficulty": request.form.get('edit-difficulty'),
+            'owner': user['_id'],
+        }}, upsert=True)
+
+        return redirect(url_for('show_recipe', recipe_id=recipe_id))
+
+    return render_template('recipe.html', recipe=recipe, recipe_id=recipe_id,owner=owner)
+
+
+
 
 # ////////////////////////////////////////////////////////////////////////////
 class Recipe:

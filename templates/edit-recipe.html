@@ -1,0 +1,182 @@
+{% extends 'base.html'%}
+{% block content %}
+<form name="edit_recipe_form" action="{{ url_for('update_recipe', user_id=user_id, recipe_id=recipe_id) }}" enctype="multipart/form-data" method="POST">
+   <div class="tab-content" id="myTabContent">
+      <div
+         class="tab-pane fade show active"
+         id="recipe-name"
+         role="tabpanel"
+         aria-labelledby="recipe-tab"
+         >
+         <div class="modal-body">
+            <div class="form-group">
+               <label for="recipient-name" class="col-form-label"
+                  >Recipe Name:</label
+                  >
+               <input
+               value="{{recipe.recipe_name}}"
+                  type="text"
+                  class="form-control font-sizing"
+                  id="recipient-name"
+                  name="edit-recipient-name"
+                  required
+                  />
+            </div>
+            <div class="form-group">
+               <label for="recipe-description" class="col-form-label"
+                  >Recipe Description:</label
+                  >
+               <textarea
+                  name="edit-recipe-description"
+                  class="form-control font-sizing"
+                  id="recipe-description"
+                  required
+                  >{{recipe.recipe_description}}</textarea>
+            </div>
+            <div class="form-group">
+               <label for="recipe-notes" class="col-form-label"
+                  >Recipe Notes:</label
+                  >
+               <textarea
+                  name="edit-recipe-notes"
+                  class="form-control font-sizing"
+                  id="recipe-notes"
+                  >{{recipe.notes}}</textarea>
+            </div>
+            <div class="input-group mb-3">
+               <div class="input-group-prepend prepend-uniform">
+                  <span
+                     class="input-group-text themed prepend-text"
+                     id="prepTime"
+                     >Prep Time (Min)</span
+                     >
+               </div>
+               <input
+               value="{{recipe.prep_time}}"
+                  name="edit-prep-time"
+                  id="inputPrepTime"
+                  type="number"
+                  class="form-control font-sizing"
+                  placeholder="Enter numerical value"
+                  aria-label="prepTime"
+                  aria-describedby="prepTime"
+                  required
+                  />
+            </div>
+            <div class="input-group mb-3">
+               <div class="input-group-prepend prepend-uniform">
+                  <span
+                     class="input-group-text themed prepend-text"
+                     id="cookTime"
+                     >Cook Time (min)</span
+                     >
+               </div>
+               <input
+               value="{{recipe.cook_time}}"
+                  name="edit-cook-time"
+                  id="inputCookTime"
+                  type="number"
+                  class="form-control font-sizing"
+                  placeholder="Enter numerical value"
+                  aria-label="cookTime"
+                  aria-describedby="cookTime"
+                  required
+                  />
+            </div>
+            <div class="input-group mb-3">
+               <div class="input-group-prepend prepend-uniform">
+                  <span
+                     class="input-group-text themed prepend-text"
+                     id="serves"
+                     >Serves</span
+                     >
+               </div>
+               <input
+               value="{{recipe.serves}}"
+                  name="edit-serves"
+                  id="inputServes"
+                  type="number"
+                  class="form-control font-sizing"
+                  placeholder="Enter numerical value"
+                  aria-label="serves"
+                  aria-describedby="serves"
+                  v
+                  />
+            </div>
+            <div class="input-group mb-3">
+               <div class="input-group-prepend prepend-uniform">
+                  <label
+                     class="input-group-text themed prepend-text"
+                     for="difficultySelector"
+                     >Difficulty</label
+                     >
+               </div>
+               <select
+                  name="edit-difficulty"
+                  class="custom-select font-sizing"
+                  id="difficultySelector"
+                  >
+                  <option selected value="easy">Easy</option>
+                  <option value="medium">Medium</option>
+                  <option value="hard">Hard</option>
+               </select>
+            </div>
+         </div>
+      </div>
+      <div
+         id="ingredient-name"
+         role="tabpanel"
+         aria-labelledby="ingredient-tab"
+         >
+         <div class="modal-body">
+            <div class="form-group">
+               <button
+                  class="edit_ingredient_button btn btn-block btn-themed"
+                  >
+               <i class="fa fa-plus" aria-hidden="true"></i> Add
+               Ingredient
+               </button>
+            </div>
+            <div class="input_fields_wrap">
+               <div class="input-group mb-3" id="edit-ingredient-inputs">
+               <!-- add ingred here -->
+                {% for ingredient in recipe.recipe_ingredients %}
+                <div class="input-group mb-3"><input name="edit-ingredient-{{ loop.index }}" type="text" placeholder="ingredient - {{ loop.index }}" class="form-control edit-ingredient-input" value="{{ingredient}}" aria-describedby="basic-addon2">
+                <div class="input-group-append"><button class="btn btn-outline-secondary remove_field" type="button">Remove</button></div></div>
+                 {% endfor %}
+               </div>
+            </div>
+         </div>
+      </div>
+      <div
+         id="recipe-steps"
+         role="tabpanel"
+         aria-labelledby="recipe-steps-tab"
+         >
+         <div class="modal-body">
+            <div class="form-group">
+               <button class="edit_step_button btn btn-block btn-themed">
+               <i class="fa fa-plus" aria-hidden="true"></i> Add Steps
+               </button>
+            </div>
+            <div class="input_fields_wrap">
+               <div class="input-group mb-3" id="edit-steps-inputs">
+               <!-- add steps here -->
+                {% for step in recipe.recipe_steps %}
+                <div class="input-group mb-3"><input name="edit-step-{{ loop.index }}" type="text" placeholder="Step - {{ loop.index }}" class="form-control edit-step-input" value="{{step}}" aria-describedby="basic-addon2">
+                <div class="input-group-append"><button class="btn btn-outline-secondary remove_field" type="button">Remove</button></div></div>
+                 {% endfor %}
+               </div>
+            </div>
+         </div>
+      </div>
+   </div>
+   <button
+      type="submit"
+      id="recipe-submit"
+      class="btn btn-lg btn-themed"
+      >
+   <i class="fa fa-plus" aria-hidden="true"></i> Add Recipe
+   </button>
+</form>
+{% endblock %}
