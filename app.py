@@ -93,21 +93,28 @@ def dashboard():
     existing_user = mongo.db.users.find_one({'_id': session['username']})
     saved_recipes = mongo.db.recipes.find(
         {'_id': {'$in': existing_user['recipes']}})
-    return render_template('dashboard.html', active_user=existing_user, saved_recipes=saved_recipes)
+    owned_recipes = mongo.db.recipes.find({'owner': existing_user['_id']})
+    return render_template('dashboard.html', active_user=existing_user, saved_recipes=saved_recipes, owned_recipes=owned_recipes)
 
 
 # testing //////////////////////////////////////////////////////////////
 @app.route('/add_image/<recipe_id>',methods=['GET', 'POST'])
 def add_image(recipe_id):
     ufile = request.files.get('file')
-    print(ufile)
     if ufile:
-        print("File Found")
+        recipe = mongo.db.recipes.find_one({'_id': recipe_id})
+        try:
+            destroy(recipe['image_public_id'], invalidate=True)
+            print('File Destroyed')
+        except:
+             print('No File Destroyed')
         uploaded = upload(ufile)
         image_url = uploaded['secure_url']
-        print(image_url)
+        public_id = uploaded['public_id']
+
         mongo.db.recipes.update_one({'_id': recipe_id}, {"$set": {
             'img_url': image_url,
+            'image_public_id': public_id,
         }}, upsert=True)
     else:
         print('no file found')
@@ -284,17 +291,19 @@ class User:
             "recipes": []
         }
 
+        if request.form.get('password') == request.form.get('validate-password'):
         # encrypt
-        user['password'] = pbkdf2_sha256.encrypt(user['password'])
+            user['password'] = pbkdf2_sha256.encrypt(user['password'])
 
-        if mongo.db.users.find_one({"email": user['email']}):
-            return jsonify({"error": "Email address already in use"}), 400
+            if mongo.db.users.find_one({"email": user['email']}):
+                return jsonify({"error": "Email address already in use"}), 400
 
         # add user to DB
-        if mongo.db.users.insert_one(user):
-            return self.start_session(user)
+            if mongo.db.users.insert_one(user):
+                return self.start_session(user)
 
-        return jsonify({"error": "Signup failed"}), 400
+            return jsonify({"error": "Signup failed"}), 400
+        return jsonify({"error": "Passwords must match"}), 400
 
     def signout(self):
         session.clear()

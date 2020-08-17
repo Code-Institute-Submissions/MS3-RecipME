@@ -89,9 +89,9 @@ $(document).ready(function () {
     });
   });
 
-//////////////////////////////   EDIT THIS SECTION
+  //////////////////////////////   EDIT THIS SECTION
 
-//   var max_fields = 40; //maximum input boxes allowed
+  //   var max_fields = 40; //maximum input boxes allowed
   var edit_wrapper = $("#edit-ingredient-inputs"); //Fields wrapper
   var edit_button = $(".edit_ingredient_button"); //Add button ID
 
@@ -109,7 +109,9 @@ $(document).ready(function () {
           '"class="form-control edit-ingredient-input"aria-describedby="basic-addon2"><div class="input-group-append"><button class="btn btn-outline-secondary remove_field" type="button">Remove</button></div></div>'
       ); //add input box
       var y = 1;
-      const ingredientInputs = document.querySelectorAll(".edit-ingredient-input");
+      const ingredientInputs = document.querySelectorAll(
+        ".edit-ingredient-input"
+      );
       ingredientInputs.forEach((ingredientInput) => {
         $(ingredientInput)
           .attr("name", "edit-ingredient-" + y)
@@ -126,7 +128,9 @@ $(document).ready(function () {
     e.preventDefault();
     $(this).parent("div").parent("div").remove();
     var y = 1;
-    const ingredientInputs = document.querySelectorAll(".edit-ingredient-input");
+    const ingredientInputs = document.querySelectorAll(
+      ".edit-ingredient-input"
+    );
     ingredientInputs.forEach((ingredientInput) => {
       $(ingredientInput)
         .attr("name", "edit-ingredient-" + y)
@@ -241,9 +245,9 @@ $(document).ready(function () {
       dataType: "json",
       success: function (resp) {
         // window.location.href = "/dashboard/";
-        $('#recipe-modal').modal('hide');
+        $("#recipe-modal").modal("hide");
         setTimeout(function () {
-        $("#success-alert").show();
+          $("#success-alert").show();
         }, 1000);
         setTimeout(function () {
           $("#success-alert").hide();
@@ -304,16 +308,15 @@ $(document).ready(function () {
     }
   });
 
-
-  function checkInp() {
-    var x = document.forms["myForm"]["age"].value;
-    if (isNaN(x)) {
-      alert("Must input numbers");
-      return false;
+  document.getElementById("validate-password").onkeyup = function () {
+    var password = $("#password").val();
+    var confirm_password = $("#validate-password").val();
+    if (password != confirm_password) {
+      $("#validate-password").addClass("shadow-diff").removeClass("shadow-match").css("border-color", "red");
+      $(".error").text("Passwords Don't Match!").removeClass("d-none").css("color","red");
+    } else {
+      $("#validate-password").addClass("shadow-match").removeClass("shadow-diff").css("border-color", "green");
+      $(".error").text("Passwords Match!").removeClass("d-none").css("color","green");
     }
-  }
-
-  $("#inputPrepTime").on("input propertychange", function () {
-    // Do your thing here.
-  });
+  };
 });

@@ -1,20 +1,11 @@
 {% extends 'base.html'%}
 {% block content %}
-<h1>DashBoard</h1>
 <div class="card-wrapper">
 	<div class="card">
 		<h1 class="center">Dashboard</h1>
 		<p class="center">You are currently logged in.</p>
-
-		<div class="center">
-			<a
-				href="{{ url_for('add_recipe', user_id=active_user._id) }}"><button type="button" class="btn btn-primary">add Recipe</button></a>
-		</div>
-	</div>
-
 	<div class="card">
 		<h2 class="center">Your Info</h2>
-
 		<p>
 			<strong>ID:</strong> {{ session['username'] }}<br />
 			<strong>Name:</strong> {{ session['user']['name'] }}<br />
@@ -22,6 +13,7 @@
 		</p>
 	</div>
 </div>
+<h1>Saved Recipes</h1>
 <div class="row row-cols-1 row-cols-md-3">
 	{% for recipe in saved_recipes %}
 	<div class="col mb-4">
@@ -41,5 +33,27 @@
 		</div>
 	</div>
 	{% endfor %}
+</div>
+<h1>Owned Recipes</h1>
+<div class="row row-cols-1 row-cols-md-3">
+	{% for owned_recipe in owned_recipes %}
+	<div class="col mb-4">
+		<div class="card">
+			<a href="{{url_for('show_recipe', recipe_id=owned_recipe._id)}}"><img src="{{owned_recipe.img_url}}" class="card-img-top" alt="..."
+      /></a>
+				<div class="card-body">
+					<h5 class="card-title">{{owned_recipe.recipe_name}}</h5>
+					<p class="card-text">{{owned_recipe.recipe_description}}</p>
+					<p class="card-text">
+						<small class="text-muted">{{owned_recipe.prep_time}}</small>
+					</p>
+					<p class="card-text">
+						<small class="text-muted">Difficulty: {{owned_recipe.difficulty}}</small>
+					</p>
+				</div>
+		</div>
+	</div>
+	{% endfor %}
+</div>
 </div>
 {% endblock %}
