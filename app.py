@@ -121,9 +121,6 @@ def add_image(recipe_id):
     return redirect(url_for('show_recipe', recipe_id=recipe_id))
 
 
-
-# ///////////////////////////////////////////////////////////////////
-
 @app.route('/save_recipe/<recipe_id>')
 def save_recipe(recipe_id):
     updated_recipes = []
@@ -145,6 +142,7 @@ def save_recipe(recipe_id):
         updated_recipes = updated_user['recipes']
 
     return redirect(url_for('show_recipe', recipe_id=recipe_id, recipes=updated_recipes))
+
 
 @app.route('/remove_recipe/<recipe_id>')
 def remove_recipe(recipe_id):
@@ -168,19 +166,44 @@ def remove_recipe(recipe_id):
 
     return redirect(url_for('show_recipe', recipe_id=recipe_id, recipes=updated_recipes))
 
+
 @app.route('/edit_recipe/<recipe_id>')
 def edit_recipe(recipe_id):
     username = session['username']
     recipe = mongo.db.recipes.find_one({'_id': recipe_id})
     owner = mongo.db.users.find_one({'_id': recipe['owner']})
     existing_user = mongo.db.users.find_one({'_id': session['username']})
-    user = mongo.db.users.find_one({'_id': username})
     if session.get('username', None):
         return render_template('edit-recipe.html', recipe=recipe, recipe_id=recipe_id, owner=owner, active_user=existing_user)
 
     return render_template('recipe.html', recipe=recipe, recipe_id=recipe_id,owner=owner)
 
 
+@app.route('/rate_recipe/<recipe_id>',methods=['GET', 'POST'])
+def rate_recipe(recipe_id):
+    username = session['username']
+    recipe = mongo.db.recipes.find_one({'_id': recipe_id})
+    owner = mongo.db.users.find_one({'_id': recipe['owner']})
+    if session.get('username', None):
+        existing_user = mongo.db.users.find_one({'_id': session['username']})
+        print(request.form.get('star-rating'))
+        # if mongo.db.ratings.find({"$and": [{'user': session['username'],{'recipe': recipe['_id']}}])
+        print(session['username'])
+        print(recipe['_id'])
+        if mongo.db.ratings.find_one({'user_id': session['username'],'recipe_id': recipe['_id']}):
+            mongo.db.ratings.update_one({'user_id': session['username'],'recipe_id': recipe['_id']}, {"$set": {'rating': request.form.get('star-rating')}}, upsert=True)
+        else:
+            new_rating = {
+            "_id": uuid.uuid4().hex,
+            "recipe_id": recipe['_id'],
+            "user_id": session['username'],
+            "rating": request.form.get('star-rating')
+            }
+            mongo.db.ratings.insert_one(new_rating)
+
+        return redirect(url_for('show_recipe', recipe_id=recipe_id))
+        
+    return redirect(url_for('show_recipe', recipe_id=recipe_id))
 
 
 @app.route('/edit_recipe/<recipe_id>',methods=['GET', 'POST'])
@@ -221,11 +244,7 @@ def update_recipe(recipe_id):
     return render_template('recipe.html', recipe=recipe, recipe_id=recipe_id,owner=owner)
 
 
-
-
-# ////////////////////////////////////////////////////////////////////////////
 class Recipe:
-
 
     def add(self):
 

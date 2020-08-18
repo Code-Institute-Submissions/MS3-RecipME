@@ -390,4 +390,30 @@ $(document).ready(function () {
     }
   );
 
+
+// Test section
+$(":radio").change(function() {
+  var x = $(this).val();
+  $("#star-rating").val(x);
+  console.log($("#star-rating").val());
+  $("#rating-form").submit();
+});
+
+
+$(".star-rating").hover(
+    function () {
+      $(this).prevAll().addBack().css("color", "#fddb87");
+    },
+    function () {
+       $(this).prevAll().addBack().css("color", "black");
+    }
+  );
+
+  $(".star-rating").click(function () {
+    // var value = $(this).val();
+    // console.log(value);
+    // $(".nav-tabs > .nav-item > .active").parent().next("li").find("a").click();
+  });
+
+
 });

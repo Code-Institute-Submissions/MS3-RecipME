@@ -461,6 +461,24 @@
 
 /* Footer customisations END*/
 
+/* Test Section */
+
+.star-rating{
+    font-size: 2rem;
+    color: black;
+}
+
+.rating-form{
+    float: right;
+    vertical-align: top;
+    padding-right: 20px;
+}
+
+.recipe-header{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
 
 
 /* https://www.sanwebe.com/2013/03/addremove-input-fields-dynamically-with-jquery */
@@ -485,3 +503,7 @@
 /* https://stackoverflow.com/questions/41107441/onchange-check-password-to-be-similar */
 /* https://www.w3schools.com/howto/howto_js_toggle_password.asp */
 /* https://api.jquery.com/hover/ */
+/* https://stackoverflow.com/questions/1544317/change-type-of-input-field-with-jquery */
+/* https://stackoverflow.com/questions/26914380/schema-for-user-ratings-key-value-db */
+/* https://forums.meteor.com/t/best-method-for-storing-user-votes-ratings-in-mongodb/39149/2 */
+/* https://codepen.io/neilpomerleau/pen/wzxzQr */
