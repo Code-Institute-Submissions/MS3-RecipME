@@ -1,4 +1,6 @@
 $(document).ready(function () {
+
+// Add recipe form - add inputs on click, adjust names, placeholders to sequential order - Ingredients
   var max_fields = 40; //maximum input boxes allowed
   var wrapper = $("#ingredient-inputs"); //Fields wrapper
   var add_button = $(".add_ingredient_button"); //Add button ID
@@ -28,6 +30,7 @@ $(document).ready(function () {
     }
   });
 
+// Add recipe form - remove inputs on click, adjust names, placeholders to sequential order - Ingredients
   $(wrapper).on("click", ".remove_field", function (e) {
     //user click on remove text
     var numIngredients = $(".ingredient-input").length;
@@ -44,7 +47,7 @@ $(document).ready(function () {
     });
   });
 
-  /////////////////////////////////////////////
+// Add recipe form - add inputs on click, adjust names, placeholders to sequential order - Steps
   var step_wrapper = $("#steps-inputs"); //Fields wrapper
   var add_step_button = $(".add_step_button"); //Add button ID
 
@@ -72,7 +75,7 @@ $(document).ready(function () {
       });
     }
   });
-
+// Add recipe form - remove inputs on click, adjust names, placeholders to sequential order - Steps
   $(step_wrapper).on("click", ".remove_field", function (e) {
     //user click on remove text
     var numSteps = $(".step-input").length;
@@ -91,7 +94,7 @@ $(document).ready(function () {
 
   //////////////////////////////   EDIT THIS SECTION
 
-  //   var max_fields = 40; //maximum input boxes allowed
+ // Edit recipe form - add inputs on click, adjust names, placeholders to sequential order - Ingredients
   var edit_wrapper = $("#edit-ingredient-inputs"); //Fields wrapper
   var edit_button = $(".edit_ingredient_button"); //Add button ID
 
@@ -121,7 +124,7 @@ $(document).ready(function () {
       });
     }
   });
-
+// edit recipe form - remove inputs on click, adjust names, placeholders to sequential order - Ingredients
   $(edit_wrapper).on("click", ".remove_field", function (e) {
     //user click on remove text
     var numIngredients = $(".edit-ingredient-input").length;
@@ -140,7 +143,7 @@ $(document).ready(function () {
     });
   });
 
-  /////////////////////////////////////////////
+// Edit recipe form - add inputs on click, adjust names, placeholders to sequential order - Steps
   var edit_step_wrapper = $("#edit-steps-inputs"); //Fields wrapper
   var edit_step_button = $(".edit_step_button"); //Add button ID
 
@@ -168,7 +171,7 @@ $(document).ready(function () {
       });
     }
   });
-
+// Edit recipe form - remove inputs on click, adjust names, placeholders to sequential order - Steps
   $(edit_step_wrapper).on("click", ".remove_field", function (e) {
     //user click on remove text
     var numSteps = $(".edit-step-input").length;
@@ -185,8 +188,7 @@ $(document).ready(function () {
     });
   });
 
-  //////////////////////////////////////////
-
+// Submit singup modal form
   $("form[name=signup_form").submit(function (e) {
     var $form = $(this);
     var $error = $form.find(".error");
@@ -211,6 +213,7 @@ $(document).ready(function () {
     e.preventDefault();
   });
 
+// Submit login modal form
   $("form[name=login_form").submit(function (e) {
     var $form = $(this);
     var $error = $form.find(".error");
@@ -233,6 +236,7 @@ $(document).ready(function () {
     e.preventDefault();
   });
 
+// Submit Add recipe modal form
   $("form[name=recipe_form").submit(function (e) {
     var $form = $(this);
     var $error = $form.find(".error");
@@ -262,7 +266,7 @@ $(document).ready(function () {
     e.preventDefault();
   });
 
-  //   Simulate the clicking of the modal tabs
+//   Simulate the clicking of the modal tabs
   $(".next").click(function () {
     $(".nav-tabs > .nav-item > .active").parent().next("li").find("a").click();
   });
@@ -271,6 +275,7 @@ $(document).ready(function () {
     $(".nav-tabs > .nav-item > .active").parent().prev("li").find("a").click();
   });
 
+//   adjust visable buttons on add recipe model when modal tabs are clicked
   $("body").delegate("#recipe-tab", "click", function () {
     $("#next").show();
     $("#previous").hide();
@@ -287,7 +292,7 @@ $(document).ready(function () {
     $("#recipe-submit").show();
   });
 
-  //   adjust visable buttons on add recipe model when Next is clicked
+//   adjust visable buttons on add recipe model when Next/Previous is clicked
   $(".process-button").click(function () {
     if ($("#recipe-tab").hasClass("active")) {
       $("#next").show();
@@ -308,15 +313,81 @@ $(document).ready(function () {
     }
   });
 
+// Signup password trigger to test if password = password 
   document.getElementById("validate-password").onkeyup = function () {
     var password = $("#password").val();
     var confirm_password = $("#validate-password").val();
     if (password != confirm_password) {
-      $("#validate-password").addClass("shadow-diff").removeClass("shadow-match").css("border-color", "red");
-      $(".error").text("Passwords Don't Match!").removeClass("d-none").css("color","red");
+      $("#validate-password")
+        .addClass("shadow-diff")
+        .removeClass("shadow-match")
+        .css("border-color", "red");
+      $(".error")
+        .text("Passwords Don't Match!")
+        .removeClass("d-none")
+        .css("color", "red");
     } else {
-      $("#validate-password").addClass("shadow-match").removeClass("shadow-diff").css("border-color", "green");
-      $(".error").text("Passwords Match!").removeClass("d-none").css("color","green");
+      $("#validate-password")
+        .addClass("shadow-match")
+        .removeClass("shadow-diff")
+        .css("border-color", "green");
+      $(".error")
+        .text("Passwords Match!")
+        .removeClass("d-none")
+        .css("color", "green");
     }
   };
+
+// Signup validate password trigger to test if password = password 
+  document.getElementById("password").onkeyup = function () {
+    var password = $("#password").val();
+    var confirm_password = $("#validate-password").val();
+    if (password != confirm_password) {
+      $("#validate-password")
+        .addClass("shadow-diff")
+        .removeClass("shadow-match")
+        .css("border-color", "red");
+      $(".error")
+        .text("Passwords Don't Match!")
+        .removeClass("d-none")
+        .css("color", "red");
+    } else {
+      $("#validate-password")
+        .addClass("shadow-match")
+        .removeClass("shadow-diff")
+        .css("border-color", "green");
+      $(".error")
+        .text("Passwords Match!")
+        .removeClass("d-none")
+        .css("color", "green");
+    }
+  };
+
+//   Signup password action to display / hide password on hover of postpend icon
+  $(".password-display").hover(
+    function () {
+      $("#password-hide").addClass("d-none");
+      $("#password-show").removeClass("d-none");
+      $("#password").attr('type', 'text');
+    },
+    function () {
+      $("#password-show").addClass("d-none");
+      $("#password-hide").removeClass("d-none");
+      $("#password").attr('type', 'password');
+    }
+  );
+//   Signup validate-password action to display / hide password on hover of postpend icon
+  $(".password-display-validate").hover(
+    function () {
+      $("#validate-password-hide").addClass("d-none");
+      $("#validate-password-show").removeClass("d-none");
+      $("#validate-password").attr('type', 'text');
+    },
+    function () {
+      $("#validate-password-show").addClass("d-none");
+      $("#validate-password-hide").removeClass("d-none");
+      $("#validate-password").attr('type', 'password');
+    }
+  );
+
 });

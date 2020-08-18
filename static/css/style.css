@@ -360,10 +360,23 @@
   background: #fff;
 }
 
+.shadow-diff:focus{
+    box-shadow:inset 0 0 2px 2px red;
+}
+
 .shadow-match{
   box-shadow:inset 0 0 2px 2px green;
   background: #fff;
 }
+
+.shadow-match:focus {
+    box-shadow:inset 0 0 2px 2px green;
+}
+
+.append-width{
+    max-width: 44px;
+}
+
 
 /* Modal customisations END */
 
@@ -470,3 +483,5 @@
 /* https://tympanus.net/codrops/css_reference/object-fit/#:~:text=object%2Dfit%20options%20include%20%22contain,repositioned%20like%20background%2Dimage%20does. */
 /* https://stackoverflow.com/questions/12140961/inset-box-shadow-for-inputfield*/
 /* https://stackoverflow.com/questions/41107441/onchange-check-password-to-be-similar */
+/* https://www.w3schools.com/howto/howto_js_toggle_password.asp */
+/* https://api.jquery.com/hover/ */
