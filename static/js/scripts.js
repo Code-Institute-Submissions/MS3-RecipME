@@ -188,7 +188,7 @@ $(document).ready(function () {
     });
   });
 
-// Submit singup modal form
+// Submit signup modal form
   $("form[name=signup_form").submit(function (e) {
     var $form = $(this);
     var $error = $form.find(".error");
@@ -216,7 +216,7 @@ $(document).ready(function () {
 // Submit login modal form
   $("form[name=login_form").submit(function (e) {
     var $form = $(this);
-    var $error = $form.find(".error");
+    var $error = $form.find(".error-login");
     var data = $form.serialize();
 
     $.ajax({
@@ -391,7 +391,7 @@ $(document).ready(function () {
   );
 
 
-// Test section
+// Changes value of rating input for submit rating
 $(":radio").change(function() {
   var x = $(this).val();
   $("#star-rating").val(x);
@@ -399,21 +399,49 @@ $(":radio").change(function() {
   $("#rating-form").submit();
 });
 
-
+// Recipe rating system that resets to current rating on exist hover
 $(".star-rating").hover(
     function () {
       $(this).prevAll().addBack().css("color", "#fddb87");
+    //   console.log($("#star-rating").val());
     },
     function () {
-       $(this).prevAll().addBack().css("color", "black");
+    //    $(this).prevAll().addBack().css("color", "black");
+        // console.log($("#star-rating").val());
+        if ($("#star-rating").val() == 1) {
+            $("#rating-1").css("color", "#fddb87")
+            $("#rating-2").css("color", "black")
+            $("#rating-3").css("color", "black")
+            $("#rating-4").css("color", "black")
+            $("#rating-5").css("color", "black")
+        } else if ($("#star-rating").val() == 2) {
+            $("#rating-1").css("color", "#fddb87")
+            $("#rating-2").css("color", "#fddb87")
+            $("#rating-3").css("color", "black")
+            $("#rating-4").css("color", "black")
+            $("#rating-5").css("color", "black")
+        } else if ($("#star-rating").val() == 3) {
+            $("#rating-1").css("color", "#fddb87")
+            $("#rating-2").css("color", "#fddb87")
+            $("#rating-3").css("color", "#fddb87")
+            $("#rating-4").css("color", "black")
+            $("#rating-5").css("color", "black")
+        } else if ($("#star-rating").val() == 4) {
+            $("#rating-1").css("color", "#fddb87")
+            $("#rating-2").css("color", "#fddb87")
+            $("#rating-3").css("color", "#fddb87")
+            $("#rating-4").css("color", "#fddb87")
+            $("#rating-5").css("color", "black")
+        } else {
+            $("#rating-1").css("color", "#fddb87")
+            $("#rating-2").css("color", "#fddb87")
+            $("#rating-3").css("color", "#fddb87")
+            $("#rating-4").css("color", "#fddb87")
+            $("#rating-5").css("color", "#fddb87")
+        }
     }
   );
 
-  $(".star-rating").click(function () {
-    // var value = $(this).val();
-    // console.log(value);
-    // $(".nav-tabs > .nav-item > .active").parent().next("li").find("a").click();
-  });
 
 
 });

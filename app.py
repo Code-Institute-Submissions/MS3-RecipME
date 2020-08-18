@@ -56,13 +56,30 @@ def show_home():
 def show_recipe(recipe_id):
     recipe = mongo.db.recipes.find_one({'_id': recipe_id})
     owner = mongo.db.users.find_one({'_id': recipe['owner']})
+    ratings = mongo.db.ratings.find({'recipe_id': recipe['_id']})
+
+    ratings_rating = []
+    ratings_count = 0
+
+    try:
+        for rating in ratings:
+            ratings_rating.append(int(rating['rating']))
+            ratings_count +=1
+            rating_average = round(sum(ratings_rating)/len(ratings_rating))
+        print(ratings_rating)
+        print(rating_average)
+        print(ratings_count)
+
+    except:
+        rating_average = 0
+        # print("no ratings")
     if session.get('username', None):
         # recipe = mongo.db.recipes.find_one({'_id': recipe_id})
         # owner = mongo.db.users.find_one({'_id': recipe['owner']})
         existing_user = mongo.db.users.find_one({'_id': session['username']})
-        return render_template('recipe.html', recipe=recipe, recipe_id=recipe_id, owner=owner, active_user=existing_user)
+        return render_template('recipe.html', recipe=recipe, recipe_id=recipe_id, owner=owner, active_user=existing_user,rating_average=rating_average, ratings_count=ratings_count)
 
-    return render_template('recipe.html', recipe=recipe, recipe_id=recipe_id,owner=owner)
+    return render_template('recipe.html', recipe=recipe, recipe_id=recipe_id,owner=owner, rating_average=rating_average)
 
 
 
@@ -181,10 +198,26 @@ def edit_recipe(recipe_id):
 
 @app.route('/rate_recipe/<recipe_id>',methods=['GET', 'POST'])
 def rate_recipe(recipe_id):
-    username = session['username']
     recipe = mongo.db.recipes.find_one({'_id': recipe_id})
-    owner = mongo.db.users.find_one({'_id': recipe['owner']})
+    # owner = mongo.db.users.find_one({'_id': recipe['owner']})
+    ratings = mongo.db.ratings.find({'recipe_id': recipe['_id']})
+
+    ratings_rating = []
+    ratings_count = 0
+    try:
+        for rating in ratings:
+            ratings_rating.append(int(rating['rating']))
+            ratings_count +=1
+            rating_average = round(sum(ratings_rating)/len(ratings_rating))
+        # print(ratings_rating)
+        print(rating_average)
+        # print(ratings_count)
+
+    except:
+        rating_average = 0
+        # print("no ratings")
     if session.get('username', None):
+        # username = session['username']
         existing_user = mongo.db.users.find_one({'_id': session['username']})
         print(request.form.get('star-rating'))
         # if mongo.db.ratings.find({"$and": [{'user': session['username'],{'recipe': recipe['_id']}}])
@@ -201,9 +234,12 @@ def rate_recipe(recipe_id):
             }
             mongo.db.ratings.insert_one(new_rating)
 
-        return redirect(url_for('show_recipe', recipe_id=recipe_id))
+# rendertemplate or redirect
+        return redirect(url_for('show_recipe', recipe_id=recipe_id, rating_add=True))
+
+        # return render_template('recipe.html', recipe=recipe, recipe_id=recipe_id, owner=owner, active_user=existing_user,rating_average=rating_average, ratings_count=ratings_count, rating_add=True)
         
-    return redirect(url_for('show_recipe', recipe_id=recipe_id))
+    return redirect(url_for('show_recipe', recipe_id=recipe_id, rating_add=False))
 
 
 @app.route('/edit_recipe/<recipe_id>',methods=['GET', 'POST'])
