@@ -38,19 +38,19 @@
         <div class="navbar-collapse collapse" id="collapsingNavbar">
           <ul class="navbar-nav ml-auto">
             <li class="nav-item">
-              <a class="nav-link" href="{{url_for('show_home')}}">Home</a>
+              <a class="nav-link flex-center" href="{{url_for('show_home')}}">Home</a>
             </li>
             <li class="nav-item">
-              <a class="nav-link" href="#">Featured</a>
+              <a class="nav-link flex-center" href="#">Featured</a>
             </li>
             <li class="nav-item">
-              <a class="nav-link" href="#">Find</a>
+              <a class="nav-link flex-center" href="#">Find</a>
             </li>
             {% if session['username'] %}
 
             <li class="nav-item dropdown active-user">
               <a
-                class="nav-link dropdown-toggle"
+                class="nav-link dropdown-toggle flex-center"
                 href="#"
                 id="navbarDropdown"
                 role="button"
@@ -61,21 +61,21 @@
                 {{ session['user']['name'] }}
               </a>
               <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                <a class="dropdown-item" href="#"
+                <a class="dropdown-item flex-center" href="#"
                   >{{ session['user']['name'] }}</a
                 >
-                <a class="dropdown-item" href="{{url_for('dashboard')}}"
+                <a class="dropdown-item flex-center" href="{{url_for('dashboard')}}"
                   >Dashboard</a
                 >
                 <a
-                  class="dropdown-item"
+                  class="dropdown-item flex-center"
                   href="#"
                   data-toggle="modal"
                   data-target="#recipe-modal "
                   >Add recipe</a
                 >
                 <div class="dropdown-divider"></div>
-                <a class="dropdown-item" href="{{url_for('signout')}}"
+                <a class="dropdown-item flex-center" href="{{url_for('signout')}}"
                   >Sign Out</a
                 >
               </div>
@@ -84,7 +84,7 @@
 
             <li class="nav-item">
               <a
-                class="nav-link"
+                class="nav-link flex-center"
                 href="#"
                 data-toggle="modal"
                 data-target="#login-modal"

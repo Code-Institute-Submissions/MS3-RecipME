@@ -1,5 +1,5 @@
-{% extends 'base.html'%} {% block content %} 
-{% if rating_add == True %}
+{% extends 'base.html'%} {% block content %}
+{% if rating_msg == "1" %}
     <div class="alert alert-success" id="rating-alert">
       Thank you for rating!
     </div>
@@ -38,13 +38,13 @@ recipe._id in active_user.recipes %}
   <div class="card-header">
     <div class="container">
       <div class="row">
-        <div class="col-sm recipe-header">
+        <div class="col-sm flex-center">
           {{recipe.recipe_name}}-{{owner.name}}
         </div>
-        <div class="col-sm recipe-header">
+        <div class="col-sm flex-center">
           Difficulty: {{recipe.difficulty}}
         </div>
-        <div class="col-sm recipe-header">
+        <div class="col-sm flex-center">
           <div class="rating-container">
             <form
               id="rating-form"
@@ -57,37 +57,37 @@ recipe._id in active_user.recipes %}
             <div class="d-none">
              <input type="text" id="star-rating" value="{{rating_average}}" name="star-rating"/>
              </div>
-              <label {% if rating_average in (1,2,3,4,5) %} style="color: #fddb87"{% endif %} id="rating-1" class="star-rating">
+              <label {% if recipe.avg_rating in (1,2,3,4,5) %} style="color: #fddb87"{% endif %} id="rating-1" class="star-rating">
                 <div class="d-none">
                   <input type="radio" name="stars" value="1" />
                 </div>
                 <span  class="icon">★</span>
               </label>
-              <label {% if rating_average in (2,3,4,5) %} style="color: #fddb87"{% endif %} id="rating-2" class="star-rating">
+              <label {% if recipe.avg_rating in (2,3,4,5) %} style="color: #fddb87"{% endif %} id="rating-2" class="star-rating">
                 <div class="d-none">
                   <input type="radio" name="stars" value="2" />
                 </div>
                 <span class="icon">★</span>
               </label>
-              <label {% if rating_average in (3,4,5) %} style="color: #fddb87"{% endif %} id="rating-3" class="star-rating">
+              <label {% if recipe.avg_rating in (3,4,5) %} style="color: #fddb87"{% endif %} id="rating-3" class="star-rating">
                 <div class="d-none">
                   <input type="radio" name="stars" value="3" />
                 </div>
                 <span class="icon">★</span>
               </label>
-              <label {% if rating_average in (4,5) %} style="color: #fddb87"{% endif %} id="rating-4" class="star-rating">
+              <label {% if recipe.avg_rating in (4,5) %} style="color: #fddb87"{% endif %} id="rating-4" class="star-rating">
                 <div class="d-none">
                   <input type="radio" name="stars" value="4" />
                 </div>
                 <span class="icon">★</span>
               </label>
-              <label {% if rating_average == 5 %} style="color: #fddb87"{% endif %} id="rating-5" class="star-rating">
+              <label {% if recipe.avg_rating == 5 %} style="color: #fddb87"{% endif %} id="rating-5" class="star-rating">
                 <div class="d-none">
                   <input type="radio" name="stars" value="5" />
                 </div>
                 <span class="icon">★</span>
               </label>
-              <label>({{ratings_count}})</label>
+              <label>({{recipe.count_rating}})</label>
             </form>
           </div>
         </div>

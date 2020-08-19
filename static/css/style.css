@@ -26,6 +26,19 @@
     height: 30vw;
 }
 
+@media (max-width: 767px) {
+  .card-img-custom, .card-img-top {
+    width: 100%;
+    height: 50vw;
+}
+}
+
+/* @media (max-width: 991px) {
+  .jumbotron {
+    height: 200px;
+}
+} */
+
 /* .embed-responsive .card-img-top {
     object-fit: cover;
 } */
@@ -120,6 +133,15 @@
   background-color: #fafafa;
   opacity: 0.75;
 }
+
+/* .navbar-collapse .nav-item .active-user{
+    background-color: #fff;
+    border-radius: 5px;
+    color: #fcc438;
+    display: inline-block;
+    padding-right: .5rem;
+    padding-left: .5rem;
+} */
 
 .active-user{
     background-color: #fff;
@@ -474,12 +496,19 @@
     padding-right: 20px;
 }
 
-.recipe-header{
+.flex-center{
     display: flex;
     justify-content: center;
     align-items: center;
 }
 
+.display-inline-block{
+    display: inline-block;
+}
+.star{
+    font-size: 1.50rem;
+    color: #fcc438;
+}
 
 /* https://www.sanwebe.com/2013/03/addremove-input-fields-dynamically-with-jquery */
 /* https://stackoverflow.com/questions/46356054/how-to-increment-variable-names-in-jquery-in-a-loop */
@@ -510,3 +539,4 @@
 /* https://stackoverflow.com/questions/22304500/multiple-or-condition-in-python 
 */
 /* https://www.geeksforgeeks.org/find-average-list-python/ */
+/* https://stackoverflow.com/questions/23025891/flask-pass-variables-from-redirect-to-render-template */
