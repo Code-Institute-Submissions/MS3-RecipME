@@ -13,9 +13,9 @@
     <!-- <link rel="icon" type="image/x-icon" href="assets/images/icon.png"> -->
     <title>RecipME</title>
   </head>
-  <body>
-    <div class="jumbotron">
-      <div class="container">
+  <body data-spy="scroll" data-target=".navbar" data-offset="700">
+    <div class="jumbotron hero-image">
+      <div class="container center">
         <h1 class="display-1 p-2">RecipME</h1>
         <p class="lead-1 p-2">
           Create & Share Recipes - the must have tool for all home cooking &
@@ -41,7 +41,10 @@
               <a class="nav-link flex-center" href="{{url_for('show_home')}}">Home</a>
             </li>
             <li class="nav-item">
-              <a class="nav-link flex-center" href="#">Featured</a>
+              <a class="nav-link flex-center" href="#food">Featured</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link flex-center" href="#editor">Editors Picks</a>
             </li>
             <li class="nav-item">
               <a class="nav-link flex-center" href="#">Find</a>

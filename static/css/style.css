@@ -33,15 +33,6 @@
 }
 }
 
-/* @media (max-width: 991px) {
-  .jumbotron {
-    height: 200px;
-}
-} */
-
-/* .embed-responsive .card-img-top {
-    object-fit: cover;
-} */
 /* General customisations END */
 
 /* Jumbotron customisations */
@@ -60,6 +51,19 @@
   font-size: 1.75rem;
   font-family: Exo, sans-serif;
 }
+
+/* .hero-image {
+  background-image: url(/static/images/dark-kitchen.jpg);
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: inherit;
+  position: relative;
+} */
+
+/* .logo-img{
+    background-image: url(/static/images/logo_transparent.png);
+} */
+
 
 .display-1 {
   font-weight: 900;
@@ -510,6 +514,9 @@
     color: #fcc438;
 }
 
+
+
+
 /* https://www.sanwebe.com/2013/03/addremove-input-fields-dynamically-with-jquery */
 /* https://stackoverflow.com/questions/46356054/how-to-increment-variable-names-in-jquery-in-a-loop */
 /* http://jsbin.com/moweluwu/1/edit?html,js,output */
@@ -540,3 +547,11 @@
 */
 /* https://www.geeksforgeeks.org/find-average-list-python/ */
 /* https://stackoverflow.com/questions/23025891/flask-pass-variables-from-redirect-to-render-template */
+
+
+
+
+
+
+/* Tools */
+/* https://www.vecteezy.com/ */

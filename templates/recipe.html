@@ -55,33 +55,33 @@ recipe._id in active_user.recipes %}
               action="{{url_for('rate_recipe', recipe_id=recipe._id)}}"
             >
             <div class="d-none">
-             <input type="text" id="star-rating" value="{{rating_average}}" name="star-rating"/>
+             <input type="text" id="star-rating" value="{{recipe.rnd_avg_rating}}" name="star-rating"/>
              </div>
-              <label {% if recipe.avg_rating in (1,2,3,4,5) %} style="color: #fddb87"{% endif %} id="rating-1" class="star-rating">
+              <label {% if recipe.rnd_avg_rating in (1,2,3,4,5) %} style="color: #fddb87"{% endif %} id="rating-1" class="star-rating">
                 <div class="d-none">
                   <input type="radio" name="stars" value="1" />
                 </div>
                 <span  class="icon">★</span>
               </label>
-              <label {% if recipe.avg_rating in (2,3,4,5) %} style="color: #fddb87"{% endif %} id="rating-2" class="star-rating">
+              <label {% if recipe.rnd_avg_rating in (2,3,4,5) %} style="color: #fddb87"{% endif %} id="rating-2" class="star-rating">
                 <div class="d-none">
                   <input type="radio" name="stars" value="2" />
                 </div>
                 <span class="icon">★</span>
               </label>
-              <label {% if recipe.avg_rating in (3,4,5) %} style="color: #fddb87"{% endif %} id="rating-3" class="star-rating">
+              <label {% if recipe.rnd_avg_rating in (3,4,5) %} style="color: #fddb87"{% endif %} id="rating-3" class="star-rating">
                 <div class="d-none">
                   <input type="radio" name="stars" value="3" />
                 </div>
                 <span class="icon">★</span>
               </label>
-              <label {% if recipe.avg_rating in (4,5) %} style="color: #fddb87"{% endif %} id="rating-4" class="star-rating">
+              <label {% if recipe.rnd_avg_rating in (4,5) %} style="color: #fddb87"{% endif %} id="rating-4" class="star-rating">
                 <div class="d-none">
                   <input type="radio" name="stars" value="4" />
                 </div>
                 <span class="icon">★</span>
               </label>
-              <label {% if recipe.avg_rating == 5 %} style="color: #fddb87"{% endif %} id="rating-5" class="star-rating">
+              <label {% if recipe.rnd_avg_rating == 5 %} style="color: #fddb87"{% endif %} id="rating-5" class="star-rating">
                 <div class="d-none">
                   <input type="radio" name="stars" value="5" />
                 </div>
