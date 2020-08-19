@@ -1,5 +1,6 @@
 {% extends 'base.html'%} {% block content %}
-
+<section id="spotlight">
+<div class="flex-center section-header"><span class="header-custom">Spotlight</span></div>
 <div class="card-deck">
   <div class="card">
     <img class="card-img-top" src="/static/images/top-chef.jpg" alt="Card image cap">
@@ -18,29 +19,30 @@
     </div>
   </div>
 </div>
+</section>
 
-<section id="food">
-  <div class="flex-center"><h4>Featured Food</h4></div>
+<section id="featured">
+  <div class="flex-center section-header"><span class="header-custom">Featured</span></div>
   <div class="row row-cols-1 row-cols-md-3">
-    {% for recipe in recipes %}
+    {% for featured in feature_coll %}
     <div class="col mb-4">
       <div class="card">
-        <a href="{{url_for('show_recipe', recipe_id=recipe._id)}}"
-          ><img src="{{recipe.img_url}}" class="card-img-top" alt="..."
+        <a href="{{url_for('show_recipe', recipe_id=featured._id)}}"
+          ><img src="{{featured.img_url}}" class="card-img-top" alt="..."
         /></a>
         <div class="card-body">
           <h5 class="card-title display-inline-block">
-            {{recipe.recipe_name}}
+            {{featured.recipe_name}}
           </h5>
           <h5 class="card-title float-right">
-            {{recipe.rnd_avg_rating}} <strong class="star">★</strong>
+            {{featured.rnd_avg_rating}} <strong class="star">★</strong>
           </h5>
-          <p class="card-text">{{recipe.recipe_description}}</p>
+          <p class="card-text">{{featured.recipe_description}}</p>
           <p class="card-text">
-            <small class="text-muted">{{recipe.prep_time}}</small>
+            <small class="text-muted">{{featured.prep_time}}</small>
           </p>
           <p class="card-text">
-            <small class="text-muted">Difficulty: {{recipe.difficulty}}</small>
+            <small class="text-muted">Difficulty: {{featured.difficulty}}</small>
           </p>
         </div>
       </div>

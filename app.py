@@ -55,9 +55,11 @@ def show_home():
     top_recipe_coll = mongo.db.recipes.find({'owner':top_user['_id']}).sort([('avg_rating', -1), ('count_rating', -1)]).limit(1)
     top_recipe=top_recipe_coll[1]
 
+    feature_coll = top_recipe_coll = mongo.db.recipes.find().sort([('avg_rating', -1), ('count_rating', -1)]).limit(3)
+
     # print(top_user)
     # print(top_recipe)
-    return render_template('index.html', recipes=recipes,top_user=top_user, top_recipe=top_recipe)
+    return render_template('index.html', recipes=recipes,top_user=top_user, top_recipe=top_recipe, feature_coll=feature_coll)
 
 
 @app.route('/recipe/<recipe_id>')
@@ -96,7 +98,7 @@ def login():
     return User().login()
 
 
-@app.route('/dashboard/')
+@app.route('/dashboard/',methods=['GET', 'POST'])
 @login_required
 def dashboard():
     existing_user = mongo.db.users.find_one({'_id': session['username']})
@@ -281,6 +283,11 @@ def update_recipe(recipe_id):
         return redirect(url_for('show_recipe', recipe_id=recipe_id))
 
     return render_template('recipe.html', recipe=recipe, recipe_id=recipe_id,owner=owner)
+
+@app.route('/search/')
+# def search():
+#     recipes = [
+#     return redirect(url_for('show_recipe', recipe_id=recipe_id, recipes=updated_recipes))
 
 
 class Recipe:
