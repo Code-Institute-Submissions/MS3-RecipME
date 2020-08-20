@@ -8,11 +8,11 @@
   <div class="card-header">
     <div class="container">
       <div class="row">
-        <div class="col-sm flex-center">
-          {{recipe.recipe_name}}-{{owner.name}}
+        <div class="col-sm flex-center capitalise">
+          Difficulty: {{recipe.difficulty}}
         </div>
         <div class="col-sm flex-center">
-          Difficulty: {{recipe.difficulty}}
+          <p class="r-title capitalise">{{recipe.recipe_name}}</p><p class="r-author capitalise">by {{owner.name}}</p>
         </div>
         <div class="col-sm flex-center">
           <div class="rating-container">
@@ -65,69 +65,47 @@
     </div>
   </div>
   <div class="image-container">
-{% if session['username'] %} 
-{% if owner._id == active_user._id %}
-  <div class="btn-group img-btns" role="group" aria-label="Basic example">
-  <!-- <a href="{{ url_for('edit_recipe', recipe_id=recipe._id) }}"> -->
-  
-  <button type="button" class="btn btn-themed-invert themed-border"><a class="invert-themed-btn-a" href="{{ url_for('edit_recipe', recipe_id=recipe._id) }}">Edit Recipe</a></button>
-  <!-- </a> -->
-{% endif %}
-{% if recipe._id in active_user.recipes %}
-<!-- <a href="{{ url_for('remove_recipe', recipe_id=recipe._id) }}"> -->
-
-<button type="button" class="btn btn-themed themed-border"><a class="themed-btn-a" href="{{ url_for('remove_recipe', recipe_id=recipe._id) }}">Save</a></button>
-    <!-- </a> -->
-{% else %}
-<a href="{{ url_for('save_recipe', recipe_id=recipe._id) }}">
-
-<button type="button" class="btn btn-themed themed-border"><a class="themed-btn-a" href="{{ url_for('save_recipe', recipe_id=recipe._id) }}">Unsave</a></button>
-    <!-- </a> -->
-{% endif %}
-{% if owner._id == active_user._id %}
-<!-- <a href="#"> -->
-  <button type="button" class="btn btn-danger"><a class="themed-btn-a" href="#">Delete Recipe</a></button>
-  <!-- </a> -->
-{% endif %}
-</div>
-{% endif %}
-
-<img
-    src="{{recipe.img_url}}"
-    class="card-img-top card-img-custom"
-    alt="{{recipe.recipe_name}}"
-  />
-{% if session['username'] %} 
-{% if owner._id == active_user._id %}
-<form
-  enctype="multipart/form-data"
-  method="POST"
-  action="{{url_for('add_image', recipe_id=recipe._id)}}"
->
-  <!-- <div class="center">
-    <input name="file" id="file" type="file" />
-    <button class="btn btn-primary" type="submit">add image</button>
-  </div> -->
-  <div class="input-group mb-0">
-  <div class="input-group-prepend">
-    <button class="btn btn-themed themed-border" type="submit">Upload</button>
-  </div>
-  <div class="custom-file">
-    <input type="file" class="custom-file-input" id="inputGroupFile03">
-    <label class="custom-file-label" for="inputGroupFile03">Choose file</label>
+    {% if session['username'] %}
+        <div class="btn-group img-btns" role="group" aria-label="Basic example">
+        {% if owner._id == active_user._id %}
+            <button type="button" class="btn btn-themed-invert themed-border"><a class="invert-themed-btn-a" href="{{ url_for('edit_recipe', recipe_id=recipe._id) }}">Edit Recipe</a></button>
+        {% endif %}
+        {% if recipe._id in active_user.recipes %}
+        <button type="button" class="btn btn-themed themed-border"><a class="themed-btn-a" href="{{ url_for('remove_recipe', recipe_id=recipe._id) }}">Unsave</a></button>
+        {% else %}
+        <a href="{{ url_for('save_recipe', recipe_id=recipe._id) }}">
+        <button type="button" class="btn btn-themed themed-border"><a class="themed-btn-a" href="{{ url_for('save_recipe', recipe_id=recipe._id) }}">Save</a></button>
+        {% endif %}
+        {% if owner._id == active_user._id %}
+        <button type="button" class="btn btn-danger"><a class="themed-btn-a" href="#">Delete Recipe</a></button>
+        {% endif %}
+        </div>
+    {% endif %}
+    <img src="{{recipe.img_url}}" class="card-img-top card-img-custom" alt="{{recipe.recipe_name}}"/>
+    {% if session['username'] %} 
+        {% if owner._id == active_user._id %}
+            <form enctype="multipart/form-data" method="POST" action="{{url_for('add_image', recipe_id=recipe._id)}}">
+                <div class="input-group mb-0">
+                    <div class="input-group-prepend">
+                        <button class="btn btn-themed themed-border" type="submit">Upload</button>
+                    </div>
+                    <div class="custom-file">
+                        <input type="file" class="custom-file-input" id="inputGroupFile03">
+                        <label class="custom-file-label" for="inputGroupFile03">Choose file</label>
+                    </div>
+                </div>
+            </form>
+        {% endif %}
+    {% endif %}
   </div>
 </div>
-</form>
-{% endif %} {% endif %}
-  </div>
-</div>
-<div class="card mb-4">
-  <div class="card-body">
-    <h5 class="card-title">Ingredients</h5>
-    <ul>
+  <div class="card mb-4">
+    <div class="card-body">
+        <h5 class="card-title">Ingredients</h5>
+        <ul>
       {% for ingredient in recipe.recipe_ingredients %} {% if ingredient != Null
       %}
-      <li class="card-text">{{ingredient}}</li>
+      <li class="card-text capitalise-line">{{ingredient}}</li>
       {% endif %} {% endfor %}
     </ul>
   </div>
@@ -137,7 +115,7 @@
     <h5 class="card-title">Method</h5>
     <ol>
       {% for step in recipe.recipe_steps %}
-      <li class="card-text">{{step}}</li>
+      <li class="card-text capitalise-line">{{step}}</li>
       {% endfor %}
     </ol>
   </div>
@@ -146,9 +124,10 @@
   <div class="card-body">
     <h5 class="card-title">Notes</h5>
     <ul>
-      <li class="card-text">{{recipe.notes}}</li>
+      <li class="card-text capitalise-line">{{recipe.notes}}</li>
     </ul>
   </div>
+</div>
 </div>
 
 {% endblock %}

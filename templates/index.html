@@ -6,7 +6,7 @@
   <div class="card-deck">
     <div class="card themed-border">
     <div class="card-header center"><h5 class="card-title">Top Chef</h5>
-        <p class="card-text">{{top_user.name}}</p>
+        <p class="card-text capitalise">{{top_user.name}}</p>
         <p class="card-text">
           <small class="text-muted">Last updated 3 mins ago</small>
         </p></div>
@@ -26,7 +26,7 @@
     <div class="card themed-border">
           <div class="card-header center">
         <h5 class="card-title">Top Chef's Top Recipe</h5>
-        <p class="card-text">{{top_recipe.recipe_name}}</p>
+        <p class="card-text capitalise">{{top_recipe.recipe_name}}</p>
         <p class="card-text">
           <small class="text-muted">Last updated 3 mins ago</small>
         </p>
@@ -54,13 +54,13 @@
           ><img src="{{featured.img_url}}" class="card-img-top" alt="..."
         /></a>
         <div class="card-body">
-          <h5 class="card-title display-inline-block">
+          <h5 class="card-title display-inline-block capitalise">
             {{featured.recipe_name}}
           </h5>
           <h5 class="card-title float-right">
             {{featured.rnd_avg_rating}} <strong class="star">★</strong>
           </h5>
-          <p class="card-text">{{featured.recipe_description}}</p>
+          <p class="card-text capitalise-line">{{featured.recipe_description}}</p>
           <p class="card-text">
             <small class="text-muted">{{featured.prep_time}}</small>
           </p>

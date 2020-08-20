@@ -34,7 +34,7 @@ app.secret_key = secret_key
 
 # Decorators
 
-
+# redirect to control access to functions that require logged in user
 def login_required(f):
     @wraps(f)
     def wrap(*args, **kwargs):
@@ -110,6 +110,7 @@ def dashboard():
 
 # testing //////////////////////////////////////////////////////////////
 @app.route('/add_image/<recipe_id>',methods=['GET', 'POST'])
+@login_required
 def add_image(recipe_id):
     ufile = request.files.get('file')
     if ufile:
@@ -133,6 +134,7 @@ def add_image(recipe_id):
 
 
 @app.route('/save_recipe/<recipe_id>')
+@login_required
 def save_recipe(recipe_id):
     updated_recipes = []
     if session.get('username', None):
@@ -155,6 +157,7 @@ def save_recipe(recipe_id):
 
 
 @app.route('/remove_recipe/<recipe_id>')
+@login_required
 def remove_recipe(recipe_id):
     updated_recipes = []
     if session.get('username', None):
@@ -178,6 +181,7 @@ def remove_recipe(recipe_id):
 
 
 @app.route('/edit_recipe/<recipe_id>')
+@login_required
 def edit_recipe(recipe_id):
     recipe = mongo.db.recipes.find_one({'_id': recipe_id})
     owner = mongo.db.users.find_one({'_id': recipe['owner']})
@@ -189,6 +193,7 @@ def edit_recipe(recipe_id):
 
 
 @app.route('/rate_recipe/<recipe_id>',methods=['GET', 'POST'])
+@login_required
 def rate_recipe(recipe_id):
     recipe = mongo.db.recipes.find_one({'_id': recipe_id})
     owner = mongo.db.users.find_one({'_id': recipe['owner']})
@@ -248,6 +253,7 @@ def rate_recipe(recipe_id):
 
 
 @app.route('/edit_recipe/<recipe_id>',methods=['GET', 'POST'])
+@login_required
 def update_recipe(recipe_id):
     username = session['username']
     recipe = mongo.db.recipes.find_one({'_id': recipe_id})
