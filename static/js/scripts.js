@@ -332,5 +332,14 @@ $(document).ready(function () {
 			$("#rating-4").css("color", "#fddb87")
 			$("#rating-5").css("color", "#fddb87")
 		}
-	});
+    });
+
+// adjust Bootstap file input so label changes to file input name
+        $('.custom-file input').change(function (e) {
+        var files = [];
+        for (var i = 0; i < $(this)[0].files.length; i++) {
+            files.push($(this)[0].files[i].name);
+        }
+        $(this).next('.custom-file-label').html(files.join(', '));
+    });
 });

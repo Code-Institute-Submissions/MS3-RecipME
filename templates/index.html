@@ -1,32 +1,55 @@
 {% extends 'base.html'%} {% block content %}
 <section id="spotlight">
-<div class="flex-center section-header"><span class="header-custom">Spotlight</span></div>
-<div class="card-deck">
-  <div class="card">
-    <img class="card-img-top" src="/static/images/top-chef.jpg" alt="Card image cap">
-    <div class="card-body">
-      <h5 class="card-title">Top Chef</h5>
-      <p class="card-text">{{top_user.name}}</p>
-      <p class="card-text"><small class="text-muted">Last updated 3 mins ago</small></p>
+  <div class="flex-center section-header">
+    <span class="header-custom">Spotlight</span>
+  </div>
+  <div class="card-deck">
+    <div class="card themed-border">
+    <div class="card-header center"><h5 class="card-title">Top Chef</h5>
+        <p class="card-text">{{top_user.name}}</p>
+        <p class="card-text">
+          <small class="text-muted">Last updated 3 mins ago</small>
+        </p></div>
+      <img
+        class="card-img-top"
+        src="/static/images/top-chef.jpg"
+        alt="Card image cap"
+      />
+      <!-- <div class="card-body center">
+        <h5 class="card-title">Top Chef</h5>
+        <p class="card-text">{{top_user.name}}</p>
+        <p class="card-text">
+          <small class="text-muted">Last updated 3 mins ago</small>
+        </p>
+      </div> -->
+    </div>
+    <div class="card themed-border">
+          <div class="card-header center">
+        <h5 class="card-title">Top Chef's Top Recipe</h5>
+        <p class="card-text">{{top_recipe.recipe_name}}</p>
+        <p class="card-text">
+          <small class="text-muted">Last updated 3 mins ago</small>
+        </p>
+      </div>
+      <a href="{{url_for('show_recipe', recipe_id=top_recipe._id)}}">
+        <img
+          class="card-img-top"
+          src="{{top_recipe.img_url}}"
+          alt="Card image cap"
+        />
+      </a>
     </div>
   </div>
-  <div class="card">
-    <img class="card-img-top" src="/static/images/recipe.jpg" alt="Card image cap">
-    <div class="card-body">
-      <h5 class="card-title">Top Chef's Top Recipe</h5>
-      <p class="card-text">{{top_recipe.recipe_name}}</p>
-      <p class="card-text"><small class="text-muted">Last updated 3 mins ago</small></p>
-    </div>
-  </div>
-</div>
 </section>
 
 <section id="featured">
-  <div class="flex-center section-header"><span class="header-custom">Featured</span></div>
+  <div class="flex-center section-header">
+    <span class="header-custom">Featured</span>
+  </div>
   <div class="row row-cols-1 row-cols-md-3">
     {% for featured in feature_coll %}
     <div class="col mb-4">
-      <div class="card">
+      <div class="card themed-border">
         <a href="{{url_for('show_recipe', recipe_id=featured._id)}}"
           ><img src="{{featured.img_url}}" class="card-img-top" alt="..."
         /></a>
@@ -42,7 +65,9 @@
             <small class="text-muted">{{featured.prep_time}}</small>
           </p>
           <p class="card-text">
-            <small class="text-muted">Difficulty: {{featured.difficulty}}</small>
+            <small class="text-muted"
+              >Difficulty: {{featured.difficulty}}</small
+            >
           </p>
         </div>
       </div>

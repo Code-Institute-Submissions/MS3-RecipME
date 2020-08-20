@@ -4,36 +4,6 @@
       Thank you for rating!
     </div>
 {% endif %}
-{% if session['username'] %} {% if
-recipe._id in active_user.recipes %}
-<div class="center">
-  <a href="{{ url_for('remove_recipe', recipe_id=recipe._id) }}"
-    ><button type="button" class="btn btn-primary">Remove recipe</button></a
-  >
-</div>
-{% else %}
-<div class="center">
-  <a href="{{ url_for('save_recipe', recipe_id=recipe._id) }}"
-    ><button type="button" class="btn btn-primary">save recipe</button></a
-  >
-</div>
-{% endif %} {% if owner._id == active_user._id %}
-<div class="center">
-  <a href="{{ url_for('edit_recipe', recipe_id=recipe._id) }}"
-    ><button type="button" class="btn btn-primary">Edit recipe</button></a
-  >
-</div>
-<form
-  enctype="multipart/form-data"
-  method="POST"
-  action="{{url_for('add_image', recipe_id=recipe._id)}}"
->
-  <div class="center">
-    <input name="file" id="file" type="file" />
-    <button class="btn btn-primary" type="submit">add image</button>
-  </div>
-</form>
-{% endif %} {% endif %}
 <div class="card mb-4">
   <div class="card-header">
     <div class="container">
@@ -94,11 +64,62 @@ recipe._id in active_user.recipes %}
       </div>
     </div>
   </div>
-  <img
+  <div class="image-container">
+{% if session['username'] %} 
+{% if owner._id == active_user._id %}
+  <div class="btn-group img-btns" role="group" aria-label="Basic example">
+  <!-- <a href="{{ url_for('edit_recipe', recipe_id=recipe._id) }}"> -->
+  
+  <button type="button" class="btn btn-themed-invert themed-border"><a class="invert-themed-btn-a" href="{{ url_for('edit_recipe', recipe_id=recipe._id) }}">Edit Recipe</a></button>
+  <!-- </a> -->
+{% endif %}
+{% if recipe._id in active_user.recipes %}
+<!-- <a href="{{ url_for('remove_recipe', recipe_id=recipe._id) }}"> -->
+
+<button type="button" class="btn btn-themed themed-border"><a class="themed-btn-a" href="{{ url_for('remove_recipe', recipe_id=recipe._id) }}">Save</a></button>
+    <!-- </a> -->
+{% else %}
+<a href="{{ url_for('save_recipe', recipe_id=recipe._id) }}">
+
+<button type="button" class="btn btn-themed themed-border"><a class="themed-btn-a" href="{{ url_for('save_recipe', recipe_id=recipe._id) }}">Unsave</a></button>
+    <!-- </a> -->
+{% endif %}
+{% if owner._id == active_user._id %}
+<!-- <a href="#"> -->
+  <button type="button" class="btn btn-danger"><a class="themed-btn-a" href="#">Delete Recipe</a></button>
+  <!-- </a> -->
+{% endif %}
+</div>
+{% endif %}
+
+<img
     src="{{recipe.img_url}}"
     class="card-img-top card-img-custom"
     alt="{{recipe.recipe_name}}"
   />
+{% if session['username'] %} 
+{% if owner._id == active_user._id %}
+<form
+  enctype="multipart/form-data"
+  method="POST"
+  action="{{url_for('add_image', recipe_id=recipe._id)}}"
+>
+  <!-- <div class="center">
+    <input name="file" id="file" type="file" />
+    <button class="btn btn-primary" type="submit">add image</button>
+  </div> -->
+  <div class="input-group mb-0">
+  <div class="input-group-prepend">
+    <button class="btn btn-themed themed-border" type="submit">Upload</button>
+  </div>
+  <div class="custom-file">
+    <input type="file" class="custom-file-input" id="inputGroupFile03">
+    <label class="custom-file-label" for="inputGroupFile03">Choose file</label>
+  </div>
+</div>
+</form>
+{% endif %} {% endif %}
+  </div>
 </div>
 <div class="card mb-4">
   <div class="card-body">
