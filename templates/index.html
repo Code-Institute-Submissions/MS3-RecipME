@@ -1,4 +1,5 @@
 {% extends 'base.html'%} {% block content %}
+{% if top_user %}
 <section id="spotlight">
   <div class="flex-center section-header">
     <span class="header-custom">Spotlight</span>
@@ -41,7 +42,7 @@
     </div>
   </div>
 </section>
-
+{% endif %}
 <section id="featured">
   <div class="flex-center section-header">
     <span class="header-custom">Featured</span>

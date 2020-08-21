@@ -11,7 +11,7 @@
         <div class="col-sm flex-center capitalise">
           Difficulty: {{recipe.difficulty}}
         </div>
-        <div class="col-sm flex-center">
+        <div class="col-sm flex-center col-middle">
           <p class="r-title capitalise">{{recipe.recipe_name}}</p><p class="r-author capitalise">by {{owner.name}}</p>
         </div>
         <div class="col-sm flex-center">
@@ -65,7 +65,8 @@
     </div>
   </div>
   <div class="image-container">
-    {% if session['username'] %}
+    <div class="image-sub-container">
+        {% if session['username'] %}
         <div class="btn-group img-btns" role="group" aria-label="Basic example">
         {% if owner._id == active_user._id %}
             <button type="button" class="btn btn-themed-invert themed-border"><a class="invert-themed-btn-a" href="{{ url_for('edit_recipe', recipe_id=recipe._id) }}">Edit Recipe</a></button>
@@ -82,6 +83,7 @@
         </div>
     {% endif %}
     <img src="{{recipe.img_url}}" class="card-img-top card-img-custom" alt="{{recipe.recipe_name}}"/>
+    </div>
     {% if session['username'] %} 
         {% if owner._id == active_user._id %}
             <form enctype="multipart/form-data" method="POST" action="{{url_for('add_image', recipe_id=recipe._id)}}">
@@ -90,8 +92,8 @@
                         <button class="btn btn-themed themed-border" type="submit">Upload</button>
                     </div>
                     <div class="custom-file">
-                        <input type="file" class="custom-file-input" id="inputGroupFile03">
-                        <label class="custom-file-label" for="inputGroupFile03">Choose file</label>
+                        <input type="file" name="file" id="file" class="custom-file-input">
+                        <label class="custom-file-label" for="file">Choose file</label>
                     </div>
                 </div>
             </form>
@@ -120,6 +122,7 @@
     </ol>
   </div>
 </div>
+{% if recipe['notes'] %}
 <div class="card mb-4">
   <div class="card-body">
     <h5 class="card-title">Notes</h5>
@@ -129,5 +132,5 @@
   </div>
 </div>
 </div>
-
+{% endif %}
 {% endblock %}
