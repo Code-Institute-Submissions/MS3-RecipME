@@ -7,6 +7,7 @@ from functools import wraps
 from cloudinary.uploader import upload, destroy
 import cloudinary as Cloud
 import uuid
+import json
 
 # Local deploy only
 from os import path
@@ -134,6 +135,8 @@ def dashboard():
     for one_star in one_stars:
         one_star_ratings.append(one_star['rating'])
     one_star_count = len(one_star_ratings)
+
+
 
     return render_template('dashboard.html', active_user=existing_user, saved_recipes=saved_recipes, owned_recipes=owned_recipes, five_star_count=five_star_count, three_star_count=three_star_count, four_star_count=four_star_count, two_star_count=two_star_count, one_star_count=one_star_count)
 
