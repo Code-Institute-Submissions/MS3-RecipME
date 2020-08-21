@@ -1,80 +1,95 @@
 {% extends 'base.html'%} {% block content %}
-<div class="card-wrapper">
+<div class="card themed-border">
+  <h1 class="center">Dashboard</h1>
+  <p class="center">You are currently logged in.</p>
   <div class="card themed-border">
-    <h1 class="center">Dashboard</h1>
-    <p class="center">You are currently logged in.</p>
+    <h2 class="center">Your Info</h2>
+    <p>
+      <strong>ID:</strong> {{ active_user['_id'] }}<br />
+      <strong>Name:</strong> {{ active_user['name'] }}<br />
+      <strong>Email:</strong> {{ active_user['email'] }}<br />
+      <strong>Your Rating:</strong> {{ active_user['rnd_avg_rating'] }}
+    </p>
+  </div>
+</div>
+<div class="d-none">
+  <input type="text" name="card[]" value="{{one_star_count}}" />
+  <input type="text" name="card[]" value="{{two_star_count}}" />
+  <input type="text" name="card[]" value="{{three_star_count}}" />
+  <input type="text" name="card[]" value="{{four_star_count}}" />
+  <input type="text" name="card[]" value="{{five_star_count}}" />
+</div>
+<!-- Chart.js -->
+<div class="flex-center section-header">
+  <span class="header-custom">My Dashboard</span>
+</div>
+  <div class="card">
+    <div class="card-body">
+      <canvas id="chDonut1"></canvas>
+    </div>
+</div>
+<!-- /////////////////// -->
+<div class="flex-center section-header">
+  <span class="header-custom">My Recipes</span>
+</div>
+<div class="row row-cols-1 row-cols-md-3">
+  {% for owned_recipe in owned_recipes %}
+  <div class="col mb-4">
     <div class="card themed-border">
-      <h2 class="center">Your Info</h2>
-      <p>
-        <strong>ID:</strong> {{ active_user['_id'] }}<br />
-        <strong>Name:</strong> {{ active_user['name'] }}<br />
-        <strong>Email:</strong> {{ active_user['email'] }}<br />
-        <strong>Your Rating:</strong> {{ active_user['rnd_avg_rating'] }}
-      </p>
-    </div>
-  </div>
-  <div class="flex-center section-header">
-    <span class="header-custom">My Recipes</span>
-  </div>
-  <div class="row row-cols-1 row-cols-md-3">
-    {% for owned_recipe in owned_recipes %}
-    <div class="col mb-4">
-      <div class="card themed-border">
-        <a href="{{url_for('show_recipe', recipe_id=owned_recipe._id)}}"
-          ><img src="{{owned_recipe.img_url}}" class="card-img-top" alt="..."
-        /></a>
-        <div class="card-body">
-          <h5 class="card-title display-inline-block capitalise">
-            {{owned_recipe.recipe_name}}
-          </h5>
-          <h5 class="card-title float-right">
-            {{owned_recipe.rnd_avg_rating}} <strong class="star">★</strong>
-          </h5>
-          <p class="card-text capitalise-line">
-            {{owned_recipe.recipe_description}}
-          </p>
-          <p class="card-text">
-            <small class="text-muted">{{owned_recipe.prep_time}}</small>
-          </p>
-          <p class="card-text">
-            <small class="text-muted"
-              >Difficulty: {{owned_recipe.difficulty}}</small
-            >
-          </p>
-        </div>
+      <a href="{{url_for('show_recipe', recipe_id=owned_recipe._id)}}"
+        ><img src="{{owned_recipe.img_url}}" class="card-img-top" alt="..."
+      /></a>
+      <div class="card-body">
+        <h5 class="card-title display-inline-block capitalise">
+          {{owned_recipe.recipe_name}}
+        </h5>
+        <h5 class="card-title float-right">
+          {{owned_recipe.rnd_avg_rating}} <strong class="star">★</strong>
+        </h5>
+        <p class="card-text capitalise-line">
+          {{owned_recipe.recipe_description}}
+        </p>
+        <p class="card-text">
+          <small class="text-muted">{{owned_recipe.prep_time}}</small>
+        </p>
+        <p class="card-text">
+          <small class="text-muted"
+            >Difficulty: {{owned_recipe.difficulty}}</small
+          >
+        </p>
       </div>
     </div>
-    {% endfor %}
   </div>
+  {% endfor %}
+</div>
 
-  <div class="flex-center section-header">
-    <span class="header-custom">Saved Recipes</span>
-  </div>
-  <div class="row row-cols-1 row-cols-md-3">
-    {% for recipe in saved_recipes %}
-    <div class="col mb-4">
-      <div class="card themed-border">
-        <a href="{{url_for('show_recipe', recipe_id=recipe._id)}}"
-          ><img src="{{recipe.img_url}}" class="card-img-top" alt="..."
-        /></a>
-        <div class="card-body">
-          <h5 class="card-title display-inline-block capitalise">
-            {{recipe.recipe_name}}
-          </h5>
-          <h5 class="card-title float-right">
-            {{recipe.rnd_avg_rating}} <strong class="star">★</strong>
-          </h5>
-          <p class="card-text capitalise-line">{{recipe.recipe_description}}</p>
-          <p class="card-text">
-            <small class="text-muted">{{recipe.prep_time}}</small>
-          </p>
-          <p class="card-text">
-            <small class="text-muted">Difficulty: {{recipe.difficulty}}</small>
-          </p>
-        </div>
+<div class="flex-center section-header">
+  <span class="header-custom">Saved Recipes</span>
+</div>
+<div class="row row-cols-1 row-cols-md-3">
+  {% for recipe in saved_recipes %}
+  <div class="col mb-4">
+    <div class="card themed-border">
+      <a href="{{url_for('show_recipe', recipe_id=recipe._id)}}"
+        ><img src="{{recipe.img_url}}" class="card-img-top" alt="..."
+      /></a>
+      <div class="card-body">
+        <h5 class="card-title display-inline-block capitalise">
+          {{recipe.recipe_name}}
+        </h5>
+        <h5 class="card-title float-right">
+          {{recipe.rnd_avg_rating}} <strong class="star">★</strong>
+        </h5>
+        <p class="card-text capitalise-line">{{recipe.recipe_description}}</p>
+        <p class="card-text">
+          <small class="text-muted">{{recipe.prep_time}}</small>
+        </p>
+        <p class="card-text">
+          <small class="text-muted">Difficulty: {{recipe.difficulty}}</small>
+        </p>
       </div>
     </div>
-    {% endfor %}
   </div>
+  {% endfor %}
 </div>
 {% endblock %}

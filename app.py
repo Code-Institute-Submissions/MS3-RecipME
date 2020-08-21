@@ -102,10 +102,40 @@ def login():
 @login_required
 def dashboard():
     existing_user = mongo.db.users.find_one({'_id': session['username']})
-    saved_recipes = mongo.db.recipes.find(
-        {'_id': {'$in': existing_user['recipes']}})
+    saved_recipes = mongo.db.recipes.find({'_id': {'$in': existing_user['recipes']}})
     owned_recipes = mongo.db.recipes.find({'owner': existing_user['_id']})
-    return render_template('dashboard.html', active_user=existing_user, saved_recipes=saved_recipes, owned_recipes=owned_recipes)
+
+    five_star_ratings = []
+    five_stars = mongo.db.ratings.find({'owner_id': existing_user['_id'],'rating': "5"})
+    for five_star in five_stars:
+        five_star_ratings.append(five_star['rating'])
+    five_star_count = len(five_star_ratings)
+
+    four_star_ratings = []
+    four_stars = mongo.db.ratings.find({'owner_id': existing_user['_id'],'rating': "4"})
+    for four_star in four_stars:
+        four_star_ratings.append(four_star['rating'])
+    four_star_count = len(four_star_ratings)
+
+    three_star_ratings = []
+    three_stars = mongo.db.ratings.find({'owner_id': existing_user['_id'],'rating': "3"})
+    for three_star in three_stars:
+        three_star_ratings.append(three_star['rating'])
+    three_star_count = len(three_star_ratings)
+
+    two_star_ratings = []
+    two_stars = mongo.db.ratings.find({'owner_id': existing_user['_id'],'rating': "2"})
+    for two_star in two_stars:
+        two_star_ratings.append(two_star['rating'])
+    two_star_count = len(two_star_ratings)
+
+    one_star_ratings = []
+    one_stars = mongo.db.ratings.find({'owner_id': existing_user['_id'],'rating': "1"})
+    for one_star in one_stars:
+        one_star_ratings.append(one_star['rating'])
+    one_star_count = len(one_star_ratings)
+
+    return render_template('dashboard.html', active_user=existing_user, saved_recipes=saved_recipes, owned_recipes=owned_recipes, five_star_count=five_star_count, three_star_count=three_star_count, four_star_count=four_star_count, two_star_count=two_star_count, one_star_count=one_star_count)
 
 
 # testing //////////////////////////////////////////////////////////////

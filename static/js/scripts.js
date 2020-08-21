@@ -349,6 +349,44 @@ $(document).ready(function () {
 	// 	$(this).child().css("color", "red");
 	// });
 
+// Chart.js
+/* chart.js chart examples */
+
+// chart colors
+var colors = ['#800000','#ff0000','#ff6600','#ff9933','#fcc438'];
+
+var data = $("input[name^='card']").map(function (idx, ele) {
+   return $(ele).val();
+}).get();
+console.log(data);
+
+/* 3 donut charts */
+var donutOptions = {
+  cutoutPercentage: 85, 
+  legend: {position:'bottom', padding:5, labels: {pointStyle:'circle', usePointStyle:true}}
+};
+
+// donut 1
+var chDonutData1 = {
+    labels: ['1 Star', '2 Star', '3 Star', '4 Star', '5 Star'],
+    datasets: [
+      {
+        backgroundColor: colors.slice(0,5),
+        borderWidth: 0,
+        data: data
+      }
+    ]
+};
+
+var chDonut1 = document.getElementById("chDonut1");
+if (chDonut1) {
+  new Chart(chDonut1, {
+      type: 'pie',
+      data: chDonutData1,
+      options: donutOptions
+  });
+}
+
 
 
 });
