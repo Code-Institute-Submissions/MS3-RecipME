@@ -101,6 +101,7 @@
     {% endif %}
   </div>
 </div>
+{% if recipe['recipe_ingredients'] %}
   <div class="card mb-4">
     <div class="card-body">
         <h5 class="card-title">Ingredients</h5>
@@ -112,6 +113,8 @@
     </ul>
   </div>
 </div>
+{% endif %}
+{% if recipe['recipe_steps'] %}
 <div class="card mb-4">
   <div class="card-body">
     <h5 class="card-title">Method</h5>
@@ -122,6 +125,7 @@
     </ol>
   </div>
 </div>
+{% endif %}
 {% if recipe['notes'] %}
 <div class="card mb-4">
   <div class="card-body">

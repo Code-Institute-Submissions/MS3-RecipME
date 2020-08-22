@@ -346,10 +346,19 @@ def update_recipe(recipe_id):
 
     return render_template('recipe.html', recipe=recipe, recipe_id=recipe_id,owner=owner)
 
-@app.route('/search/')
-# def search():
-#     recipes = [
-#     return redirect(url_for('show_recipe', recipe_id=recipe_id, recipes=updated_recipes))
+@app.route('/search/', methods=['GET', 'POST'])
+def search():
+    search_term = request.form.get('input-search')
+
+    if search_term == "":
+        return redirect(url_for('show_home'))
+    else:
+        search_term = request.form.get('input-search')
+        mongo.db.recipes.create_index([('recipe_name', "text"),('recipe_description', "text"),('recipe_ingredients', "text") ])
+
+        search_results = mongo.db.recipes.find({"$text": {"$search": search_term}}).sort([('avg_rating', -1), ('count_rating', -1)]).limit(10)
+
+        return render_template('search.html',search_results=search_results, search_term=search_term)
 
 
 class Recipe:

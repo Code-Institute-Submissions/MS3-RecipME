@@ -507,4 +507,7 @@ new Chart(document.getElementById("chDonut1"), {
   //     });
   // 	e.preventDefault();
   // });
+
+
+
 });
