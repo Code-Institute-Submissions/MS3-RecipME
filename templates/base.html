@@ -53,10 +53,7 @@
                     aria-describedby="basic-addon2"
                   />
                   <div class="input-group-append">
-                    <button
-                      class="btn btn-search"
-                      type="submit"
-                    >
+                    <button class="btn btn-search" type="submit">
                       <i class="fas fa-search"></i>
                     </button>
                   </div>
@@ -64,6 +61,91 @@
               </form>
             </li>
           </ul>
+          <div class="dropdown has-megamenu">
+            <button
+              class="btn dropdown-toggle filter-dropdown"
+              type="button"
+              id="dropdownMenuButton"
+              data-toggle="dropdown"
+              aria-haspopup="true"
+              aria-expanded="false"
+            >
+              Categories
+            </button>
+            <div
+              class="dropdown-menu dropdown-menu-align"
+              aria-labelledby="dropdownMenuButton"
+            ><form name="filter_form"
+                id="filter_form"
+              enctype="multipart/form-data"
+              method="POST"
+              action="{{url_for('filter_recipes')}}">
+              <div class="container-fluid">
+                <div class="row">
+                <input name="filter-input" id="filter-input" class="d-none" type="text" value=""/>
+                  <div class="col">
+                    <h6 class="dropdown-header text-center">
+                      Show Star Ratings
+                    </h6>
+                    <li class="flex-center">
+                      <input name="5-star" id="5-star" class="filter-btn" type="submit" value="5 Star"/>
+                    </li>
+                    <li class="flex-center">
+                      <input name="4-star" id="4-star" class="filter-btn" type="submit" value="4 Star"/>
+                    </li>
+                    <li class="flex-center">
+                      <input name="3-star" id="3-star" class="filter-btn" type="submit" value="3 Star"/>
+                    </li>
+                    <li class="flex-center">
+                      <input name="2-star" id="2-star" class="filter-btn" type="submit" value="2 Star"/>
+                    </li>
+                    <li class="flex-center">
+                      <input name="1-star" id="1-star" class="filter-btn" type="submit" value="1 Star"/>
+                    </li>
+                  </div>
+                  <div class="col">
+                    <h6 class="dropdown-header text-center">
+                      Dietary Lifestyle
+                    </h6>
+                    <li class="flex-center">
+                    <input name="vegan" id="vegan" class="filter-btn" type="submit" value="Vegan"/>
+                    </li>
+                    <li class="flex-center">
+                      <input name="vegetarian" id="vegetarian" class="filter-btn" type="submit" value="Vegetarian"/>
+                    </li>
+                    <li class="flex-center">
+                      <input name="keto" id="keo" class="filter-btn" type="submit" value="Keto"/>
+                    </li>
+                    <li class="flex-center">
+                      <input name="balanced" id="balanced" class="filter-btn" type="submit" value="Balanced"/>
+                    </li>
+                    <li class="flex-center">
+                      <input name="low-fat" id="low-fat" class="filter-btn" type="submit" value="Low Fat"/>
+                    </li>
+                  </div>
+                  <div class="col">
+                    <h6 class="dropdown-header text-center">Tags</h6>
+                    <li class="flex-center">
+                      <input name="5-ingredient" id="5-ingredient" class="filter-btn" type="submit" value="5 Ingredient"/>
+                    </li>
+                    <li class="flex-center">
+                      <input name="15-minute" id="15-minute" class="filter-btn" type="submit" value="15 Minute"/>
+                    </li>
+                    <li class="flex-center">
+                      <input name="slow-cooker" id="slow-cooker" class="filter-btn" type="submit" value="Slow Cooker"/>
+                    </li>
+                    <li class="flex-center">
+                      <input name="one-pan" id="one-pan" class="filter-btn" type="submit" value="One Pan"/>
+                    </li>
+                    <li class="flex-center">
+                      <input name="low-cost" id="low-cost" class="filter-btn" type="submit" value="Low Cost"/>
+                    </li>
+                  </div>
+                </div>
+              </div>
+              </form>
+            </div>
+          </div>
           <ul class="navbar-nav ml-auto">
             <li class="nav-item">
               <a class="nav-link flex-center" href="{{url_for('show_home')}}"
@@ -84,8 +166,12 @@
                 >Featured</a
               >
             </li>
+            <li class="nav-item">
+              <a class="nav-link flex-center" href="{{url_for('all_recipes')}}"
+                >All Recipes</a
+              >
+            </li>
             {% if session['username'] %}
-
             <li class="nav-item dropdown active-user">
               <a
                 class="nav-link dropdown-toggle flex-center"
@@ -98,7 +184,10 @@
               >
                 {{ session['user']['name'] }}
               </a>
-              <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+              <div
+                class="dropdown-menu dropdown-menu-custom"
+                aria-labelledby="navbarDropdown"
+              >
                 <a class="dropdown-item flex-center" href="#"
                   >{{ session['user']['name'] }}</a
                 >
@@ -255,6 +344,7 @@
                       ></span>
                     </div>
                   </div>
+                  <p class="error-two d-none"></p>
                   <p class="error d-none"></p>
                   <div class="form-group">
                     <button
@@ -520,6 +610,48 @@
                         <option selected value="easy">Easy</option>
                         <option value="medium">Medium</option>
                         <option value="hard">Hard</option>
+                      </select>
+                    </div>
+                    <div class="input-group mb-3">
+                      <div class="input-group-prepend prepend-uniform">
+                        <label
+                          class="input-group-text themed prepend-text"
+                          for="categorySelector"
+                          >Category</label
+                        >
+                      </div>
+                      <select
+                        name="category"
+                        class="custom-select font-sizing"
+                        id="categorySelector"
+                      > 
+                        <option selected value="none">None</option>
+                        <option value="vegan">Vegan</option>
+                        <option value="vegetarian">Vegetarian</option>
+                        <option value="keto">Keto</option>
+                        <option value="balanced">Balanced</option>
+                        <option value="low-fat">Low Fat</option>
+                      </select>
+                    </div>
+                    <div class="input-group mb-3">
+                      <div class="input-group-prepend prepend-uniform">
+                        <label
+                          class="input-group-text themed prepend-text"
+                          for="tagSelector"
+                          >Tag</label
+                        >
+                      </div>
+                      <select
+                        name="tag"
+                        class="custom-select font-sizing"
+                        id="tagSelector"
+                      >
+                        <option selected value="none">None</option>
+                        <option value="5-ingredient">5 Ingredient</option>
+                        <option value="15-minute">15 Minute</option>
+                        <option value="slow-cooker">Slow Cooker</option>
+                        <option value="one-pan">One Pan</option>
+                        <option value="low-cost">Low Cost</option>
                       </select>
                     </div>
                   </div>

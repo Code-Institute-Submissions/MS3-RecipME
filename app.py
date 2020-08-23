@@ -1,7 +1,7 @@
 import os
 # from bson.objectid import ObjectId
 from flask import Flask, render_template, redirect, request, url_for, jsonify, session
-from flask_pymongo import PyMongo
+from flask_pymongo import PyMongo, pymongo
 from passlib.hash import pbkdf2_sha256
 from functools import wraps
 from cloudinary.uploader import upload, destroy
@@ -50,6 +50,7 @@ def login_required(f):
 @app.route('/home')
 def show_home():
     recipes = mongo.db.recipes.find()
+
     feature_coll = top_recipe_coll = mongo.db.recipes.find().sort([('avg_rating', -1), ('count_rating', -1)]).limit(3)
     try:
         top_user_coll = mongo.db.users.find().sort([('avg_rating', -1), ('count_rating', -1)]).limit(1)
@@ -109,17 +110,17 @@ def dashboard():
 
     top_recipe_coll = mongo.db.recipes.find({'owner':existing_user['_id']}).sort([('avg_rating', -1), ('count_rating', -1)]).limit(5)
 
-    print(owned_recipes[0])
+    # print(owned_recipes[0])
     try:
-        print(top_recipe_coll)
+        # print(top_recipe_coll)
         recipe_names = []
         recipe_rating_count = []
         for top_recipe in top_recipe_coll:
             recipe_names.append(top_recipe['recipe_name'])
             recipe_rating_count.append(top_recipe['count_rating'])
 
-        print(recipe_names)
-        print(recipe_rating_count)
+        # print(recipe_names)
+        # print(recipe_rating_count)
 
         rating_coll = []
 
@@ -339,6 +340,8 @@ def update_recipe(recipe_id):
             'cook_time': request.form.get('edit-cook-time'),
             'serves': request.form.get('edit-serves'),
             "difficulty": request.form.get('edit-difficulty'),
+            "category": request.form.get('category'),
+            "tag": request.form.get('tag'),
             'owner': user['_id'],
         }}, upsert=True)
 
@@ -359,6 +362,39 @@ def search():
         search_results = mongo.db.recipes.find({"$text": {"$search": search_term}}).sort([('avg_rating', -1), ('count_rating', -1)]).limit(10)
 
         return render_template('search.html',search_results=search_results, search_term=search_term)
+# ///////////////////////////////TESTING
+
+@app.route('/recipes/',methods=['GET', 'POST'])
+def all_recipes():
+    recipes = mongo.db.recipes.find()
+    # print(recipes[1])
+    return render_template('all-recipes.html',recipes=recipes)
+
+
+@app.route('/delete/<recipe_id>')
+def delete_recipe(recipe_id):
+    username = session['username']
+    recipe = mongo.db.recipes.find_one({'_id': recipe_id})
+    owner = mongo.db.users.find_one({'_id': recipe['owner']})
+    existing_user = mongo.db.users.find_one({'_id': session['username']})
+
+    if owner == existing_user:
+        # print(True)
+        mongo.db.ratings.delete_many({'recipe_id': recipe['_id']})
+        mongo.db.recipes.remove({'_id': recipe['_id']})
+
+    return redirect(url_for('dashboard'))
+
+
+@app.route('/recipes/')
+def filter_recipes():
+    recipes = mongo.db.recipes.find()
+    # print(recipes[1])
+
+    
+    return render_template('filter.html',recipes=recipes)
+
+
 
 
 class Recipe:
@@ -389,6 +425,8 @@ class Recipe:
             "notes": request.form.get('recipe-notes'),
             "img_url": 'https://res.cloudinary.com/dm2vu1yzr/image/upload/v1597575587/ynfzhoovai1r2jkjjq4l.png',
             "difficulty": request.form.get('difficulty'),
+            "category": request.form.get('category'),
+            "tag": request.form.get('tag'),
             "owner": session['username']
         }
 

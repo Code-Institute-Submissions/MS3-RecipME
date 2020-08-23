@@ -296,7 +296,7 @@ $(document).ready(function () {
         .addClass("shadow-diff")
         .removeClass("shadow-match")
         .css("border-color", "red");
-      $(".error")
+      $(".error-two")
         .text("Passwords Don't Match!")
         .removeClass("d-none")
         .css("color", "red");
@@ -305,7 +305,7 @@ $(document).ready(function () {
         .addClass("shadow-match")
         .removeClass("shadow-diff")
         .css("border-color", "green");
-      $(".error")
+      $(".error-two")
         .text("Passwords Match!")
         .removeClass("d-none")
         .css("color", "green");
@@ -320,7 +320,7 @@ $(document).ready(function () {
         .addClass("shadow-diff")
         .removeClass("shadow-match")
         .css("border-color", "red");
-      $(".error")
+      $(".error-two")
         .text("Passwords Don't Match!")
         .removeClass("d-none")
         .css("color", "red");
@@ -329,7 +329,7 @@ $(document).ready(function () {
         .addClass("shadow-match")
         .removeClass("shadow-diff")
         .css("border-color", "green");
-      $(".error")
+      $(".error-two")
         .text("Passwords Match!")
         .removeClass("d-none")
         .css("color", "green");
@@ -362,7 +362,7 @@ $(document).ready(function () {
     }
   );
   // Changes value of rating input for submit rating
-  $(":radio").change(function () {
+  $("[name='stars']:radio").change(function () {
     var x = $(this).val();
     $("#star-rating").val(x);
     console.log($("#star-rating").val());
@@ -492,22 +492,12 @@ new Chart(document.getElementById("chDonut1"), {
     },
   });
 
-  // $("form[name=test-form").submit(function (e) {
-  // 	$.ajax({
-  // 		url: "/test/",
-  // 		type: "POST",
-  // 		data: data,
-  // 		dataType: "json",
-  // 		success: function (resp) {
-  // 			  console.log(resp);
-  // 		},
-  // 		error: function (resp) {
-  // 			console.log(resp);
-  //         },
-  //     });
-  // 	e.preventDefault();
-  // });
-
+ $("[name='star']:radio").change(function () {
+    var x = $(this).val();
+    $("#filter-input").val(x);
+    console.log($("#filter-input").val());
+    $("#filter_form").submit();
+  });
 
 
 });

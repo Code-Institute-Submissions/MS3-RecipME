@@ -198,14 +198,58 @@ body{
 	color: #fcc438;
 	text-decoration: none;
 }
+.filter-btn{
+    border: none;
+    background-color: transparent;
+    color: #fcc438;
+}
 
-.dropdown-menu{
+.filter-btn:hover{
+    text-decoration: underline;
+}
+
+input[type="button" i]:focus {
+    outline-offset: 0px;
+    outline-color: transparent
+}
+
+.dropdown-menu-align.show{
+    left: 50%;
+    transform: translate(-50%, 0);
+}
+
+.filter-dropdown {
+    font-family: Roboto, sans-serif;
+    font-weight: 500;
+    color: #fff;
+    border: #fff solid 1px;
+}
+
+.filter-dropdown:hover {
+    background-color: #fff; 
+    color: #fcc438;
+    border: #fcc438 solid 1px;
+}
+
+.text-center{
+    text-align: center;
+}
+
+.dropdown.has-megamenu{
+position:static;
+}
+
+.dropdown-menu-filter{
+    min-width: 300%;
+}
+
+.dropdown-menu-custom{
     max-width: 8rem;
     min-width: 7rem;
 }
 
 @media (max-width: 767px) {
-	.dropdown-menu{
+	.dropdown-menu-custom{
     max-width: none;
     min-width: 8rem;
 }
@@ -233,6 +277,16 @@ body{
 
 .btn-danger:hover {
     color: #fcc438;
+}
+
+.themed-li-a {
+	color: #fcc438;
+	text-decoration: none;
+}
+
+.themed-li-a:hover {
+	color: #fcc438;
+	/* text-decoration: none; */
 }
 
 .themed-a {
@@ -336,6 +390,22 @@ body{
 	color: #b00;
 	margin-bottom: 1rem;
 }
+
+.error-two{
+    margin: 0;
+	font-size: 18px;
+	line-height: 26px;
+	text-align: center;
+	color: #b00;
+	margin-bottom: 1rem;
+}
+
+.modal-body-custom .modal-card .error-login{
+    /* margin: 0; */
+    color: #b00;
+    text-align: center;
+}
+
 .btn-submit {
 	position: absolute;
 	bottom: 20px;
@@ -688,6 +758,12 @@ body{
 /* https://www.youtube.com/watch?v=4QUGWnz-XaA */
 
 /* https://docs.mongodb.com/manual/core/index-text/#create-text-index */
+
+/* https://www.youtube.com/watch?v=Lnt6JqtzM7I */
+
+/* https://stackoverflow.com/questions/48846705/how-to-make-bootstrap-4-dropdown-menu-in-several-cols-and-on-the-whole-screen */
+
+
 
 /* Tools */
 
