@@ -219,26 +219,26 @@ $(document).ready(function () {
     });
     e.preventDefault();
   });
-    // Submit Update user modal form
-//   $("form[name=edit_account_form").submit(function (e) {
-//     var $form = $(this);
-//     var $error = $form.find(".error-login");
-//     var data = $form.serialize();
-//     $.ajax({
-//       url: "/user/update",
-//       type: "POST",
-//       data: data,
-//       dataType: "json",
-//       success: function (resp) {
-//         window.location.href = "/dashboard/";
-//       },
-//       error: function (resp) {
-//         console.log(resp);
-//         $error.text(resp.responseJSON.error).removeClass("d-none");
-//       },
-//     });
-//     e.preventDefault();
-//   });
+    // Submit Update Account modal form
+  $("form[name=edit_account_form").submit(function (e) {
+    var $form = $(this);
+    var $error = $form.find(".error-three");
+    var data = $form.serialize();
+    $.ajax({
+      url: "/user/update",
+      type: "POST",
+      data: data,
+      dataType: "json",
+      success: function (resp) {
+        window.location.href = "/dashboard/";
+      },
+      error: function (resp) {
+        console.log(resp);
+        $error.text(resp.responseJSON.error).removeClass("d-none");
+      },
+    });
+    e.preventDefault();
+  });
   // Submit Add recipe modal form
   $("form[name=recipe_form").submit(function (e) {
     var $form = $(this);

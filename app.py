@@ -100,9 +100,9 @@ def login():
     return User().login()
 
 
-@app.route('/user/update', methods=['POST'])
-def update_login():
-    return User().update_login()
+# @app.route('/user/update', methods=['POST'])
+# def update_login():
+#     return User().update_login()
 
 
 @app.route('/dashboard/',methods=['GET', 'POST'])
@@ -401,9 +401,9 @@ def delete_recipe(recipe_id): #Validated @login covers non signed in users / val
 
 
 
-@app.route('/edit/<user_id>', methods=['GET', 'POST'])
+@app.route('/user/update', methods=['GET', 'POST'])
 @login_required
-def edit_account(user_id):
+def edit_account():
 
     user = mongo.db.users.find_one({"_id": session['username']})
     if user and pbkdf2_sha256.verify(request.form.get('current-password'), user['password']):
@@ -413,27 +413,24 @@ def edit_account(user_id):
             if user['email'] == request.form.get('email'):
                 mongo.db.users.update_one({'_id': session['username']}, {"$set": {
                 'name': request.form.get('name'),
-                'email': request.form.get('email'),
                 'password': pbkdf2_sha256.encrypt(request.form.get('new-password'))}}, upsert=True)
 
                 user = mongo.db.users.find_one({"_id": session['username']})
-                start_session(user)
-                # return jsonify(user), 200
+                return start_session(user)
+                
+            elif mongo.db.users.find_one({"email": request.form.get('email')}):
+                return jsonify({"error": "Email address already in use"}), 400
 
-
-                return redirect(url_for('show_home'))
-                # return user
-            # if mongo.db.users.find_one({"email": request.form.get('email')}):
+            else:
+                mongo.db.users.update_one({'_id': session['username']}, {"$set": {
+                'name': request.form.get('name'),
+                'email': request.form.get('email'),
+                'password': pbkdf2_sha256.encrypt(request.form.get('new-password'))}}, upsert=True)
         
+        return jsonify({"error": "Passwords must match"}), 400
 
-    # if user and pbkdf2_sha256.verify(request.form.get('password'), user['password']):
-    #     if request.form.get('password') == request.form.get('validate-password'):
+    return jsonify({"error": "Current password - Authentication failed"}), 401
 
-    # # if validate_owner(recipe_id) == True:
-    # username = session['username']
-    # active_user = mongo.db.users.find_one({'_id': username})
-
-    return print("no")
 
 
 def start_session(user):
@@ -462,15 +459,6 @@ def start_session(user):
 #     return redirect(url_for('dashboard'))
 
 
-
-# Future functionality add
-# @app.route('/recipes/')
-# def filter_recipes():
-#     recipes = mongo.db.recipes.find()
-#     # print(recipes[1])
-
-    
-#     return render_template('filter.html',recipes=recipes)
 
 #Validate a action that only the recipe own can do
 def validate_owner(recipe_id):
@@ -582,28 +570,6 @@ class User:
         if user and pbkdf2_sha256.verify(request.form.get('password'), user['password']):
             return self.start_session(user)
         return jsonify({"error": "Invalid login credentials"}), 401
-
-    # def update_login(self):
-
-    #     user = mongo.db.users.find_one({"_id": session['username']})
-    #     if user and pbkdf2_sha256.verify(request.form.get('current-password'), user['password']):
-
-    #         if request.form.get('new-password') == request.form.get('new-validate-password'):
-
-    #             if user['email'] == request.form.get('email'):
-    #                 mongo.db.users.update_one({'_id': session['username']}, {"$set": {
-    #                 'name': request.form.get('name'),
-    #                 'email': request.form.get('email'),
-    #                 'password': pbkdf2_sha256.encrypt(request.form.get('new-password'))}}, upsert=True)
-
-    #                 return self.start_session(user)
-
-    #             elif mongo.db.users.find_one({"email": request.form.get('email')}):
-    #                 return jsonify({"error": "Email address already in use"}), 400
-    #         else:
-    #             return jsonify({"error": "Passwords must match"}), 400
-
-    #     return jsonify({"error": "Invalid login credentials"}), 401
 
 
 if __name__ == '__main__':

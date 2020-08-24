@@ -371,6 +371,13 @@ position:static;
 	border: 2px solid #fcc438;
 	font-weight: 600;
 }
+.btn-middle {
+	border-radius: 0;
+}
+.btn-left{
+    border-top-right-radius: 0;
+    border-bottom-right-radius: 0;
+}
 .btn-themed:hover {
 	color: #fcc438;
 	background-color: #fff;
@@ -394,7 +401,7 @@ position:static;
 	color: #fff;
 	background-color: #fcc438;
 }
-.error {
+.error, .error-two, .error-three {
 	margin: 0;
 	font-size: 18px;
 	line-height: 26px;
@@ -403,14 +410,6 @@ position:static;
 	margin-bottom: 1rem;
 }
 
-.error-two{
-    margin: 0;
-	font-size: 18px;
-	line-height: 26px;
-	text-align: center;
-	color: #b00;
-	margin-bottom: 1rem;
-}
 
 .modal-body-custom .modal-card .error-login{
     /* margin: 0; */
