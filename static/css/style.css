@@ -153,7 +153,7 @@ body{
 	border-radius: 0.25rem;
 	color: #fcc438;
 	background-color: #fafafa;
-	opacity: 0.75;
+	opacity: 0.90;
 }
 
 .active-user {
@@ -247,6 +247,18 @@ position:static;
     max-width: 8rem;
     min-width: 7rem;
 }
+
+
+.delete-a{
+    background-color: #fff;
+    color: #dc3545;
+}
+
+.delete-a:hover{
+    background-color: #dc3545;
+    color: #fff;
+}
+
 
 @media (max-width: 767px) {
 	.dropdown-menu-custom{

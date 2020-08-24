@@ -8,29 +8,17 @@
     <div class="card themed-border">
     <div class="card-header center"><h5 class="card-title">Top Chef</h5>
         <p class="card-text capitalise">{{top_user.name}}</p>
-        <p class="card-text">
-          <small class="text-muted">Last updated 3 mins ago</small>
-        </p></div>
+</div>
       <img
         class="card-img-top"
         src="/static/images/top-chef.jpg"
         alt="Card image cap"
       />
-      <!-- <div class="card-body center">
-        <h5 class="card-title">Top Chef</h5>
-        <p class="card-text">{{top_user.name}}</p>
-        <p class="card-text">
-          <small class="text-muted">Last updated 3 mins ago</small>
-        </p>
-      </div> -->
     </div>
     <div class="card themed-border">
           <div class="card-header center">
         <h5 class="card-title">Top Chef's Top Recipe</h5>
         <p class="card-text capitalise">{{top_recipe.recipe_name}}</p>
-        <p class="card-text">
-          <small class="text-muted">Last updated 3 mins ago</small>
-        </p>
       </div>
       <a href="{{url_for('show_recipe', recipe_id=top_recipe._id)}}">
         <img
@@ -62,9 +50,6 @@
             {{featured.rnd_avg_rating}} <strong class="star">★</strong>
           </h5>
           <p class="card-text capitalise-line">{{featured.recipe_description}}</p>
-          <p class="card-text">
-            <small class="text-muted">{{featured.prep_time}}</small>
-          </p>
           <p class="card-text">
             <small class="text-muted"
               >Difficulty: {{featured.difficulty}}</small

@@ -395,13 +395,44 @@ def delete_recipe(recipe_id): #Validated @login covers non signed in users / val
     return redirect(url_for('dashboard'))
 
 
-@app.route('/recipes/')
-def filter_recipes():
-    recipes = mongo.db.recipes.find()
-    # print(recipes[1])
+
+# @app.route('/edit/<user_id>')
+# @login_required
+# def edit_account(user_id):
+#     # if validate_owner(recipe_id) == True:
+#     username = session['username']
+#     active_user = mongo.db.users.find_one({'_id': username})
+
+#     return
+
+
+# @app.route('/delete/<active_user>')
+# @login_required
+# def delete_account(recipe_id): 
+#     active_user = mongo.db.users.find_one({'_id': session['username']})
+#     if validate_owner(recipe_id) == True:
+#         username = session['username']
+#         recipe = mongo.db.recipes.find_one({'_id': recipe_id})
+#         owner = mongo.db.users.find_one({'_id': recipe['owner']})
+#         active_user = mongo.db.users.find_one({'_id': username})
+#         # print(True)
+#         mongo.db.ratings.delete_many({'recipe_id': recipe['_id']})
+#         mongo.db.recipes.remove({'_id': recipe['_id']})
+#     else:
+#         return redirect(url_for('show_home'))
+
+#     return redirect(url_for('dashboard'))
+
+
+
+# Future functionality add
+# @app.route('/recipes/')
+# def filter_recipes():
+#     recipes = mongo.db.recipes.find()
+#     # print(recipes[1])
 
     
-    return render_template('filter.html',recipes=recipes)
+#     return render_template('filter.html',recipes=recipes)
 
 #Validate a action that only the recipe own can do
 def validate_owner(recipe_id):
