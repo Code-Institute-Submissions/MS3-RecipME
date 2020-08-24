@@ -48,7 +48,7 @@ def login_required(f):
 
 @app.route('/')
 @app.route('/home')
-def show_home():
+def show_home(): #No Validation Required
     recipes = mongo.db.recipes.find()
 
     feature_coll = top_recipe_coll = mongo.db.recipes.find().sort([('avg_rating', -1), ('count_rating', -1)]).limit(3)
@@ -66,18 +66,16 @@ def show_home():
 
 
 @app.route('/recipe/<recipe_id>')
-def show_recipe(recipe_id):
+def show_recipe(recipe_id): #Validated/Refactored
     recipe = mongo.db.recipes.find_one({'_id': recipe_id})
     owner = mongo.db.users.find_one({'_id': recipe['owner']})
     rating_msg = request.args.get('rating_msg')
+    try:
+        active_user = mongo.db.users.find_one({'_id': session['username']})
+    except:
+        active_user = ""
 
-    if session.get('username', None):
-        existing_user = mongo.db.users.find_one({'_id': session['username']})
-
-        return render_template('recipe.html', recipe=recipe, recipe_id=recipe_id, owner=owner, active_user=existing_user, rating_msg=rating_msg)
-
-    return render_template('recipe.html', recipe=recipe, recipe_id=recipe_id,owner=owner)
-
+    return render_template('recipe.html', recipe=recipe, recipe_id=recipe_id, owner=owner, active_user=active_user, rating_msg=rating_msg)
 
 
 # Sign up
@@ -87,7 +85,8 @@ def signup():
 
 
 @app.route('/recipe/add', methods=['POST'])
-def add_recipe():
+@login_required
+def add_recipe(): #Validated @login covers non signed in users
     return Recipe().add()
 
 
@@ -103,12 +102,13 @@ def login():
 
 @app.route('/dashboard/',methods=['GET', 'POST'])
 @login_required
-def dashboard():
-    existing_user = mongo.db.users.find_one({'_id': session['username']})
-    saved_recipes = mongo.db.recipes.find({'_id': {'$in': existing_user['recipes']}})
-    owned_recipes = mongo.db.recipes.find({'owner': existing_user['_id']})
+def dashboard(): #Validated @login covers non signed in users / Session prevents one user from seeing another users information
 
-    top_recipe_coll = mongo.db.recipes.find({'owner':existing_user['_id']}).sort([('avg_rating', -1), ('count_rating', -1)]).limit(5)
+    active_user = mongo.db.users.find_one({'_id': session['username']})
+    saved_recipes = mongo.db.recipes.find({'_id': {'$in': active_user['recipes']}})
+    owned_recipes = mongo.db.recipes.find({'owner': active_user['_id']})
+
+    top_recipe_coll = mongo.db.recipes.find({'owner':active_user['_id']}).sort([('avg_rating', -1), ('count_rating', -1)]).limit(5)
 
     # print(owned_recipes[0])
     try:
@@ -130,69 +130,72 @@ def dashboard():
         four_star_ratings = []
         five_star_ratings = []
 
-        one_stars = mongo.db.ratings.find({'owner_id': existing_user['_id'],'rating': "1"})
+        one_stars = mongo.db.ratings.find({'owner_id': active_user['_id'],'rating': "1"})
         for one_star in one_stars:
             one_star_ratings.append(one_star['rating'])
         one_star_count = len(one_star_ratings)
         rating_coll.append(one_star_count)
 
-        two_stars = mongo.db.ratings.find({'owner_id': existing_user['_id'],'rating': "2"})
+        two_stars = mongo.db.ratings.find({'owner_id': active_user['_id'],'rating': "2"})
         for two_star in two_stars:
             two_star_ratings.append(two_star['rating'])
         two_star_count = len(two_star_ratings)
         rating_coll.append(two_star_count)
 
-        three_stars = mongo.db.ratings.find({'owner_id': existing_user['_id'],'rating': "3"})
+        three_stars = mongo.db.ratings.find({'owner_id': active_user['_id'],'rating': "3"})
         for three_star in three_stars:
             three_star_ratings.append(three_star['rating'])
         three_star_count = len(three_star_ratings)
         rating_coll.append(three_star_count)
 
-        four_stars = mongo.db.ratings.find({'owner_id': existing_user['_id'],'rating': "4"})
+        four_stars = mongo.db.ratings.find({'owner_id': active_user['_id'],'rating': "4"})
         for four_star in four_stars:
             four_star_ratings.append(four_star['rating'])
         four_star_count = len(four_star_ratings)
         rating_coll.append(four_star_count)
 
-        five_stars = mongo.db.ratings.find({'owner_id': existing_user['_id'],'rating': "5"})
+        five_stars = mongo.db.ratings.find({'owner_id': active_user['_id'],'rating': "5"})
         for five_star in five_stars:
             five_star_ratings.append(five_star['rating'])
         five_star_count = len(five_star_ratings)
         rating_coll.append(five_star_count)
     except:
-        return render_template('dashboard.html', active_user=existing_user, saved_recipes=saved_recipes, owned_recipes=owned_recipes)
+        return render_template('dashboard.html', active_user=active_user, saved_recipes=saved_recipes, owned_recipes=owned_recipes)
 
-    return render_template('dashboard.html', active_user=existing_user, saved_recipes=saved_recipes, owned_recipes=owned_recipes, rating_coll=rating_coll, recipe_names=recipe_names, recipe_rating_count=recipe_rating_count)
+    return render_template('dashboard.html', active_user=active_user, saved_recipes=saved_recipes, owned_recipes=owned_recipes, rating_coll=rating_coll, recipe_names=recipe_names, recipe_rating_count=recipe_rating_count)
 
 
 # testing //////////////////////////////////////////////////////////////
 @app.route('/add_image/<recipe_id>',methods=['GET', 'POST'])
 @login_required
-def add_image(recipe_id):
-    ufile = request.files.get('file')
-    if ufile:
-        recipe = mongo.db.recipes.find_one({'_id': recipe_id})
-        try:
-            destroy(recipe['image_public_id'], invalidate=True)
-            print('File Destroyed')
-        except:
-             print('No File Destroyed')
-        uploaded = upload(ufile)
-        image_url = uploaded['secure_url']
-        public_id = uploaded['public_id']
+def add_image(recipe_id): #Validated @login covers non signed in users / validate_owner() prevents non owner from uploading new image
+    if validate_owner(recipe_id) == True:
+        ufile = request.files.get('file')
+        if ufile:
+            recipe = mongo.db.recipes.find_one({'_id': recipe_id})
+            try:
+                destroy(recipe['image_public_id'], invalidate=True)
+                print('File Destroyed')
+            except:
+                print('No File Destroyed')
+            uploaded = upload(ufile)
+            image_url = uploaded['secure_url']
+            public_id = uploaded['public_id']
 
-        mongo.db.recipes.update_one({'_id': recipe_id}, {"$set": {
-            'img_url': image_url,
-            'image_public_id': public_id,
-        }}, upsert=True)
+            mongo.db.recipes.update_one({'_id': recipe_id}, {"$set": {
+                'img_url': image_url,
+                'image_public_id': public_id,
+            }}, upsert=True)
+        else:
+            print('no file found')
+        return redirect(url_for('show_recipe', recipe_id=recipe_id))
     else:
-        print('no file found')
-    return redirect(url_for('show_recipe', recipe_id=recipe_id))
-
+        return redirect(url_for('show_recipe', recipe_id=recipe_id))
 
 @app.route('/save_recipe/<recipe_id>')
 @login_required
-def save_recipe(recipe_id):
+def save_recipe(recipe_id): #Validated @login covers non signed in users / Session prevents one user adding save to another users account
+    #Remove if below? should not need to be validated twice
     updated_recipes = []
     if session.get('username', None):
         username = session['username']
@@ -215,7 +218,8 @@ def save_recipe(recipe_id):
 
 @app.route('/remove_recipe/<recipe_id>')
 @login_required
-def remove_recipe(recipe_id):
+def remove_recipe(recipe_id): #Validated @login covers non signed in users / Session prevents one user adding save to another users account
+    #Remove if below? should not need to be validated twice
     updated_recipes = []
     if session.get('username', None):
         username = session['username']
@@ -239,19 +243,61 @@ def remove_recipe(recipe_id):
 
 @app.route('/edit_recipe/<recipe_id>')
 @login_required
-def edit_recipe(recipe_id):
+def edit_recipe(recipe_id): #Validated @login covers non signed in users / validate_owner() prevents non owner from accessing edit recipe page
     recipe = mongo.db.recipes.find_one({'_id': recipe_id})
     owner = mongo.db.users.find_one({'_id': recipe['owner']})
-    existing_user = mongo.db.users.find_one({'_id': session['username']})
-    if session.get('username', None):
-        return render_template('edit-recipe.html', recipe=recipe, recipe_id=recipe_id, owner=owner, active_user=existing_user)
+    active_user = mongo.db.users.find_one({'_id': session['username']})
+    if validate_owner(recipe_id) == True:
+        print(True)
+        return render_template('edit-recipe.html', recipe=recipe, recipe_id=recipe_id, owner=owner, active_user=active_user)
+    else:
+        print(False)
+        return render_template('recipe.html', recipe=recipe, recipe_id=recipe_id, owner=owner,active_user=active_user)
 
-    return render_template('recipe.html', recipe=recipe, recipe_id=recipe_id, owner=owner)
+
+@app.route('/edit_recipe/<recipe_id>',methods=['GET', 'POST'])
+@login_required
+def update_recipe(recipe_id): #Validated @login covers non signed in users / validate_owner() prevents non owner from editing recipe (which they already should be able to access bacsed on edit_recipe validation)
+
+    if validate_owner(recipe_id) == True:
+        print(True)
+        recipe = mongo.db.recipes.find_one({'_id': recipe_id})
+        recipe_ingredients = []
+        for x in range(1, 41):
+            if request.form.get("edit-ingredient-%d" % (x)):
+                recipe_ingredients.append(request.form.get("edit-ingredient-%d" % (x)))
+
+        recipe_steps = []
+
+        for x in range(1, 41):
+            if request.form.get("edit-step-%d" % (x)):
+                recipe_steps.append(request.form.get("edit-step-%d" % (x)))
+
+        mongo.db.recipes.update_one({'_id': recipe_id}, {"$set": {
+            'recipe_name': request.form.get('edit-recipient-name'),
+            'recipe_description': request.form.get('edit-recipe-description'),
+            "recipe_ingredients": recipe_ingredients,
+            "recipe_steps": recipe_steps,
+            'notes': request.form.get('edit-recipe-notes'),
+            'prep_time': request.form.get('edit-prep-time'),
+            'cook_time': request.form.get('edit-cook-time'),
+            'serves': request.form.get('edit-serves'),
+            "difficulty": request.form.get('edit-difficulty'),
+            "category": request.form.get('category'),
+            "tag": request.form.get('tag'),
+            'owner': session['username'],
+        }}, upsert=True)
+
+        return redirect(url_for('show_recipe', recipe_id=recipe_id))
+    
+    else:
+        print(False)
+        return render_template('recipe.html', recipe=recipe, recipe_id=recipe_id,owner=owner)
 
 
 @app.route('/rate_recipe/<recipe_id>',methods=['GET', 'POST'])
 @login_required
-def rate_recipe(recipe_id):
+def rate_recipe(recipe_id): #Validated @login covers non signed in users
     recipe = mongo.db.recipes.find_one({'_id': recipe_id})
     owner = mongo.db.users.find_one({'_id': recipe['owner']})
 
@@ -260,7 +306,7 @@ def rate_recipe(recipe_id):
 
     ratings_count = 0
     owner_ratings_count = 0
-
+    # Remove if? double validation
     if session.get('username', None):
         # print(request.form.get('star-rating'))
         if mongo.db.ratings.find_one({'user_id': session['username'],'recipe_id': recipe['_id']}):
@@ -309,48 +355,9 @@ def rate_recipe(recipe_id):
     return redirect(url_for('show_recipe', recipe_id=recipe_id, rating_add=False))
 
 
-@app.route('/edit_recipe/<recipe_id>',methods=['GET', 'POST'])
-@login_required
-def update_recipe(recipe_id):
-    username = session['username']
-    recipe = mongo.db.recipes.find_one({'_id': recipe_id})
-    owner = mongo.db.users.find_one({'_id': recipe['owner']})
-    existing_user = mongo.db.users.find_one({'_id': session['username']})
-    user = mongo.db.users.find_one({'_id': username})
-    if session.get('username', None):
-        recipe_ingredients = []
-
-        for x in range(1, 41):
-            if request.form.get("edit-ingredient-%d" % (x)):
-                recipe_ingredients.append(request.form.get("edit-ingredient-%d" % (x)))
-
-        recipe_steps = []
-
-        for x in range(1, 41):
-            if request.form.get("edit-step-%d" % (x)):
-                recipe_steps.append(request.form.get("edit-step-%d" % (x)))
-
-        mongo.db.recipes.update_one({'_id': recipe_id}, {"$set": {
-            'recipe_name': request.form.get('edit-recipient-name'),
-            'recipe_description': request.form.get('edit-recipe-description'),
-            "recipe_ingredients": recipe_ingredients,
-            "recipe_steps": recipe_steps,
-            'notes': request.form.get('edit-recipe-notes'),
-            'prep_time': request.form.get('edit-prep-time'),
-            'cook_time': request.form.get('edit-cook-time'),
-            'serves': request.form.get('edit-serves'),
-            "difficulty": request.form.get('edit-difficulty'),
-            "category": request.form.get('category'),
-            "tag": request.form.get('tag'),
-            'owner': user['_id'],
-        }}, upsert=True)
-
-        return redirect(url_for('show_recipe', recipe_id=recipe_id))
-
-    return render_template('recipe.html', recipe=recipe, recipe_id=recipe_id,owner=owner)
 
 @app.route('/search/', methods=['GET', 'POST'])
-def search():
+def search(): #No Validation Required
     search_term = request.form.get('input-search')
 
     if search_term == "":
@@ -365,23 +372,25 @@ def search():
 # ///////////////////////////////TESTING
 
 @app.route('/recipes/',methods=['GET', 'POST'])
-def all_recipes():
+def all_recipes(): #No Validation Required
     recipes = mongo.db.recipes.find()
     # print(recipes[1])
     return render_template('all-recipes.html',recipes=recipes)
 
 
 @app.route('/delete/<recipe_id>')
-def delete_recipe(recipe_id):
-    username = session['username']
-    recipe = mongo.db.recipes.find_one({'_id': recipe_id})
-    owner = mongo.db.users.find_one({'_id': recipe['owner']})
-    existing_user = mongo.db.users.find_one({'_id': session['username']})
-
-    if owner == existing_user:
+@login_required
+def delete_recipe(recipe_id): #Validated @login covers non signed in users / validate_owner() prevents non owner from deleting recipe
+    if validate_owner(recipe_id) == True:
+        username = session['username']
+        recipe = mongo.db.recipes.find_one({'_id': recipe_id})
+        owner = mongo.db.users.find_one({'_id': recipe['owner']})
+        active_user = mongo.db.users.find_one({'_id': username})
         # print(True)
         mongo.db.ratings.delete_many({'recipe_id': recipe['_id']})
         mongo.db.recipes.remove({'_id': recipe['_id']})
+    else:
+        return redirect(url_for('show_home'))
 
     return redirect(url_for('dashboard'))
 
@@ -394,6 +403,20 @@ def filter_recipes():
     
     return render_template('filter.html',recipes=recipes)
 
+#Validate a action that only the recipe own can do
+def validate_owner(recipe_id):
+    try:
+        username = session['username']
+    except:
+        username = ""
+    recipe = mongo.db.recipes.find_one({'_id': recipe_id})
+    owner = mongo.db.users.find_one({'_id': recipe['owner']})
+    active_user = mongo.db.users.find_one({'_id': username})
+
+    if owner == active_user:
+        return True
+    else:
+        return False
 
 
 
