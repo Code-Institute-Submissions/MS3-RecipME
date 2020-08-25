@@ -403,8 +403,8 @@ def delete_recipe(recipe_id): #Validated @login covers non signed in users / val
 
 @app.route('/user/update', methods=['GET', 'POST'])
 @login_required
-def edit_account():
-
+def edit_account():#Validated @login covers non signed in users / use of session to determine want account to edit prevents other users editing someone else account
+    
     user = mongo.db.users.find_one({"_id": session['username']})
     if user and pbkdf2_sha256.verify(request.form.get('current-password'), user['password']):
 
@@ -441,22 +441,17 @@ def start_session(user):
         return jsonify(user), 200
 
 
-# @app.route('/delete/<active_user>')
-# @login_required
-# def delete_account(recipe_id): 
-#     active_user = mongo.db.users.find_one({'_id': session['username']})
-#     if validate_owner(recipe_id) == True:
-#         username = session['username']
-#         recipe = mongo.db.recipes.find_one({'_id': recipe_id})
-#         owner = mongo.db.users.find_one({'_id': recipe['owner']})
-#         active_user = mongo.db.users.find_one({'_id': username})
-#         # print(True)
-#         mongo.db.ratings.delete_many({'recipe_id': recipe['_id']})
-#         mongo.db.recipes.remove({'_id': recipe['_id']})
-#     else:
-#         return redirect(url_for('show_home'))
-
-#     return redirect(url_for('dashboard'))
+@app.route('/user/<user_id>')
+@login_required
+def delete_account(user_id): #Validated @login covers non signed in users / use of session to determine want account to delete prevents other users deleting someone else account
+    if user_id == session['username']:
+        mongo.db.users.remove({'_id': user_id})
+        session.clear()
+        print(True)
+        return redirect(url_for('show_home'))
+    else:
+        print(False)
+        return redirect(url_for('show_home'))
 
 
 

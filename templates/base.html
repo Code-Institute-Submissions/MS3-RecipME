@@ -205,10 +205,10 @@
                 <a
                   class="dropdown-item flex-center"
                   href="{{url_for('signout')}}"
-                  >Sign Out</a
+                  ><i class="fas fa-sign-out-alt"></i>Sign Out</a
                 >
-                <a class="dropdown-item flex-center edit-a" href="#" data-toggle="modal" data-target="#edit-modal">Edit Account</a>
-                <a class="dropdown-item flex-center delete-a" href="#" data-toggle="modal" data-target="#delete-account-modal">Delete Account</a>
+                <a class="dropdown-item flex-center edit-a" href="#" data-toggle="modal" data-target="#edit-modal"><i class="far fa-edit"></i>Edit Account</a>
+                <a class="dropdown-item flex-center delete-a" href="#" data-toggle="modal" data-target="#delete-account-modal"><i class="fas fa-trash"></i>Delete Account</a>
               </div>
             </li>
             {% else %}
@@ -725,6 +725,7 @@
         </div>
       </div>
     </div>
+    {% if session['username'] %}
         <div class="modal" tabindex="-1" role="dialog" id="delete-account-modal">
   <div class="modal-dialog" role="document">
     <div class="modal-content">
@@ -738,12 +739,15 @@
         <p>Are you sure you want to delete your account?</p>
       </div>
       <div class="modal-footer">
-        <a class="themed-btn-a" href="{{ url_for('show_home') }}"><button type="button"  class="btn btn-danger">Delete Account</button></a>
+        <a class="themed-btn-a" 
+        href="{{ url_for('delete_account', user_id=session.user._id) }}
+        "><button type="button"  class="btn btn-danger">Delete Account</button></a>
         <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
       </div>
     </div>
   </div>
 </div>
+{% endif %}
 <!-- ////////////UPDATE ACCOUNT//////////////////// -->
 {% if session['username'] %}
  <div

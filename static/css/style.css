@@ -259,6 +259,16 @@ position:static;
     color: #fff;
 }
 
+.edit-a{
+    background-color: #fff;
+    color: #007bff;
+}
+
+.edit-a:hover{
+    background-color: #007bff;
+    color: #fff;
+}
+
 
 @media (max-width: 767px) {
 	.dropdown-menu-custom{
