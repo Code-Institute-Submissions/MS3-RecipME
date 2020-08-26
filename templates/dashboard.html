@@ -2,14 +2,9 @@
 <div class="card themed-border">
 	<div class="card themed-border">
 		<h1 class="center">Dashboard</h1>
-		<p class="center">You are currently logged in.</p>
-		<h2 class="center">Your Info</h2>
-		<p>
-			<strong>ID:</strong> {{ active_user['_id'] }}<br />
-			<strong>Name:</strong> {{ active_user['name'] }}<br />
-			<strong>Email:</strong> {{ active_user['email'] }}<br />
-			<strong>Your Rating:</strong> {{ active_user['rnd_avg_rating'] }}
-		</p>
+		<h2 class="center"><strong>Name:</strong> {{ active_user['name'] }}</h2>
+		<p class="center"><strong>Email:</strong> {{ active_user['email'] }}</p>
+        <h2 class="center"><strong>Your Rating:</strong> {{ active_user['rnd_avg_rating'] }}</h2>
 	</div>
 </div>
 {% if rating_coll %}

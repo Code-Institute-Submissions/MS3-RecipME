@@ -113,7 +113,7 @@ def dashboard(): #Validated @login covers non signed in users / Session prevents
     saved_recipes = mongo.db.recipes.find({'_id': {'$in': active_user['recipes']}})
     owned_recipes = mongo.db.recipes.find({'owner': active_user['_id']})
 
-    top_recipe_coll = mongo.db.recipes.find({'owner':active_user['_id']}).sort([('avg_rating', -1), ('count_rating', -1)]).limit(5)
+    top_recipe_coll = mongo.db.recipes.find({'owner': active_user['_id']}).sort([('avg_rating', -1), ('count_rating', -1)]).limit(5)
 
     # print(owned_recipes[0])
     try:
@@ -244,6 +244,20 @@ def remove_recipe(recipe_id): #Validated @login covers non signed in users / Ses
         updated_recipes = updated_user['recipes']
 
     return redirect(url_for('show_recipe', recipe_id=recipe_id, recipes=updated_recipes))
+
+
+@app.route('/copy_recipe/<recipe_id>')
+@login_required
+def copy_recipe(recipe_id): #
+    recipe = mongo.db.recipes.find_one({'_id': recipe_id})
+    owner = mongo.db.users.find_one({'_id': recipe['owner']})
+    active_user = mongo.db.users.find_one({'_id': session['username']})
+    if session.get('username', None):
+        print(True)
+        return render_template('edit-recipe.html', recipe=recipe, recipe_id=recipe_id, active_user=active_user)
+    else:
+        print(False)
+        return render_template('recipe.html', recipe=recipe, recipe_id=recipe_id, owner=owner,active_user=active_user)
 
 
 @app.route('/edit_recipe/<recipe_id>')

@@ -296,21 +296,22 @@ position:static;
     color: inherit;
     text-decoration: none;
 }
-
 .btn-danger:hover {
-    color: #fcc438;
+    color: #dc3545;
+    background-color: #fff;
 }
-
+.btn-danger {
+    background-color: #dc3545;
+    color: #fff;
+}
 .themed-li-a {
 	color: #fcc438;
 	text-decoration: none;
 }
-
 .themed-li-a:hover {
 	color: #fcc438;
 	/* text-decoration: none; */
 }
-
 .themed-a {
 	background-color: #fcc438;
 	color: #fff;
@@ -387,6 +388,10 @@ position:static;
 .btn-left{
     border-top-right-radius: 0;
     border-bottom-right-radius: 0;
+}
+.btn-right{
+    border-top-left-radius: 0;
+    border-bottom-left-radius: 0;
 }
 .btn-themed:hover {
 	color: #fcc438;
