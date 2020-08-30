@@ -1,35 +1,37 @@
 {% extends 'base.html'%} {% block content %}
 <div class="flex-center section-header">
-  <span class="header-custom">Search results for {{search_term}}</span>
+  <span class="header-custom">{{user.name}}</span>
 </div>
 <div class="row row-cols-1 row-cols-md-3">
-  {% for search_result in search_results %}
+  {% for recipe in recipes %}
+  {% if recipe.owner == user._id %}
   <div class="col mb-4">
     <div class="card themed-border">
-      <a href="{{url_for('show_recipe', recipe_id=search_result._id)}}"
-        ><img src="{{search_result.img_url}}" class="card-img-top" alt="..."
+      <a href="{{url_for('show_recipe', recipe_id=recipe._id)}}"
+        ><img src="{{recipe.img_url}}" class="card-img-top" alt="..."
       /></a>
       <div class="card-body">
         <h5 class="card-title display-inline-block capitalise">
-          {{search_result.recipe_name}}
+          {{recipe.recipe_name}}
         </h5>
         <h5 class="card-title float-right">
-          {{search_result.rnd_avg_rating}} <strong class="star">★</strong>
+          {{recipe.rnd_avg_rating}} <strong class="star">★</strong>
         </h5>
         <p class="card-text capitalise-line">
-          {{search_result.recipe_description}}
+          {{recipe.recipe_description}}
         </p>
         <p class="card-text">
-          <small class="text-muted">{{search_result.prep_time}}</small>
+          <small class="text-muted">{{recipe.prep_time}}</small>
         </p>
         <p class="card-text">
           <small class="text-muted"
-            >Difficulty: {{search_result.difficulty}}</small
+            >Difficulty: {{recipe.difficulty}}</small
           >
         </p>
       </div>
     </div>
   </div>
+  {% endif %}
   {% endfor %}
 </div>
 

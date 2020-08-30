@@ -9,11 +9,13 @@
     <div class="card-header center"><h5 class="card-title">Top Chef</h5>
         <p class="card-text capitalise">{{top_user.name}}</p>
 </div>
+<a href="{{url_for('user_recipes', user_id=top_user._id)}}">
       <img
         class="card-img-top"
         src="/static/images/top-chef.jpg"
         alt="Card image cap"
       />
+       </a>
     </div>
     <div class="card themed-border">
           <div class="card-header center">

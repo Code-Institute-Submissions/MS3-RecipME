@@ -9,7 +9,7 @@
     <div class="container">
       <div class="row">
         <div class="col-sm flex-center capitalise">
-            Author: {{owner.name}}
+            Author: <a href="{{url_for('user_recipes', user_id=owner._id)}}">{{owner.name}}</a>
         </div>
         <div class="col-sm flex-center col-middle">
           <p class="r-title capitalise">{{recipe.recipe_name}}</p>
@@ -74,15 +74,17 @@
         {% if session['username'] %}
         <div class="btn-group img-btns" role="group" aria-label="Basic example">
         {% if owner._id == active_user._id %}
-            <a class="invert-themed-btn-a" href="{{ url_for('edit_recipe', recipe_id=recipe._id) }}"><button type="button" class="btn btn-themed-invert themed-border btn-left">Edit Recipe</button></a>
+            <a class="invert-themed-btn-a" href="{{ url_for('edit_recipe', recipe_id=recipe._id,owner_id=owner._id, active_user_id=active_user._id) }}"><button type="button" class="btn btn-themed-invert themed-border btn-left">Edit Recipe</button></a>
         {% else %}
-            <a class="invert-themed-btn-a" href="{{ url_for('copy_recipe', recipe_id=recipe._id) }}"><button type="button" class="btn btn-themed-invert themed-border btn-left">Copy Recipe</button></a>
+            <a class="invert-themed-btn-a" href="{{ url_for('copy_recipe', recipe_id=recipe._id,owner_id=owner._id, active_user_id=active_user._id) }}"><button type="button" class="btn btn-themed-invert themed-border btn-left">Copy Recipe</button></a>
         {% endif %}
+        {% if owner._id != active_user._id %}
         {% if recipe._id in active_user.recipes %}
-        <a class="themed-btn-a" href="{{ url_for('remove_recipe', recipe_id=recipe._id) }}"><button type="button" class="btn btn-themed themed-border btn-right {% if owner._id == active_user._id %}btn-middle{% endif %}">Unsave</button></a>
+        <a class="themed-btn-a" href="{{ url_for('save_recipe', recipe_id=recipe._id) }}"><button type="button" class="btn btn-themed themed-border btn-right {% if owner._id == active_user._id %}btn-middle{% endif %}">Unsave</button></a>
         {% else %}
         <a href="{{ url_for('save_recipe', recipe_id=recipe._id) }}">
         <a class="themed-btn-a" href="{{ url_for('save_recipe', recipe_id=recipe._id) }}"><button type="button" class="btn btn-themed themed-border btn-right {% if owner._id == active_user._id %}btn-middle{% endif %}">Save</button></a>
+        {% endif %}
         {% endif %}
         {% if owner._id == active_user._id %}
         <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#delete-modal">Delete Recipe</button>
