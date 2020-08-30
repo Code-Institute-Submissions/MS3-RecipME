@@ -3,6 +3,7 @@
   <span class="header-custom">{{user.name}}</span>
 </div>
 <div class="row row-cols-1 row-cols-md-3">
+<!-- for each recipe that is owner by selected user, show the recipes details in a bootstrap card -->
   {% for recipe in recipes %}
   {% if recipe.owner == user._id %}
   <div class="col mb-4">
@@ -11,7 +12,7 @@
         ><img src="{{recipe.img_url}}" class="card-img-top" alt="..."
       /></a>
       <div class="card-body">
-        <h5 class="card-title display-inline-block capitalise">
+        <h5 class="card-title display-inline-block capitalise card-name">
           {{recipe.recipe_name}}
         </h5>
         <h5 class="card-title float-right">

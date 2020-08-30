@@ -1,4 +1,5 @@
 {% extends 'base.html'%} {% block content %}
+<!-- check if a rating has just been submitted and if so display msg of acknowlegement -->
 {% if rating_msg == "1" %}
     <div class="alert alert-success" id="rating-alert">
       Thank you for rating!
@@ -27,6 +28,7 @@
             <div class="d-none">
              <input type="text" id="star-rating" value="{{recipe.rnd_avg_rating}}" name="star-rating"/>
              </div>
+             <!-- checks the recipes rounded rating changes color of stars accordingly -->
               <label {% if recipe.rnd_avg_rating in (1,2,3,4,5) %} style="color: #fddb87"{% endif %} id="rating-1" class="star-rating">
                 <div class="d-none">
                   <input type="radio" name="stars" value="1" />
@@ -71,6 +73,7 @@
   {% endif %}
   <div class="image-container">
     <div class="image-sub-container">
+    <!-- sets what options a user sees based on 3 user roles(not logged in, logged in but not recipe owner, logged in as recipe owner) -->
         {% if session['username'] %}
         <div class="btn-group img-btns" role="group" aria-label="Basic example">
         {% if owner._id == active_user._id %}
@@ -109,6 +112,7 @@
         </div>
     </div>
   </div>
+  <!-- if active user is the owner show input to add/update image -->
     {% if session['username'] %} 
         {% if owner._id == active_user._id %}
             <form enctype="multipart/form-data" method="POST" action="{{url_for('add_image', recipe_id=recipe._id)}}">

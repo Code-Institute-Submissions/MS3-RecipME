@@ -1,5 +1,6 @@
 {% extends 'base.html'%} {% block content %}
 <div class="card themed-border">
+<!-- dashboard page user detail section -->
 	<div class="card themed-border">
 		<h1 class="center">Dashboard</h1>
 		<h2 class="center"><strong>Name:</strong> {{ active_user['name'] }}</h2>
@@ -7,6 +8,7 @@
         <h2 class="center"><strong>Your Rating:</strong> {{ active_user['rnd_avg_rating'] }}</h2>
 	</div>
 </div>
+<!-- hidden input for use as variables for charts -->
 {% if rating_coll %}
 {% if session['username'] %}
 <div class="d-none">
@@ -22,13 +24,6 @@
     <input type="text" name="recipe_ratings" id="{{recipe_names[3]}}" value="{{recipe_rating_count[3]}}" />
     <input type="text" name="recipe_ratings" id="{{recipe_names[4]}}" value="{{recipe_rating_count[4]}}" />
 </div>
-	<!-- <form id="test-form" name="test-form" enctype="multipart/form-data" method="POST">
-		<input type="text">
-		<button type="submit" value="Sign Up" class="btn btn-block btn-themed">
-            run
-        </button>
-	</form> -->
-	<!-- Chart.js -->
 	<div class="container">
 		<div class="row py-2">
 			<div class="col-md-6 py-1">
@@ -49,7 +44,7 @@
 	</div>
         {% endif %}
     {% endif %}
-	<!-- /////////////////// -->
+<!-- for each recipe owned show the recipe details -->
 	<div class="flex-center section-header">
 		<span class="header-custom">My Recipes</span>
 	</div>
@@ -60,7 +55,7 @@
 				<a href="{{url_for('show_recipe', recipe_id=owned_recipe._id)}}"><img src="{{owned_recipe.img_url}}" class="card-img-top" alt="..."
       /></a>
 					<div class="card-body">
-						<h5 class="card-title display-inline-block capitalise">
+						<h5 class="card-title display-inline-block capitalise card-name">
 							{{owned_recipe.recipe_name}}
 						</h5>
 						<h5 class="card-title float-right">
@@ -85,6 +80,7 @@
 		<span class="header-custom">Saved Recipes</span>
 	</div>
 	<div class="row row-cols-1 row-cols-md-3">
+    <!-- for each saved recipe show the recipe details -->
 		{% for recipe in saved_recipes %}
 		<div class="col mb-4">
 			<div class="card themed-border">

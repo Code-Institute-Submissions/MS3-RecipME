@@ -3,6 +3,7 @@
   <span class="header-custom">All Recipes</span>
 </div>
 <div class="row row-cols-1 row-cols-md-3">
+<!-- for each recipe show the recipe details -->
   {% for recipe in recipes %}
   <div class="col mb-4">
     <div class="card themed-border">
@@ -10,7 +11,7 @@
         ><img src="{{recipe.img_url}}" class="card-img-top" alt="..."
       /></a>
       <div class="card-body">
-        <h5 class="card-title display-inline-block capitalise">
+        <h5 class="card-title display-inline-block capitalise card-name">
           {{recipe.recipe_name}}
         </h5>
         <h5 class="card-title float-right">

@@ -1,5 +1,6 @@
 {% extends 'base.html'%} {% block content %}
 {% if top_user %}
+<!-- display highest rated user and that users highest rated recipe -->
 <section id="spotlight">
   <div class="flex-center section-header">
     <span class="header-custom">Spotlight</span>
@@ -38,6 +39,7 @@
     <span class="header-custom">Featured</span>
   </div>
   <div class="row row-cols-1 row-cols-md-3">
+  <!-- show featured (top rated) recipes -->
     {% for featured in feature_coll %}
     <div class="col mb-4">
       <div class="card themed-border">
@@ -45,7 +47,7 @@
           ><img src="{{featured.img_url}}" class="card-img-top" alt="..."
         /></a>
         <div class="card-body">
-          <h5 class="card-title display-inline-block capitalise">
+          <h5 class="card-title display-inline-block capitalise card-name">
             {{featured.recipe_name}}
           </h5>
           <h5 class="card-title float-right">

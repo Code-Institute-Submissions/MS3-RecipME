@@ -1,5 +1,6 @@
 {% extends 'base.html'%}
 {% block content %}
+<!-- form populated with existing recipe details -->
 <form name="edit_recipe_form" enctype="multipart/form-data" method="POST">
    <div class="tab-content" id="myTabContent">
       <div
@@ -181,7 +182,7 @@
             </div>
             <div class="input_fields_wrap">
                <div class="input-group mb-3" id="edit-ingredient-inputs">
-               <!-- add ingred here -->
+               <!-- add populated input for each exisitng ingedient in recipe -->
                 {% for ingredient in recipe.recipe_ingredients %}
                 <div class="input-group mb-3"><input name="edit-ingredient-{{ loop.index }}" type="text" placeholder="ingredient - {{ loop.index }}" class="form-control edit-ingredient-input" value="{{ingredient}}" aria-describedby="basic-addon2">
                 <div class="input-group-append"><button class="btn btn-outline-secondary remove_field" type="button">Remove</button></div></div>
@@ -203,7 +204,7 @@
             </div>
             <div class="input_fields_wrap">
                <div class="input-group mb-3" id="edit-steps-inputs">
-               <!-- add steps here -->
+               <!-- add populated input for each exisitng step in recipe -->
                 {% for step in recipe.recipe_steps %}
                 <div class="input-group mb-3"><input name="edit-step-{{ loop.index }}" type="text" placeholder="Step - {{ loop.index }}" class="form-control edit-step-input" value="{{step}}" aria-describedby="basic-addon2">
                 <div class="input-group-append"><button class="btn btn-outline-secondary remove_field" type="button">Remove</button></div></div>
@@ -213,6 +214,7 @@
          </div>
       </div>
    </div>
+   <!-- if active user is recipe owner show update recipe button else copy recipe button -->
    {% if owner._id == active_user._id %}
    <button
       type="submit"

@@ -442,7 +442,6 @@ $(document).ready(function () {
 
 
   // Chart.js
-  /* chart.js chart examples */
 
   // chart colors
   var colors = ["#800000", "#ff0000", "#ff6600", "#ff9933", "#fcc438"];
