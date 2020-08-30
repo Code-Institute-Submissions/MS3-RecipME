@@ -457,8 +457,6 @@ def delete_recipe(recipe_id): #function to allow recipe owner to delete the reci
 
     return redirect(url_for('dashboard'))
 
-
-
 @app.route('/user/update', methods=['GET', 'POST'])
 @login_required
 def edit_account():
