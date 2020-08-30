@@ -434,17 +434,23 @@ def delete_recipe(recipe_id): #function to allow recipe owner to delete the reci
         mongo.db.recipes.remove({'_id': recipe['_id']})
 # //////////////////////////////////////////////////////////////////////////////
         owner_ratings = mongo.db.ratings.find({'owner_id': owner['_id']})
-        for owner_rating in owner_ratings:
-            owner_ratings_rating = []
-            owner_ratings_count = 0
-            owner_ratings_rating.append(int(owner_rating['rating']))
-            owner_ratings_count +=1
-            rnd_owner_rating_average = round(sum(owner_ratings_rating)/len(owner_ratings_rating))
-            owner_rating_average = float(sum(owner_ratings_rating)/len(owner_ratings_rating))
-        mongo.db.users.update_one({'_id': owner['_id']}, {"$set": {
+        try:
+            for owner_rating in owner_ratings:
+                owner_ratings_rating = []
+                owner_ratings_count = 0
+                owner_ratings_rating.append(int(owner_rating['rating']))
+                owner_ratings_count +=1
+                rnd_owner_rating_average = round(sum(owner_ratings_rating)/len(owner_ratings_rating))
+                owner_rating_average = float(sum(owner_ratings_rating)/len(owner_ratings_rating))
+            mongo.db.users.update_one({'_id': owner['_id']}, {"$set": {
         'rnd_avg_rating': rnd_owner_rating_average,
         'avg_rating': owner_rating_average,
         'count_rating': owner_ratings_count}}, upsert=True)
+        except:
+            mongo.db.users.update_one({'_id': owner['_id']}, {"$set": {
+        'rnd_avg_rating': 0,
+        'avg_rating': 0,
+        'count_rating': 0}}, upsert=True)
     
     else:
         return redirect(url_for('show_home'))
