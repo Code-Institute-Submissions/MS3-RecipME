@@ -47,9 +47,10 @@
           ><img src="{{featured.img_url}}" class="card-img-top" alt="..."
         /></a>
         <div class="card-body">
-          <h5 class="card-title display-inline-block capitalise card-name">
+          <a href="{{url_for('show_recipe', recipe_id=featured._id)}}"
+          ><h5 class="card-title display-inline-block capitalise card-name">
             {{featured.recipe_name}}
-          </h5>
+          </h5></a>
           <h5 class="card-title float-right">
             {{featured.rnd_avg_rating}} <strong class="star">★</strong>
           </h5>

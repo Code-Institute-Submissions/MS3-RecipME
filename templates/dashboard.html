@@ -55,9 +55,9 @@
 				<a href="{{url_for('show_recipe', recipe_id=owned_recipe._id)}}"><img src="{{owned_recipe.img_url}}" class="card-img-top" alt="..."
       /></a>
 					<div class="card-body">
-						<h5 class="card-title display-inline-block capitalise card-name">
+						<a href="{{url_for('show_recipe', recipe_id=owned_recipe._id)}}"><h5 class="card-title display-inline-block capitalise card-name">
 							{{owned_recipe.recipe_name}}
-						</h5>
+						</h5></a>
 						<h5 class="card-title float-right">
 							{{owned_recipe.rnd_avg_rating}} <strong class="star">★</strong>
 						</h5>

@@ -12,9 +12,10 @@
         ><img src="{{recipe.img_url}}" class="card-img-top" alt="..."
       /></a>
       <div class="card-body">
-        <h5 class="card-title display-inline-block capitalise card-name">
+        <a href="{{url_for('show_recipe', recipe_id=recipe._id)}}"
+        ><h5 class="card-title display-inline-block capitalise card-name">
           {{recipe.recipe_name}}
-        </h5>
+        </h5></a>
         <h5 class="card-title float-right">
           {{recipe.rnd_avg_rating}} <strong class="star">★</strong>
         </h5>
