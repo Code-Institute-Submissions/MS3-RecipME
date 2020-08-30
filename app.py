@@ -26,7 +26,7 @@ Cloud.config.update = ({
  #Heroku Deployment
 app.config["MONGO_DBNAME"] = os.getenv('db_name', 'mongodb://localhost')
 app.config["MONGO_URI"] = os.getenv('MONGO_URI', 'mongodb://localhost')
-app.secret_key = os.getenv('secret_key')
+app.config["secret_key"] = os.getenv('secret_key')
 
 
 
