@@ -87,12 +87,13 @@ def user_recipes(user_id):
     recipes = mongo.db.recipes.find()
     user = mongo.db.users.find_one({'_id': user_id})
     #if recipes for user is active user bring to dashboard, else to dedicated page of other user recipes
-    if user_id == session['username']:
-        return redirect(url_for('dashboard'))
+    if session.get('username', None):
+        if user_id == session['username']:
+            return redirect(url_for('dashboard'))
+        else:
+            return render_template('user-recipes.html', user=user, recipes=recipes)
     else:
         return render_template('user-recipes.html', user=user, recipes=recipes)
-
-    return redirect(url_for('dashboard'))
 
 
 @app.route('/user/signup', methods=['POST'])

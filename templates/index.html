@@ -22,8 +22,8 @@
     </div>
     <div class="card themed-border">
       <div class="card-header center">
-        <a href="{{url_for('show_recipe', recipe_id=top_recipe._id)}}"><h5 class="card-title">Top Chef's Top Recipe</h5></a>
-        <p class="card-text capitalise">{{top_recipe.recipe_name}}</p>
+        <h5 class="card-title">Top Chef's Top Recipe</h5>
+        <a href="{{url_for('show_recipe', recipe_id=top_recipe._id)}}"><p class="card-text capitalise">{{top_recipe.recipe_name}}</p></a>
       </div>
       <a href="{{url_for('show_recipe', recipe_id=top_recipe._id)}}">
         <img
