@@ -8,7 +8,7 @@ import cloudinary as Cloud
 import uuid
 import json
 
-# Local deploy only
+# Local deploy 
 from os import path
 if path.exists("env.py"):
     import env
@@ -26,13 +26,13 @@ Cloud.config.update = ({
  #Heroku Deployment
 app.config["MONGO_DBNAME"] = os.getenv('db_name', 'mongodb://localhost')
 app.config["MONGO_URI"] = os.getenv('MONGO_URI', 'mongodb://localhost')
-# app.config["secret_key"] = os.getenv('secret_key')
+app.secret_key = os.getenv('secret_key')
 
 
 
 mongo = PyMongo(app)
 app = Flask(__name__)
-app.secret_key = os.getenv('secret_key')
+# app.secret_key = secret_key
 
 def login_required(f):
     # redirect to control access to functions that require logged in user
