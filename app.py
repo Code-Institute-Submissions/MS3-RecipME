@@ -16,7 +16,7 @@ if path.exists("env.py"):
 
 
 app = Flask(__name__)
-app.config["MONGO_DBNAME"] = db_name
+# app.config["MONGO_DBNAME"] = db_name
 # app.config["MONGO_URI"] = os.getenv('MONGO_URI')
 Cloud.config.update = ({
     'cloud_name':os.environ.get('CLOUDINARY_CLOUD_NAME'),
@@ -24,7 +24,7 @@ Cloud.config.update = ({
     'api_secret': os.environ.get('CLOUDINARY_API_SECRET')
 })
 
-
+app.config["MONGO_DBNAME"] = os.getenv('db_name', 'mongodb://localhost')
 app.config["MONGO_URI"] = os.getenv('MONGO_URI', 'mongodb://localhost') #Heroku Deployment
 
 
