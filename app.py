@@ -23,14 +23,16 @@ Cloud.config.update = ({
     'api_key': os.environ.get('CLOUDINARY_API_KEY'),
     'api_secret': os.environ.get('CLOUDINARY_API_SECRET')
 })
-
+ #Heroku Deployment
 app.config["MONGO_DBNAME"] = os.getenv('db_name', 'mongodb://localhost')
-app.config["MONGO_URI"] = os.getenv('MONGO_URI', 'mongodb://localhost') #Heroku Deployment
+app.config["MONGO_URI"] = os.getenv('MONGO_URI', 'mongodb://localhost')
+app.config["secret_key"] = os.getenv('secret_key')
+
 
 
 mongo = PyMongo(app)
 app = Flask(__name__)
-app.secret_key = secret_key
+# app.secret_key = secret_key
 
 def login_required(f):
     # redirect to control access to functions that require logged in user
