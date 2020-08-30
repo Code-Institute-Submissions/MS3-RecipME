@@ -499,7 +499,7 @@ def start_session(user):
     return jsonify(user), 200
 
 
-@app.route('/user/<user_id>')
+@app.route('/user_delete/<user_id>')
 @login_required
 def delete_account(user_id): 
     #function to allow user to delete their own account and end current session
