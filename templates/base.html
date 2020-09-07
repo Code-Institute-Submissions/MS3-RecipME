@@ -36,7 +36,7 @@
           <span class="navbar-toggler-icon"></span>
         </button>
         <div class="navbar-collapse collapse" id="collapsingNavbar">
-          <ul class="navbar-nav">
+          <ul class="navbar-nav search">
             <li class="nav-item float-left">
               <form
                 id="search_form"
@@ -61,92 +61,6 @@
               </form>
             </li>
           </ul>
-          <!-- Future Implementation of a quick filter/search with predetermined tags / search terms -->
-          <!-- <div class="dropdown has-megamenu">
-            <button
-              class="btn dropdown-toggle filter-dropdown"
-              type="button"
-              id="dropdownMenuButton"
-              data-toggle="dropdown"
-              aria-haspopup="true"
-              aria-expanded="false"
-            >
-              Categories
-            </button>
-            <div
-              class="dropdown-menu dropdown-menu-align"
-              aria-labelledby="dropdownMenuButton"
-            ><form name="filter_form"
-                id="filter_form"
-              enctype="multipart/form-data"
-              method="POST"
-              action="">
-              <div class="container-fluid">
-                <div class="row">
-                <input name="filter-input" id="filter-input" class="d-none" type="text" value=""/>
-                  <div class="col">
-                    <h6 class="dropdown-header text-center">
-                      Show Star Ratings
-                    </h6>
-                    <li class="flex-center">
-                      <input name="5-star" id="5-star" class="filter-btn" type="submit" value="5 Star"/>
-                    </li>
-                    <li class="flex-center">
-                      <input name="4-star" id="4-star" class="filter-btn" type="submit" value="4 Star"/>
-                    </li>
-                    <li class="flex-center">
-                      <input name="3-star" id="3-star" class="filter-btn" type="submit" value="3 Star"/>
-                    </li>
-                    <li class="flex-center">
-                      <input name="2-star" id="2-star" class="filter-btn" type="submit" value="2 Star"/>
-                    </li>
-                    <li class="flex-center">
-                      <input name="1-star" id="1-star" class="filter-btn" type="submit" value="1 Star"/>
-                    </li>
-                  </div>
-                  <div class="col">
-                    <h6 class="dropdown-header text-center">
-                      Dietary Lifestyle
-                    </h6>
-                    <li class="flex-center">
-                    <input name="vegan" id="vegan" class="filter-btn" type="submit" value="Vegan"/>
-                    </li>
-                    <li class="flex-center">
-                      <input name="vegetarian" id="vegetarian" class="filter-btn" type="submit" value="Vegetarian"/>
-                    </li>
-                    <li class="flex-center">
-                      <input name="keto" id="keo" class="filter-btn" type="submit" value="Keto"/>
-                    </li>
-                    <li class="flex-center">
-                      <input name="balanced" id="balanced" class="filter-btn" type="submit" value="Balanced"/>
-                    </li>
-                    <li class="flex-center">
-                      <input name="low-fat" id="low-fat" class="filter-btn" type="submit" value="Low Fat"/>
-                    </li>
-                  </div>
-                  <div class="col">
-                    <h6 class="dropdown-header text-center">Tags</h6>
-                    <li class="flex-center">
-                      <input name="5-ingredient" id="5-ingredient" class="filter-btn" type="submit" value="5 Ingredient"/>
-                    </li>
-                    <li class="flex-center">
-                      <input name="15-minute" id="15-minute" class="filter-btn" type="submit" value="15 Minute"/>
-                    </li>
-                    <li class="flex-center">
-                      <input name="slow-cooker" id="slow-cooker" class="filter-btn" type="submit" value="Slow Cooker"/>
-                    </li>
-                    <li class="flex-center">
-                      <input name="one-pan" id="one-pan" class="filter-btn" type="submit" value="One Pan"/>
-                    </li>
-                    <li class="flex-center">
-                      <input name="low-cost" id="low-cost" class="filter-btn" type="submit" value="Low Cost"/>
-                    </li>
-                  </div>
-                </div>
-              </div>
-              </form>
-            </div>
-          </div> -->
           <ul class="navbar-nav ml-auto">
             <li class="nav-item">
               <a class="nav-link flex-center" href="{{url_for('show_home')}}"
