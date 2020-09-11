@@ -1,4 +1,5 @@
 
+
 [![alt text](https://res.cloudinary.com/dm2vu1yzr/image/upload/v1599469933/name_s81qy7.png)](https://recipme-pe.herokuapp.com/)
 
   
@@ -7,7 +8,7 @@
 
   
 
-RecipeMe is a CRUD based web app for users to create, save, and share their favorite recipes. All recipes on the app are user-created and as such all data for the application is user-defined. Users also determine the popularity of recipes via ratings which directly affect what recipes are displayed on the home page, who the highest rated user is, and the ordering of search results of recipes.
+RecipeMe is a CRUD based web app for users to create, save, and share their favourite recipes. All recipes on the app are user-created and as such all data for the application is user-defined. Users also determine the popularity of recipes via ratings which directly affect what recipes are displayed on the home page, who the highest rated user is, and the ordering of search results of recipes.
 
   
 
@@ -31,13 +32,13 @@ As a user, I should be able to...
 
 * Rate other peoples recipes
 
-* See other recipes by my favorite users
+* See other recipes by my favourite users
 
 * Edit my recipes
 
 * Easily copy people recipes and put my own spin them
 
-* Store favorite recipes
+* Store favourite recipes
 
 * Edit/Delete my account
 
@@ -54,16 +55,21 @@ This Project is designed to allow users to conduct basic CRUD (Create, Read, Upd
 For this project I used [Balsamiq](https://balsamiq.com/) to create my initial frontend design using wireframes, very basic setup was done initially and the wireframes were updated as the project progressed along with my vision for how I wanted the app to look.
 
 ##### Home
-<img  src="https://res.cloudinary.com/dm2vu1yzr/image/upload/v1599469893/Desktop_-_Home_pxnxue.png"  style="center"  width="55%">
- <img  src="https://res.cloudinary.com/dm2vu1yzr/image/upload/v1599469893/Mobile_-_Home_xr5z6a.png"  style="center"  width="20%">
+
+| Desktop / Tablet      | Mobile                 | 
+| --------------------- | ------------------------ | 
+|<img  src="https://res.cloudinary.com/dm2vu1yzr/image/upload/v1599469893/Desktop_-_Home_pxnxue.png"  style="center"  width="100%"> | <img  src="https://res.cloudinary.com/dm2vu1yzr/image/upload/v1599469893/Mobile_-_Home_xr5z6a.png"  style="center"  width="100%"> |
  
 ##### Dashboard
-<img  src="https://res.cloudinary.com/dm2vu1yzr/image/upload/v1599469893/Desktop_-_Dashboard_j0jgtp.png"  style="center"  width="55%">
- <img  src="https://res.cloudinary.com/dm2vu1yzr/image/upload/v1599469893/Mobile_-_Dashboard_j68gyr.png"  style="center"  width="20%">
+| Desktop / Tablet      | Mobile                 | 
+| --------------------- | ------------------------ | 
+|x<img  src="https://res.cloudinary.com/dm2vu1yzr/image/upload/v1599469893/Desktop_-_Dashboard_j0jgtp.png"  style="center"  width="100%">| <img  src="https://res.cloudinary.com/dm2vu1yzr/image/upload/v1599469893/Mobile_-_Dashboard_j68gyr.png"  style="center"  width="100%">|
  
 ##### Recipe
-<img  src="https://res.cloudinary.com/dm2vu1yzr/image/upload/v1599469893/Desktop_-_Recipe_bcwdio.png"  style="center"  width="55%">
- <img  src="https://res.cloudinary.com/dm2vu1yzr/image/upload/v1599469893/Mobile_-_Recipe_b6lbaa.png"  width="20%">
+
+| Desktop / Tablet         | Mobile                 | 
+| --------------------- | ------------------------ | 
+| <img  src="https://res.cloudinary.com/dm2vu1yzr/image/upload/v1599469893/Desktop_-_Recipe_bcwdio.png"  style="center"  width="100%"> | <img  src="https://res.cloudinary.com/dm2vu1yzr/image/upload/v1599469893/Mobile_-_Recipe_b6lbaa.png"  width="100%"> | 
 
 #### Database
 
@@ -122,7 +128,7 @@ To add a new recipe the user can simply click the dropdown under their name and 
 #### Edit Recipe / Copy & Edit Recipe / Delete Recipe
 
 When on a recipe page:
-1.  The owner of the recipe is presented with an option to edit a recipe that will bring the user to a new page similar to the add recipe modal where whatever is already in the recipe will be populated and available for editing. They also here have the option to upload an image for their recipe here. This works through [Cloudinary](https://cloudinary.com/) API, if there is no image a new image will be uploaded to Cloudinary and the image URL will be stored in the database on the recipe document, if an image already exists it will delete the existing image, upload the new image and update the database will the new images URL. Also, only the owner of a recipe will be presented with the option to delete a recipe that will fully remove the recipe and all ratings for the associated recipe from the database.
+1.  The owner of the recipe is presented with an option to edit a recipe that will bring the user to a new page similar to the add recipe modal, where whatever is already in the recipe, will be populated and available for editing. They also here have the option to upload an image for their recipe here. This works through [Cloudinary](https://cloudinary.com/) API, if there is no image a new image will be uploaded to Cloudinary and the image URL will be stored in the database on the recipe document, if an image already exists it will delete the existing image, upload the new image and update the database will the new images URL. Also, only the owner of a recipe will be presented with the option to delete a recipe that will fully remove the recipe and all ratings for the associated recipe from the database.
  
  <img  src="https://res.cloudinary.com/dm2vu1yzr/image/upload/v1599493670/upload_image_ewmd3n.png"  style="center"  width="100%">
 
@@ -204,26 +210,47 @@ Each section has had extensive individual testing across multiple browsers inclu
 
   
 
-1. Responsiveness - a lot of consideration had to be taken here as the javascript generates HTML code, therefore the responsiveness had to be tested on every button click and multiple combinations of button clicks. For the most part, I believe this testing leads to a responsiveness level that I'm content with, my one outstanding responsiveness issue is with the graph, to see the entire graph the user needs to scroll the page horizontally, I would prefer it to be like the table where only the table scrolls to fit data but when trying to use this approach I came into scale issues with the graph that made it unreadable.
+1. Sensitive Data - upon deploying the live version of the site I noticed that my env.py file (containing API keys, Secrets etc.) had been committing to my repo despite being included in my git ignore file, after discovering this my man was to rewrite the files out of my git history with `git filter-branch --index-filter 'git rm --cached --ignore-unmatch env.py' HEAD` but after consulting with Code Institute it was determined the best approach would be to remove the lastest file and change all my keys, which I did.
 
   
 
-2. Dashboard layout - due to the way I set up the dashboard-style page using column/row combination I had to adjust standard bootstrap container sizes as the standard ones would push the content (API data) below the sidebar as they wouldn't factor the space the sidebar took up on screen into the flexibility of the content containers.
+2. User Testing - after deploying the live version of the site I had several family/friends try to use the app without instruction and based on these there was several fixes and updates to be made. in terms of fixes, the most notable was if a user was the "Top Chef" on the site and then delete their account, instead of the next highest rated user becoming top chef the section would just be blank, this behaviour was rectified. There was also a lot of feedback in terms of "expected behaviour", where a user would try click something they expected to be a link (such as recipe name, chef name) it wasn't set up as a nav link, this was also updated.
 
   
 
-3. Single Button Spamming - due to the content of the app being JS generated via an API I ran into issues of button spamming (multiple clicks of the same button) so I had to develop a way to prevent large numbers of requests going to the API in a short amount of time, this was resolved by adding a delay to some of the functions meaning the button would be disabled for 2 seconds after the click.
+3. Session Testing - this was a major part of this project, ensuring only users who were authorised to do certain actions could do certain actions. Some of the key scenarios for testing were as follows:
+`No Account User`  to ensure they only had read the ability to the site, this user cannot add, update, delete any recipes without first signing up for an account and being in an active session. This goes beyond ti just presenting the link to the user but having server site code to detect if the user manual tried to access the functions via manual input of the URL.
+`Account User` be able to add a new recipe, rate recipes, be able to be top chef, be able to save other users recipes as for easy access, ensure dashboard populates correctly if the user has rated recipes.**
+`Account User - Recipe Owner` to ensure only the owner of a recipe could edit/delete a recipe and add an image for that recipe.
+`Account User - Not Recipe Owner` to be able to copy and create their own version of another users recipe without it impacting the original recipe.
 
+>**As part of this testing it was discovered that the dashboard was populating based on ratings given out by the user instead of ratings for the users' recipes, this was rectified.
   
 
-4. Concurrent function execution - due to testing an issue arose where a rapid click of different buttons would cause multiple functions to trigger concurrently which led to disfigured data, this was resolved again by click delay functions and also for the table click (which takes the longest and therefore had to the greatest potential for concurrent clicks) a transparent overlay would be generated to cover the entire page until the function was complete, preventing any button clicks while the process was running.
+5. General UX Testing - Validating links:
 
-  
+| Element/Link| Linked to / Action| 
+| - | - | 
+|Logo|Home|
+|Spotlight/Featured|Homepage sections|
+|All Recipes|All recipes function|
+|Sign In|Sign In modal|
+|Sign In button|Sign in function|
+|Create one button|Create account modal|
+|Create Account button|Create account function|
+|Password Fields|JS to validate match|
+|Password visable icons|Display password on hover|
+|Rating Stars|Highlight on hover / Rating function on click|
+|Add/Edit/Copy/Delete/Save/Unsave recipes|Linked to appropriate functions|
+|Sign Out|End session|
+|Edit Account|Edit account modal|
+|Update Account button|Update account function|
+|Delete Account|Delete account modal|
+|Delete Account button|Delete account function|
+|Username links|Display that users recipes|
 
-5. API testing - A lot of my API testing can be seen via my commit history, at some stage in the creation of all of my API JS functions I have various instances of console logging to see what data I was getting back from the API and then trial and error to get the data I wanted back. These testing pieces of code have since been removed for the cleanliness of the code once the function was working as hoped.
 
-  
-  
+
 
 ## DEPLOYMENT
 
