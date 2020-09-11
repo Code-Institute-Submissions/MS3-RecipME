@@ -8,7 +8,7 @@ import cloudinary as Cloud
 import uuid
 import json
 
-# Local deploy 
+# Local deploy only
 from os import path
 if path.exists("env.py"):
     import env
@@ -16,24 +16,21 @@ if path.exists("env.py"):
 
 
 app = Flask(__name__)
-# app.config["MONGO_DBNAME"] = db_name
-# app.config["MONGO_URI"] = os.getenv('MONGO_URI')
+app.config["MONGO_DBNAME"] = db_name
+app.config["MONGO_URI"] = os.getenv('MONGO_URI')
 Cloud.config.update = ({
     'cloud_name':os.environ.get('CLOUDINARY_CLOUD_NAME'),
     'api_key': os.environ.get('CLOUDINARY_API_KEY'),
     'api_secret': os.environ.get('CLOUDINARY_API_SECRET')
 })
- #Heroku Deployment
-app.config["MONGO_DBNAME"] = os.getenv('db_name', 'mongodb://localhost')
-app.config["MONGO_URI"] = os.getenv('MONGO_URI', 'mongodb://localhost')
-# app.secret_key = os.getenv('secret_key')
 
+
+# app.config["MONGO_URI"] = os.getenv('MONGO_URI', 'mongodb://localhost') #Heroku Deployment
 
 
 mongo = PyMongo(app)
 app = Flask(__name__)
-# app.secret_key = secret_key
-app.secret_key = os.getenv('secret_key')
+app.secret_key = secret_key
 
 
 def login_required(f):

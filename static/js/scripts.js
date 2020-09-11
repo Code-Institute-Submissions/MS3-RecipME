@@ -355,6 +355,55 @@ $(document).ready(function () {
         .css("color", "green");
     }
   };
+
+   // edit account validate password trigger to test if password = password
+  document.getElementById("new-password").onkeyup = function () {
+    var password = $("#new-password").val();
+    var confirm_password = $("#new-validate-password").val();
+    if (password != confirm_password) {
+      $("#new-validate-password")
+        .addClass("shadow-diff")
+        .removeClass("shadow-match")
+        .css("border-color", "red");
+      $(".error-three")
+        .text("Passwords Don't Match!")
+        .removeClass("d-none")
+        .css("color", "red");
+    } else {
+      $("#new-validate-password")
+        .addClass("shadow-match")
+        .removeClass("shadow-diff")
+        .css("border-color", "green");
+      $(".error-three")
+        .text("Passwords Match!")
+        .removeClass("d-none")
+        .css("color", "green");
+    }
+  };
+  document.getElementById("new-validate-password").onkeyup = function () {
+    var password = $("#new-password").val();
+    var confirm_password = $("#new-validate-password").val();
+    if (password != confirm_password) {
+      $("#new-validate-password")
+        .addClass("shadow-diff")
+        .removeClass("shadow-match")
+        .css("border-color", "red");
+      $(".error-three")
+        .text("Passwords Don't Match!")
+        .removeClass("d-none")
+        .css("color", "red");
+    } else {
+      $("#new-validate-password")
+        .addClass("shadow-match")
+        .removeClass("shadow-diff")
+        .css("border-color", "green");
+      $(".error-three")
+        .text("Passwords Match!")
+        .removeClass("d-none")
+        .css("color", "green");
+    }
+  };
+
   //   Signup password action to display / hide password on hover of postpend icon
   $(".password-display").hover(
     function () {
@@ -381,6 +430,45 @@ $(document).ready(function () {
       $("#validate-password").attr("type", "password");
     }
   );
+
+  //  Edit account - hide password on hover of postpend icon
+  $(".password-d-current").hover(
+    function () {
+      $("#password-d-current-hide").addClass("d-none");
+      $("#password-d-current-show").removeClass("d-none");
+      $("#current-password").attr("type", "text");
+    },
+    function () {
+      $("#password-d-current-show").addClass("d-none");
+      $("#password-d-current-hide").removeClass("d-none");
+      $("#current-password").attr("type", "password");
+    }
+  );
+  $(".password-d-new").hover(
+    function () {
+      $("#password-d-new-hide").addClass("d-none");
+      $("#password-d-new-show").removeClass("d-none");
+      $("#new-password").attr("type", "text");
+    },
+    function () {
+      $("#password-d-new-show").addClass("d-none");
+      $("#password-d-new-hide").removeClass("d-none");
+      $("#new-password").attr("type", "password");
+    }
+  );
+  $(".password-d-val").hover(
+    function () {
+      $("#password-d-val-hide").addClass("d-none");
+      $("#password-d-val-show").removeClass("d-none");
+      $("#new-validate-password").attr("type", "text");
+    },
+    function () {
+      $("#password-d-val-show").addClass("d-none");
+      $("#password-d-val-hide").removeClass("d-none");
+      $("#new-validate-password").attr("type", "password");
+    }
+  );
+
   // Changes value of rating input for submit rating
   $("[name='stars']:radio").change(function () {
     var x = $(this).val();
