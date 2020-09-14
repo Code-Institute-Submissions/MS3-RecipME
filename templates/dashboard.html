@@ -52,7 +52,7 @@
 		{% for owned_recipe in owned_recipes %}
 		<div class="col mb-4">
 			<div class="card themed-border">
-				<a href="{{url_for('show_recipe', recipe_id=owned_recipe._id)}}"><img src="{{owned_recipe.img_url}}" class="card-img-top" alt="..."
+				<a href="{{url_for('show_recipe', recipe_id=owned_recipe._id)}}"><img src="{{owned_recipe.img_url}}" class="card-img-top" alt="{{owned_recipe.recipe_name}} - Image"
       /></a>
 					<div class="card-body">
 						<a href="{{url_for('show_recipe', recipe_id=owned_recipe._id)}}"><h5 class="card-title display-inline-block capitalise card-name">
@@ -84,7 +84,7 @@
 		{% for recipe in saved_recipes %}
 		<div class="col mb-4">
 			<div class="card themed-border">
-				<a href="{{url_for('show_recipe', recipe_id=recipe._id)}}"><img src="{{recipe.img_url}}" class="card-img-top" alt="..."
+				<a href="{{url_for('show_recipe', recipe_id=recipe._id)}}"><img src="{{recipe.img_url}}" class="card-img-top" alt="{{recipe.recipe_name}} - Image"
       /></a>
 					<div class="card-body">
 						<h5 class="card-title display-inline-block capitalise">

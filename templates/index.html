@@ -16,7 +16,7 @@
         <img
           class="card-img-top"
           src="/static/images/top-chef.jpg"
-          alt="Card image cap"
+          alt="Top user image"
         />
       </a>
     </div>
@@ -29,7 +29,7 @@
         <img
           class="card-img-top"
           src="{{top_recipe.img_url}}"
-          alt="Card image cap"
+          alt="{{top_recipe.recipe_name}} - Image"
         />
       </a>
     </div>
@@ -46,7 +46,7 @@
     <div class="col mb-4">
       <div class="card themed-border">
         <a href="{{url_for('show_recipe', recipe_id=featured._id)}}"
-          ><img src="{{featured.img_url}}" class="card-img-top" alt="..."
+          ><img src="{{featured.img_url}}" class="card-img-top" alt="{{featured.recipe_name}} - Image"
         /></a>
         <div class="card-body">
           <a href="{{url_for('show_recipe', recipe_id=featured._id)}}"

@@ -8,7 +8,7 @@
   <div class="col mb-4">
     <div class="card themed-border">
       <a href="{{url_for('show_recipe', recipe_id=search_result._id)}}"
-        ><img src="{{search_result.img_url}}" class="card-img-top" alt="..."
+        ><img src="{{search_result.img_url}}" class="card-img-top" alt="{{search_result.recipe_name}} - Image"
       /></a>
       <div class="card-body">
         <a href="{{url_for('show_recipe', recipe_id=search_result._id)}}"
