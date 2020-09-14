@@ -65,9 +65,6 @@
 							{{owned_recipe.recipe_description}}
 						</p>
 						<p class="card-text">
-							<small class="text-muted">{{owned_recipe.prep_time}}</small>
-						</p>
-						<p class="card-text">
 							<small class="text-muted"
             >Difficulty: {{owned_recipe.difficulty}}</small>
 						</p>
@@ -84,12 +81,11 @@
 		{% for recipe in saved_recipes %}
 		<div class="col mb-4">
 			<div class="card themed-border">
-				<a href="{{url_for('show_recipe', recipe_id=recipe._id)}}"><img src="{{recipe.img_url}}" class="card-img-top" alt="{{recipe.recipe_name}} - Image"
-      /></a>
+				<a href="{{url_for('show_recipe', recipe_id=recipe._id)}}"><img src="{{recipe.img_url}}" class="card-img-top" alt="{{recipe.recipe_name}} - Image"/></a>
 					<div class="card-body">
-						<h5 class="card-title display-inline-block capitalise">
+                        <a href="{{url_for('show_recipe', recipe_id=recipe._id)}}"><h5 class="card-title display-inline-block capitalise card-name">
 							{{recipe.recipe_name}}
-						</h5>
+						</h5></a>
 						<h5 class="card-title float-right">
 							{{recipe.rnd_avg_rating}} <strong class="star">★</strong>
 						</h5>
