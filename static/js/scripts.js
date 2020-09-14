@@ -23,7 +23,6 @@ $(document).ready(function () {
           .attr("name", "ingredient-" + y)
           .attr("placeholder", "Ingredient & Amount - " + y);
         y++;
-        console.log(numIngredients);
       });
     }
   });
@@ -40,7 +39,6 @@ $(document).ready(function () {
         .attr("name", "ingredient-" + y)
         .attr("placeholder", "Ingredient & Amount - " + y);
       y++;
-      console.log(numIngredients);
     });
   });
   // Add recipe form - add inputs on click, adjust names, placeholders to sequential order - Steps
@@ -66,7 +64,6 @@ $(document).ready(function () {
           .attr("name", "step-" + y)
           .attr("placeholder", "Step - " + y);
         y++;
-        console.log(numSteps);
       });
     }
   });
@@ -83,7 +80,6 @@ $(document).ready(function () {
         .attr("name", "step-" + y)
         .attr("placeholder", "Step - " + y);
       y++;
-      console.log(numSteps);
     });
   });
   //////////////////////////////   EDIT THIS SECTION
@@ -112,7 +108,6 @@ $(document).ready(function () {
           .attr("name", "edit-ingredient-" + y)
           .attr("placeholder", "Ingredient & Amount - " + y);
         y++;
-        console.log(numIngredients);
       });
     }
   });
@@ -131,7 +126,6 @@ $(document).ready(function () {
         .attr("name", "edit-ingredient-" + y)
         .attr("placeholder", "Ingredient & Amount - " + y);
       y++;
-      console.log(numIngredients);
     });
   });
   // Edit recipe form - add inputs on click, adjust names, placeholders to sequential order - Steps
@@ -157,7 +151,6 @@ $(document).ready(function () {
           .attr("name", "edit-step-" + y)
           .attr("placeholder", "Step - " + y);
         y++;
-        console.log(numSteps);
       });
     }
   });
@@ -174,7 +167,6 @@ $(document).ready(function () {
         .attr("name", "edit-step-" + y)
         .attr("placeholder", "Step - " + y);
       y++;
-      console.log(numSteps);
     });
   });
   // Submit signup modal form
@@ -189,10 +181,8 @@ $(document).ready(function () {
       dataType: "json",
       success: function (resp) {
         window.location.href = "/dashboard/";
-        //   console.log(resp);
       },
       error: function (resp) {
-        console.log(resp);
         $error.text(resp.responseJSON.error).removeClass("d-none");
         // window.location.href = "/dashboard/";
       },
@@ -213,7 +203,6 @@ $(document).ready(function () {
         window.location.href = "/dashboard/";
       },
       error: function (resp) {
-        console.log(resp);
         $error.text(resp.responseJSON.error).removeClass("d-none");
       },
     });
@@ -233,7 +222,6 @@ $(document).ready(function () {
         window.location.href = "/dashboard/";
       },
       error: function (resp) {
-        console.log(resp);
         $error.text(resp.responseJSON.error).removeClass("d-none");
       },
     });
@@ -260,7 +248,6 @@ $(document).ready(function () {
         }, 5000);
       },
       error: function (resp) {
-        console.log(resp);
         // $error.text(resp.responseJSON.error).removeClass("d-none");
       },
     });
@@ -473,18 +460,15 @@ $(document).ready(function () {
   $("[name='stars']:radio").change(function () {
     var x = $(this).val();
     $("#star-rating").val(x);
-    console.log($("#star-rating").val());
     $("#rating-form").submit();
   });
   // Recipe rating system that resets to current rating on exist hover
   $(".star-rating").hover(
     function () {
       $(this).prevAll().addBack().css("color", "#fddb87");
-      //   console.log($("#star-rating").val());
     },
     function () {
       //    $(this).prevAll().addBack().css("color", "black");
-      // console.log($("#star-rating").val());
       if ($("#star-rating").val() == 1) {
         $("#rating-1").css("color", "#fddb87");
         $("#rating-2").css("color", "black");
@@ -602,7 +586,6 @@ new Chart(document.getElementById("chDonut1"), {
  $("[name='star']:radio").change(function () {
     var x = $(this).val();
     $("#filter-input").val(x);
-    console.log($("#filter-input").val());
     $("#filter_form").submit();
   });
 

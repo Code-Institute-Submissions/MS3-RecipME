@@ -417,7 +417,6 @@ def search(): #basic search function that will return results based on keyword m
 @app.route('/recipes/',methods=['GET', 'POST'])
 def all_recipes(): #Simple funciton to display all recipes
     recipes = mongo.db.recipes.find()
-    # print(recipes[1])
     return render_template('all-recipes.html',recipes=recipes)
 
 
@@ -429,7 +428,6 @@ def delete_recipe(recipe_id): #function to allow recipe owner to delete the reci
         recipe = mongo.db.recipes.find_one({'_id': recipe_id})
         owner = mongo.db.users.find_one({'_id': recipe['owner']})
         active_user = mongo.db.users.find_one({'_id': username})
-        # print(True)
         mongo.db.ratings.delete_many({'recipe_id': recipe['_id']})
         mongo.db.recipes.remove({'_id': recipe['_id']})
 # //////////////////////////////////////////////////////////////////////////////
@@ -614,4 +612,4 @@ class User:
 if __name__ == '__main__':
     app.run(host=os.environ.get('IP'),
             port=int(os.environ.get('PORT')),
-            debug=True)
+            debug=False)

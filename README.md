@@ -225,9 +225,9 @@ Each section has had extensive individual testing across multiple browsers inclu
 `Account User - Not Recipe Owner` to be able to copy and create their own version of another users recipe without it impacting the original recipe.
 
 >**As part of this testing it was discovered that the dashboard was populating based on ratings given out by the user instead of ratings for the users' recipes, this was rectified.
-  
 
-5. General UX Testing - Validating links:
+
+4. General UX Testing - Validating links:
 
 | Element/Link| Linked to / Action| 
 | - | - | 
