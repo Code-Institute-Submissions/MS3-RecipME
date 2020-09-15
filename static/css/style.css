@@ -322,15 +322,15 @@ input[type="button"]:focus {
     max-width: none;
     min-width: 8rem;
   }
+    .search{
+    max-width: 100%;
+  }
 }
 
 @media (max-width: 993px) {
   .navbar-nav .nav-item .nav-link {
     padding-left: 0;
     padding-right: 0;
-  }
-  .search{
-    max-width: 100%;
   }
   .navbar-nav .nav-item .dropdown-toggle{
     padding-right: 5px;
