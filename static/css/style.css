@@ -313,6 +313,10 @@ input[type="button"]:focus {
   color: #fff;
 }
 
+.search{
+    max-width: 30%;
+  }
+
 @media (max-width: 767px) {
   .dropdown-menu-custom {
     max-width: none;
@@ -326,7 +330,7 @@ input[type="button"]:focus {
     padding-right: 0;
   }
   .search{
-    max-width: 30%;
+    max-width: 100%;
   }
   .navbar-nav .nav-item .dropdown-toggle{
     padding-right: 5px;

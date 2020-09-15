@@ -253,6 +253,8 @@ Each section has had extensive individual testing across multiple browsers inclu
 As par to my final testing I came across a few minor bugs that had I had more time one I would have liked to address before deployment/submission, some of these were as follows:
 * Adding recipe modal: if required field was not populated when trying to submit there was no msgs to tell user to populate field before sumbmitting - temporary solution was to remove certain fields as "required". Longer term solution would be to create simple javascript code that checks which required field was no populated and feed that back to user on screen. 
 
+* If user attempts to upload recipe image before first selecting a file, there is no feedback to user to select file first
+
 
 ## DEPLOYMENT
 
